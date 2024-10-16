@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define a custom attribute for text color -->
+    <attr name="myTextColor" format="reference|color" />
+    <attr name="iconColor" format="reference|color" />
+    <attr name="textgrey" format="reference|color" />
+    <attr name="textmenu" format="reference|color" />
+    <attr name="cardlightcolor" format="reference|color" />
+    <attr name="cardbgcolor" format="reference|color" />
+    <attr name="titleBG" format="reference|color" />
+    <attr name="MenuBG" format="reference|color" />
+    <attr name="radiobgcolor" format="reference|color" />
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
+
+    <!-- Add more custom attributes as needed -->
+</resources>

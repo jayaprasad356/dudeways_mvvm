@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!-- Custom style for a button -->
+
+    <!-- Custom style for calendar date -->
+
+    <!-- Custom style for calendar week day -->
+
+    <!-- Custom style for calendar view week custom text -->
+    <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- Custom CalendarView style -->
+    <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <!-- Custom style for CalendarView date custom text -->
+    <style name="CalenderViewDateCustomText" parent="Theme.AppCompat">
+        <item name="android:textColor">@drawable/calender_date_selector</item>
+    </style>
+
+    <!-- Theme overlay for TextInputEditText Outlined style -->
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="android:enabled">@color/primary</item>
+
+
+    </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/textinput_box_stroke_color</item>
+        <item name="hintTextColor">@color/textinput_hint_text_color</item>
+        <item name="colorControlActivated">@color/primary</item>
+    </style>
+
+    <!-- Custom overlay style for TextInputEditText -->
+    <style name="CustomTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="colorAccent">@color/textinput_hint_text_color</item>
+        <item name="colorControlActivated">@color/primary</item>
+
+    </style>
+
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/primary</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#f1f1f1
+        </item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#42221f1f
+        </item>
+    </style>
+
+
+    <style name="PaymentOptionButton">
+        <item name="android:clickable">false</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:paddingTop">@dimen/margin_10</item>
+        <item name="android:paddingBottom">@dimen/margin_10</item>
+        <item name="android:padding">@dimen/margin_16</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CustomAutoCompleteStyle" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor_instamojo</item>
+    </style>
+
+    <style name="Widget.Theme.Paring.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.Paring.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+
+</resources>

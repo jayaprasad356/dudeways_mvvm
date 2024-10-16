@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Dude Ways</string>
+
+    <string name="splash1">"Welcome to our travel community, where every journey begins with a new friendship"</string>
+    <string name="splash2">"Where wanderlust meets companionship - find your perfect travel partner today!"</string>
+    <string name="splash3">"Join a global network of explorers and find your ideal travel buddy."</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="terms_and_conditions">By continuing you agree to our \n<u>Terms of Service Privacy Policy \nContent Policy</u></string>
+    <string name="id_verification_description">An ID verification helps us check that you are a real person and you are really you. It also helps us keep secure and trustworthy. How does it work?\n\nFirst you will add a picture of yourself and provide a clear picture of your ID. We will then quickly match both the pictures.</string>
+    <string name="more"><u>more...</u></string>
+    <string name="less"><u>less...</u></string>
+    <string name="default_web_client_id">789941112934-hh4j9ueivjq4uei4e2k3g3414qvmhnod.apps.googleusercontent.com</string>
+    <string name="back">Back</string>
+    <string name="look_straight_to_the_camera">Look straight to the Camera</string>
+    <string name="click_here_to_upload"><u>Click here to upload payment screenshot</u></string>
+    <string name="screenshot_uploaded"><u>Screenshot uploaded</u></string>
+
+    <string name="admob_app_id">ca-app-pub-8693482193769963~4468032819</string>
+    <string name="shafeeka">Shafeeka</string>
+    <string name="type_a_message">Type a message ...</string>
+    <string name="txtdioglog">Users safety is our top priority. \nTo create a secure environment for female users\n\nMale users are required to complete ID verification before they can chat with female users.\n\nThis process helps us ensure that all male users are genuine, making your experience safer and more enjoyable.</string>
+    <string name="pay_above_upi_i_d_and_upload_screenshot">Pay above UPI I\'d and upload screenshot</string>
+
+
+    <string name="status_bar">Status bar replacement</string>
+    <string name="card_number">Card Number</string>
+    <string name="date_hint">Expiry MM/YY</string>
+    <string name="cvv_hint">CVV</string>
+    <string name="checkout">Checkout</string>
+    <string name="error_message_juspay">Failed to initiate Payment. Please try again!</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="title_fragment_choose_payment_option">Choose a Payment Option</string>
+    <string name="title_fragment_credit_card_form">Credit Card</string>
+    <string name="title_fragment_debit_card_form">Debit Card</string>
+    <string name="title_fragment_emi_form">EMI</string>
+    <string name="title_fragment_upi">Enter VPA</string>
+    <string name="choose_your_bank">Choose your Bank</string>
+    <string name="choose_your_wallet">Choose your Wallet</string>
+    <string name="search_your_bank">Search your Bank</string>
+    <string name="search_your_wallet">Search your Wallet</string>
+    <string name="brand_trust_logos">Brand trust logos</string>
+    <string name="choose_your_credit_card">Choose your Credit Card</string>
+    <string name="choose_an_emi_option">Choose an EMI Option</string>
+    <string name="emi_on_credit_card">EMI on Credit Card</string>
+    <string name="wallets">Wallets</string>
+    <string name="net_banking">Net Banking</string>
+    <string name="upi">UPI</string>
+    <string name="enter_your_virtual_payment_address">Enter your virtual payment address</string>
+    <string name="example_mohit_icici">Example: mohit@icici</string>
+    <string name="verify_payment">Verify Payment</string>
+    <string name="verify_payment_image_description">Verify Payment Image</string>
+    <string name="waiting">Waiting&#8230;</string>
+    <string name="complete_payment_description">You will receive a notification on your Bank UPI app.\nPlease confirm it to complete the payment.</string>
+    <string name="title_activity_wallet">WalletActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="ifsc_code">IFSC Code</string>
+    <string name="account_number">Account Number</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="your_current_balance">Your Current Balance</string>
+    <string name="add_bank_details">Add Bank Details</string>
+    <string name="pending">Pending...</string>
+    <string name="submit">Submit</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="cancel">Cancel</string>
+    <string name="purchase_point">Purchase Point</string>
+    <string name="str_error_internet_connections">Please check your internet connections</string>
+
+</resources>
