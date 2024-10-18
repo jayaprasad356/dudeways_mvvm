@@ -44,7 +44,22 @@
             android:exported="true" />
         <activity
             android:name=".activity.HomeActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter
+                android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data
+                    android:host="www.dudeways.com"
+                    android:pathPrefix="/path/to/serid" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true" />
@@ -63,6 +78,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true" />
+        <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+
     </application>
 
 </manifest>

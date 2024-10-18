@@ -58,6 +58,7 @@ android {
 
 dependencies {
 
+    implementation(libs.play.services.location)
     val lifecycle_version = "2.6.2"
     val glideVersion = "4.11.0"
 
@@ -127,6 +128,7 @@ dependencies {
 
 
     implementation("com.github.CanHub:Android-Image-Cropper:3.1.2")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 
   //  implementation("com.github.mmoamenn:LuckyWheel_Android:0.1.2")

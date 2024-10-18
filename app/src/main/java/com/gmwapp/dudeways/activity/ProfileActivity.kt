@@ -117,11 +117,7 @@ class ProfileActivity : AppCompatActivity() {
         session.setData(Constant.STATE, data.state)
         session.setData(Constant.CITY, data.city)
         session.setData(Constant.MOBILE, data.mobile)
-        session.setData(
-            Constant.COVER_IMG,
-            data.cover_img
-        )
-        session.setData(Constant.POINTS, data.points.toString())
+
         session.setData(
             Constant.REFER_CODE,
             data.refer_code
