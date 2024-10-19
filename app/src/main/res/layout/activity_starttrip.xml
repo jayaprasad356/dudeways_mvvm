@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.Trip.StarttripActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnNext"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rlToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/titleBG"
+            android:padding="@dimen/_20sdp">
+
+            <ImageButton
+                android:id="@+id/ivBack"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow_left"
+                android:backgroundTint="?attr/iconColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ivBack"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="Start Trip"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_14sdp" />
+
+
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/_40sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="@drawable/gradient_button"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Continue"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14sdp"
+        app:backgroundTint="@null" />
+
+    </RelativeLayout>
+</layout>

@@ -2,27 +2,22 @@ package com.gmwapp.dudeways.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
-import com.gmwapp.dudeways.adapter.ProfessionAdapter.ProfessionViewHolder
-import com.gmwapp.dudeways.databinding.ItemProfessionBinding
 import com.gmwapp.dudeways.databinding.LayoutHomeProfilesBinding
 import com.gmwapp.dudeways.model.HomeProfile
 import com.gmwapp.dudeways.utils.Session
 
 class HomeProfilesAdapter(
     val activity: Activity,
-    private var homeProfile: ArrayList<HomeProfile>
+    private var homeProfile: ArrayList<HomeProfile>,
+    private var onclick: onItemClick
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -85,49 +80,56 @@ class HomeProfilesAdapter(
             holder.binding.tvAddFriend.text = "Friend Added"
         }
 
-     /*   holder.rlAddFriend.setOnClickListener {
+        holder.binding.rlAddFriend.setOnClickListener {
             if (friend_data == "0") {
                 val friend = "1"
                 friend_data = "1"
-                add_friend(holder.ivaddFriend, holder.tvAddFriend, report.user_id, friend)
+                onclick.onAddFriendClick(
+                    holder.binding.ivaddFriend,
+                    holder.binding.tvAddFriend, report.user_id.toString(), friend
+                )
+
             } else if (friend_data == "1") {
                 val friend = "2"
                 friend_data = "0"
-                add_friend(holder.ivaddFriend, holder.tvAddFriend, report.user_id, friend)
+                onclick.onAddFriendClick(
+                    holder.binding.ivaddFriend,
+                    holder.binding.tvAddFriend, report.user_id.toString(), friend
+                )
             }
         }
-*/
-      /*  holder.llProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileinfoActivity::class.java)
-            intent.putExtra("name", report.name)
-            intent.putExtra("chat_user_id", report.user_id)
-            intent.putExtra("id", report.id)
-            session.setData("reciver_profile", report.profile)
-            intent.putExtra("friend", report.friend)
-            activity.startActivity(intent)
-        }
-*/
-  /*      holder.rlChat.setOnClickListener {
-            if (report.user_id == session.getData(Constant.USER_ID)) {
-                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
-            } else {
-                val intent = Intent(activity, ChatsActivity::class.java)
-                intent.putExtra("id", report.id)
-                intent.putExtra("name", report.name)
-                session.setData("reciver_profile", report.profile)
-                intent.putExtra("chat_user_id", report.user_id)
-                intent.putExtra("unique_name", report.unique_name)
-                intent.putExtra("friend_verified", report.verified)
-                activity.startActivity(intent)
-            }
-        }
-*/
+        /*  holder.llProfile.setOnClickListener {
+              val intent = Intent(activity, ProfileinfoActivity::class.java)
+              intent.putExtra("name", report.name)
+              intent.putExtra("chat_user_id", report.user_id)
+              intent.putExtra("id", report.id)
+              session.setData("reciver_profile", report.profile)
+              intent.putExtra("friend", report.friend)
+              activity.startActivity(intent)
+          }
+  */
+        /*      holder.rlChat.setOnClickListener {
+                  if (report.user_id == session.getData(Constant.USER_ID)) {
+                      Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+                  } else {
+                      val intent = Intent(activity, ChatsActivity::class.java)
+                      intent.putExtra("id", report.id)
+                      intent.putExtra("name", report.name)
+                      session.setData("reciver_profile", report.profile)
+                      intent.putExtra("chat_user_id", report.user_id)
+                      intent.putExtra("unique_name", report.unique_name)
+                      intent.putExtra("friend_verified", report.verified)
+                      activity.startActivity(intent)
+                  }
+              }
+      */
         Glide.with(activity).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
             .into(holder.binding.ivProfileImage)
 
         Glide.with(activity).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.binding.ivProfile)
     }
+
 
     override fun getItemCount(): Int {
         return homeProfile.size
@@ -137,4 +139,14 @@ class HomeProfilesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
     }
+
+    interface onItemClick {
+        fun onAddFriendClick(
+            ivAddFriend: ImageView,
+            tvAddFriend: TextView,
+            userId: String,
+            friends: String
+        )
+    }
+
 }

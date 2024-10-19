@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.spinActivity">
+
+
+        <RelativeLayout
+            android:id="@+id/rlToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/titleBG"
+            android:padding="@dimen/_20sdp">
+
+            <ImageButton
+                android:id="@+id/ivBack"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow_left"
+                android:backgroundTint="?attr/iconColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_toRightOf="@+id/ivBack"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Spin Wheel"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_14sdp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/spin_rounded_background"
+            android:padding="@dimen/_10sdp">
+
+
+            <ImageView
+                android:id="@+id/wheel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/point_spinner" />
+
+            <ImageView
+                android:id="@+id/wheelImage"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/target" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/spinBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginBottom="63dp"
+            android:background="@drawable/gradient_button"
+            android:fontFamily="@font/poppins_medium"
+            android:text="spin"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null" />
+
+
+        <ProgressBar
+            android:id="@+id/pbLoadData"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:theme="@style/CircularProgress"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </RelativeLayout>
+</layout>

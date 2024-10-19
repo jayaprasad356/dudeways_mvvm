@@ -51,6 +51,7 @@ android {
     dataBinding {
         enable = true
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -131,17 +132,17 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 
-  //  implementation("com.github.mmoamenn:LuckyWheel_Android:0.1.2")
+    //  implementation("com.github.mmoamenn:LuckyWheel_Android:0.1.2")
     implementation("com.google.android.gms:play-services-auth:18.1.0")
     implementation("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
-   // implementation("com.google.android.gms:play-services-ads:21.0.0+")
+    // implementation("com.google.android.gms:play-services-ads:21.0.0+")
+
+    implementation("com.google.android.gms:play-services-ads:21.0.0+")
 
 
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-
-
 
 
 }

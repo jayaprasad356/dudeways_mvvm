@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -28,6 +29,7 @@ import com.gmwapp.dudeways.model.HomeProfile
 import com.gmwapp.dudeways.model.HomeUserlist
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
+import com.gmwapp.dudeways.viewmodel.AddFriendViewModel
 import com.gmwapp.dudeways.viewmodel.HomeViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +40,7 @@ import kotlin.collections.ArrayList
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
 
     lateinit var binding: FragmentHomeBinding
     lateinit var homeCategorysAdapter: HomeCategorysAdapter
@@ -54,8 +56,12 @@ class HomeFragment : Fragment() {
     private var currentType: String = "nearby"
     private var selectedDate: String? = ""
     private var total = 0
+    private var friend = "0"
     private val viewModel: HomeViewModel by viewModels()
+    private val friendViewModel: AddFriendViewModel by viewModels()
 
+    lateinit var ivFriend: ImageView
+    lateinit var tvFriend: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -126,6 +132,14 @@ class HomeFragment : Fragment() {
             }
         })
 
+        friendViewModel.isLoading.observe(requireActivity(), Observer {
+            if (it) {
+                binding.pbLoadData.visibility = View.VISIBLE
+            } else {
+                binding.pbLoadData.visibility = View.GONE
+            }
+        })
+
         viewModel.tripLiveData.observe(requireActivity(), Observer {
             isLoading = false
             binding.swipeRefreshLayout.isRefreshing = false
@@ -140,12 +154,30 @@ class HomeFragment : Fragment() {
             }
         })
 
+
+
+
         viewModel.activeUserLiveData.observe(requireActivity(), Observer {
             isLoading = false
             if (it.success) {
                 updateActiveUserList(it.data)
             } else {
                 showActiveUserListError(it.message)
+            }
+        })
+
+        friendViewModel.addFriendLiveData.observe(requireActivity(), Observer {
+            if (it.success) {
+                if (friend == "1") {
+                    ivFriend.setBackgroundResource(R.drawable.added_frd)
+                    tvFriend.text = "Friend Added"
+                } else if (friend == "2") {
+                    ivFriend.setBackgroundResource(R.drawable.add_account)
+                    tvFriend.text = "Add to Friend"
+                }
+                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -198,7 +230,8 @@ class HomeFragment : Fragment() {
             binding.apply {
                 rvProfileList.layoutManager = LinearLayoutManager(activity)
                 rvProfileList.setHasFixedSize(true)
-                homeProfileAdapter = HomeProfilesAdapter(activity, homeProfileList)
+                homeProfileAdapter =
+                    HomeProfilesAdapter(activity, homeProfileList, this@HomeFragment)
                 rvProfileList.adapter = homeProfileAdapter
 
             }
@@ -336,5 +369,18 @@ class HomeFragment : Fragment() {
         }
     }
 
-
+    override fun onAddFriendClick(
+        ivAddFriend: ImageView,
+        tvAddFriend: TextView,
+        userId: String,
+        friends: String
+    ) {
+        friend = friends
+        ivFriend = ivAddFriend
+        tvFriend = tvAddFriend
+        friendViewModel.addFriend(
+            session.getData(Constant.USER_ID).toString(),
+            userId, friends
+        )
+    }
 }

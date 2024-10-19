@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.TripFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".Fragment.TripFragment">
 
-</FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/trip_img"
+            android:scaleType="fitXY"></ImageView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/text"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:fontFamily="@font/poppins_bold"
+            android:padding="@dimen/_5sdp"
+            android:text="Find Your Perfect Travel Mate"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_18sdp" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btTrips"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:padding="@dimen/_5sdp"
+            android:text="Explore the world with your buddy"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_12sdp" />
+
+        <LinearLayout
+            android:id="@+id/btTrips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStart"
+                app:backgroundTint="@null"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient_button"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Post Trip"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_12sdp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMytrip"
+                app:backgroundTint="@null"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient_button"
+                android:fontFamily="@font/poppins_medium"
+                android:text="View My Trip"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    </FrameLayout>
+</layout>

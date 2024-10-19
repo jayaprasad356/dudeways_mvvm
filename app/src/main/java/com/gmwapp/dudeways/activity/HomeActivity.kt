@@ -339,12 +339,13 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
         val transaction = fm.beginTransaction()
         when (item.itemId) {
-            R.id.navHome -> transaction.replace(R.id.fragment_container, homeFragment)
-            R.id.navExplore -> transaction.replace(R.id.fragment_container, tripFragment)
-            R.id.navIntersts -> transaction.replace(R.id.fragment_container, interestFragment)
-            R.id.navMessages -> transaction.replace(R.id.fragment_container, messagesFragment)
-            R.id.navNotification -> transaction.replace(R.id.fragment_container, notification)
+            R.id.navHome -> transaction.replace(R.id.fragment_container, HomeFragment())
+            R.id.navExplore -> transaction.replace(R.id.fragment_container, TripFragment())
+            R.id.navIntersts -> transaction.replace(R.id.fragment_container, InterestFragment())
+            R.id.navMessages -> transaction.replace(R.id.fragment_container, MessagesFragment())
+            R.id.navNotification -> transaction.replace(R.id.fragment_container, NotificationFragment())
         }
+        transaction.addToBackStack(null)
         transaction.commit()
         settingsViewModel.getSettings()
         return true
