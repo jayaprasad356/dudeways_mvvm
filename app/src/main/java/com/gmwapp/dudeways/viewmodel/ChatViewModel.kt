@@ -74,7 +74,7 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
     }
 
     fun getReadChats(userId: String, chatUserId: String, msgSeen: String) {
-        viewModelScope.launch {
+     /*   viewModelScope.launch {
             isLoading.postValue(true)
             chatRepositories.getReadChats(userId, chatUserId, msgSeen).let {
                 if (it.body() != null) {
@@ -85,7 +85,7 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
                 }
             }
 
-        }
+        }*/
     }
 
 

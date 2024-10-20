@@ -56,7 +56,7 @@ import java.io.IOException
 import java.util.Locale
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
+class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     lateinit var binding: ActivityHomeBinding
     lateinit var mContext: HomeActivity
@@ -284,11 +284,13 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         }
 
         binding.civProfile.setOnClickListener {
-            val transaction = fm.beginTransaction()
+            /*val transaction = fm.beginTransaction()
             transaction.replace(
-                R.id.fragment_container, myProfileFragment, MyProfileFragment::class.java.simpleName
+                R.id.fragment_container, MyProfileFragment()
             )
-            transaction.commit()
+            transaction.commit()*/
+
+            startActivity(Intent(mContext,ProfileViewActivity::class.java))
         }
 
 
@@ -343,7 +345,10 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             R.id.navExplore -> transaction.replace(R.id.fragment_container, TripFragment())
             R.id.navIntersts -> transaction.replace(R.id.fragment_container, InterestFragment())
             R.id.navMessages -> transaction.replace(R.id.fragment_container, MessagesFragment())
-            R.id.navNotification -> transaction.replace(R.id.fragment_container, NotificationFragment())
+            R.id.navNotification -> transaction.replace(
+                R.id.fragment_container,
+                NotificationFragment()
+            )
         }
         transaction.commit()
         settingsViewModel.getSettings()

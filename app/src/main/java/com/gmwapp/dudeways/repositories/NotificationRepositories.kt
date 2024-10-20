@@ -12,4 +12,10 @@ class NotificationRepositories @Inject constructor(val apiService: ApiService) {
     ) = apiService.getNotifications(
         userId, offset, limit
     )
+
+    suspend fun updateNotification(userId: String,messageNotify:String,
+                                   addFriendNotify:String,
+                                   viewNotify:String)=apiService.updateNotify(
+                                       userId,messageNotify,addFriendNotify,viewNotify
+                                   )
 }

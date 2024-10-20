@@ -25,7 +25,7 @@ import okhttp3.RequestBody
 import java.io.File
 
 @AndroidEntryPoint
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : BaseActivity() {
 
     lateinit var binding: ActivityProfileBinding
     lateinit var mContext: ProfileActivity

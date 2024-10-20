@@ -5,6 +5,7 @@ import javax.inject.Inject
 
 class LoginRepositories @Inject constructor(val apiService: ApiService) {
 
+    suspend fun appUpdate() = apiService.appUpdate()
     suspend fun checkEmail(email: String) = apiService.checkEmail(email)
     suspend fun getProffession() = apiService.getProffession()
 }

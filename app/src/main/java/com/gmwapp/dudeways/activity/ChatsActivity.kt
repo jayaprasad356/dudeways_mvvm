@@ -59,7 +59,7 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
+class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
 
     lateinit var binding: ActivityChatsBinding
     lateinit var mContext: ChatsActivity

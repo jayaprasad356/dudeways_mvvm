@@ -26,7 +26,7 @@ import com.gmwapp.dudeways.viewmodel.ChatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileInfoActivity : AppCompatActivity() {
+class ProfileInfoActivity : BaseActivity() {
 
     lateinit var binding: ActivityProfileInfoBinding
     lateinit var mContext: ProfileInfoActivity

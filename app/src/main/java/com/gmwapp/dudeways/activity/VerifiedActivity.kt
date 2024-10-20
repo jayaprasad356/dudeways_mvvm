@@ -13,7 +13,7 @@ import com.gmwapp.dudeways.utils.Session
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VerifiedActivity : AppCompatActivity() {
+class VerifiedActivity : BaseActivity() {
 
     lateinit var binding: ActivityVerifiedBinding
     lateinit var mContext: VerifiedActivity

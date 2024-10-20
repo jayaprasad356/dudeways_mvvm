@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.lang.reflect.Field
 
 @AndroidEntryPoint
-class ProfileDetailsActivity : AppCompatActivity() {
+class ProfileDetailsActivity : BaseActivity() {
 
     lateinit var binding: ActivityProfileDetailsBinding
     lateinit var mContext: ProfileDetailsActivity

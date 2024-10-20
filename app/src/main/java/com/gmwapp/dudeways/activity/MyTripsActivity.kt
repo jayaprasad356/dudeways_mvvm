@@ -21,7 +21,7 @@ import com.gmwapp.dudeways.viewmodel.TripViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyTripsActivity : AppCompatActivity(), MyTripListAdapter.onItemClick {
+class MyTripsActivity : BaseActivity(), MyTripListAdapter.onItemClick {
 
     lateinit var binding: ActivityMyTripsBinding
     lateinit var activity: Activity

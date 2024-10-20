@@ -35,7 +35,7 @@ import com.zoho.salesiqembed.ZohoSalesIQ
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     lateinit var binding: ActivityLoginBinding
     lateinit var mContext: LoginActivity
     lateinit var mGoogleSignInClient: GoogleSignInClient

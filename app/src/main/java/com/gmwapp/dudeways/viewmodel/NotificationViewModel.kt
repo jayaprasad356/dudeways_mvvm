@@ -16,6 +16,7 @@ class NotificationViewModel @Inject constructor(val notificationRepositories: No
 
     val isLoading = MutableLiveData(false)
     val notificationLiveData = MutableLiveData<NotificationResponse>()
+    val updateNotificationLiveData = MutableLiveData<BaseResponse>()
 
     fun getNotifications(userId: String, offset: String, limit: String) {
         viewModelScope.launch {
@@ -31,6 +32,24 @@ class NotificationViewModel @Inject constructor(val notificationRepositories: No
 
         }
     }
+
+
+    fun updateNotifications(userId: String, msgNotify:String,addFriendNotify:String,
+                            viewNotify:String) {
+        viewModelScope.launch {
+            isLoading.postValue(true)
+            notificationRepositories.updateNotification(userId, msgNotify,addFriendNotify,viewNotify).let {
+                if (it.body() != null) {
+                    updateNotificationLiveData.postValue(it.body())
+                    isLoading.postValue(false)
+                } else {
+                    isLoading.postValue(false)
+                }
+            }
+
+        }
+    }
+
 
 
 }

@@ -21,7 +21,7 @@ import com.gmwapp.dudeways.utils.Session
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StarttripActivity : AppCompatActivity() {
+class StarttripActivity : BaseActivity() {
 
     lateinit var binding: ActivityStarttripBinding
     lateinit var mContext: StarttripActivity

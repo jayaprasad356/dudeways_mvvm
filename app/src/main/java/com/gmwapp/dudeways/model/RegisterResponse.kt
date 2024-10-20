@@ -15,6 +15,7 @@ data class RegisterModel(
     val gender: String,
     val state: String,
     val city: String,
+    val profile:String,
     val profession: String,
     val refer_code: String,
     val referred_by: String,

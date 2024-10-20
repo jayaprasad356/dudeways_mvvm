@@ -12,7 +12,7 @@ import com.gmwapp.dudeways.databinding.ActivityIdverficationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class IdverficationActivity : AppCompatActivity() {
+class IdverficationActivity : BaseActivity() {
 
     lateinit var binding: ActivityIdverficationBinding
     lateinit var mContext: IdverficationActivity

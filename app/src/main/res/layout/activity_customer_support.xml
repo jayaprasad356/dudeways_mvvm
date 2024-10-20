@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.CustomerSupportActivity">
+
+
+        <RelativeLayout
+            android:id="@+id/rlToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/titleBG"
+            android:padding="@dimen/_20sdp">
+
+            <ImageButton
+                android:id="@+id/ivBack"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/arrow_left"
+                android:backgroundTint="?attr/iconColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_toRightOf="@+id/ivBack"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Customer Support"
+                android:textColor="?attr/myTextColor"
+                android:textSize="@dimen/_14sdp" />
+
+
+        </RelativeLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlToolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_40sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/contact_support" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="We are here to support you, Please use below social media links to find faster resolution for your queries"
+                    android:textAlignment="center"
+                    android:textColor="?attr/myTextColor"
+                    android:textSize="@dimen/_8sdp" />
+
+
+                <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="10dp"
+                    app:cardCornerRadius="@dimen/_15sdp"
+                    app:cardElevation="@dimen/_10sdp"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/rlTelegramLinkJoin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#EBF2FF"
+                            app:cardCornerRadius="@dimen/_15sdp"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_10sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:src="@drawable/telegram_logo_ic" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:text="Join Telegram Group"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_7sdp" />
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/rlInstagramLinkJoin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#FFECEB"
+                            app:cardCornerRadius="@dimen/_15sdp"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_10sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:src="@drawable/instagram_logo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:text="Visit Instagram Page"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_7sdp" />
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/btnchatsupport"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#E6FFF4"
+                            app:cardCornerRadius="@dimen/_15sdp"
+                            app:cardUseCompatPadding="true">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="@dimen/_10sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:src="@drawable/massage_icon" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:text="Chat Now"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/black"
+
+                                    android:textSize="@dimen/_7sdp" />
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!--                <com.google.android.material.card.MaterialCardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    app:cardUseCompatPadding="true"-->
+                <!--                    android:elevation="10dp"-->
+                <!--                    app:cardElevation="@dimen/_10sdp"-->
+                <!--                    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                <!--                    app:cardCornerRadius="@dimen/_15sdp">-->
+
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        >-->
+
+                <!--                        <LinearLayout-->
+                <!--                            android:padding="@dimen/_8sdp"-->
+                <!--                            android:orientation="horizontal"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content">-->
+
+                <!--                            <ImageView-->
+                <!--                                android:layout_marginRight="@dimen/_5sdp"-->
+                <!--                                android:layout_gravity="center"-->
+                <!--                                android:src="@drawable/instagram_logo"-->
+                <!--                                android:layout_width="@dimen/_30sdp"-->
+                <!--                                android:layout_height="@dimen/_30sdp"/>-->
+
+                <!--                            <TextView-->
+                <!--                                android:layout_gravity="center"-->
+                <!--                                android:layout_width="wrap_content"-->
+                <!--                                android:layout_height="wrap_content"-->
+                <!--                                android:fontFamily="@font/poppins_semibold"-->
+                <!--                                android:text="Instagram"-->
+                <!--                                android:textColor="?attr/myTextColor"-->
+                <!--                                android:textSize="@dimen/_12sdp" />-->
+
+
+                <!--                        </LinearLayout>-->
+
+
+                <!--                        <TextView-->
+                <!--                            android:paddingHorizontal="@dimen/_4sdp"-->
+                <!--                            android:layout_toLeftOf="@+id/ivShare"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="Join our Instagram group to get instant offers and updates"-->
+                <!--                            android:textColor="?attr/myTextColor"-->
+                <!--                            android:textSize="@dimen/_10sdp"-->
+                <!--                            android:fontFamily="@font/poppins_regular"-->
+                <!--                            />-->
+
+                <!--                        <LinearLayout-->
+                <!--                            android:layout_marginTop="@dimen/_10sdp"-->
+                <!--                            android:weightSum="2"-->
+                <!--                            android:orientation="horizontal"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content">-->
+
+                <!--                            <RelativeLayout-->
+                <!--                                android:id="@+id/rlInstagramLinkShare"-->
+                <!--                                android:background="@drawable/bg_coner"-->
+                <!--                                android:layout_weight="1"-->
+                <!--                                android:padding="@dimen/_10sdp"-->
+                <!--                                android:layout_width="match_parent"-->
+                <!--                                android:layout_height="wrap_content">-->
+
+
+                <!--                                <ImageView-->
+                <!--                                    android:backgroundTint="@color/black"-->
+                <!--                                    android:id="@+id/ivWhatsappLinkShare"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:layout_width="@dimen/_20sdp"-->
+                <!--                                    android:layout_height="@dimen/_20sdp"-->
+                <!--                                    android:background="@drawable/share_ic"-->
+                <!--                                    />-->
+
+                <!--                                <TextView-->
+                <!--                                    android:id="@+id/tvWhatsappLinkShare"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:gravity="center"-->
+                <!--                                    android:layout_width="match_parent"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:text="Share"-->
+                <!--                                    android:textColor="@color/black"-->
+                <!--                                    android:textSize="@dimen/_10sdp"-->
+                <!--                                    android:fontFamily="@font/poppins_medium"-->
+                <!--                                    />-->
+
+                <!--                            </RelativeLayout>-->
+                <!--                            <RelativeLayout-->
+                <!--                                android:id="@+id/rlInstagramLinkJoin"-->
+                <!--                                android:background="@color/insta"-->
+                <!--                                android:layout_weight="1"-->
+                <!--                                android:padding="@dimen/_10sdp"-->
+                <!--                                android:layout_width="match_parent"-->
+                <!--                                android:layout_height="match_parent">-->
+
+
+                <!--                                <ImageView-->
+                <!--                                    android:id="@+id/ivWhatsappLinkJoin"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:layout_width="@dimen/_20sdp"-->
+                <!--                                    android:layout_height="@dimen/_18sdp"-->
+                <!--                                    android:background="@drawable/chat_ic"-->
+                <!--                                    android:backgroundTint="@color/white"-->
+                <!--                                    />-->
+
+                <!--                                <TextView-->
+                <!--                                    android:id="@+id/tvWhatsappLinkJoin"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:gravity="center"-->
+                <!--                                    android:layout_width="match_parent"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:text="Join"-->
+                <!--                                    android:textColor="@color/white"-->
+                <!--                                    android:textSize="@dimen/_10sdp"-->
+                <!--                                    android:fontFamily="@font/poppins_medium"-->
+                <!--                                    />-->
+
+                <!--                            </RelativeLayout>-->
+
+
+                <!--                        </LinearLayout>-->
+
+
+                <!--                    </LinearLayout>-->
+
+
+                <!--                </com.google.android.material.card.MaterialCardView>-->
+
+                <!--                <com.google.android.material.card.MaterialCardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    app:cardUseCompatPadding="true"-->
+                <!--                    android:elevation="2dp"-->
+                <!--                    app:cardElevation="@dimen/_2sdp"-->
+                <!--                    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                <!--                    app:cardCornerRadius="@dimen/_8sdp">-->
+
+                <!--                    <LinearLayout-->
+                <!--                        android:orientation="vertical"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        >-->
+
+                <!--                        <LinearLayout-->
+                <!--                            android:padding="@dimen/_8sdp"-->
+                <!--                            android:orientation="horizontal"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content">-->
+
+                <!--                            <ImageView-->
+                <!--                                android:layout_marginRight="@dimen/_5sdp"-->
+                <!--                                android:layout_gravity="center"-->
+                <!--                                android:src="@drawable/telegram_logo_ic"-->
+                <!--                                android:layout_width="@dimen/_30sdp"-->
+                <!--                                android:layout_height="@dimen/_30sdp"/>-->
+
+                <!--                            <TextView-->
+                <!--                                android:layout_gravity="center"-->
+                <!--                                android:layout_width="wrap_content"-->
+                <!--                                android:layout_height="wrap_content"-->
+                <!--                                android:fontFamily="@font/poppins_semibold"-->
+                <!--                                android:text="Telegram"-->
+                <!--                                android:textColor="?attr/myTextColor"-->
+                <!--                                android:textSize="@dimen/_12sdp" />-->
+
+
+                <!--                        </LinearLayout>-->
+
+
+                <!--                        <TextView-->
+                <!--                            android:paddingHorizontal="@dimen/_4sdp"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:text="Join our telegram channel to get instant offers and updates"-->
+                <!--                            android:textColor="?attr/myTextColor"-->
+                <!--                            android:textSize="@dimen/_10sdp"-->
+                <!--                            android:fontFamily="@font/poppins_regular"-->
+                <!--                            />-->
+
+                <!--                        <LinearLayout-->
+                <!--                            android:layout_marginTop="@dimen/_10sdp"-->
+                <!--                            android:weightSum="2"-->
+                <!--                            android:orientation="horizontal"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content">-->
+
+                <!--                            <RelativeLayout-->
+                <!--                                android:id="@+id/rlTelegramLinkShare"-->
+                <!--                                android:background="@drawable/bg_coner"-->
+                <!--                                android:layout_weight="1"-->
+                <!--                                android:padding="@dimen/_10sdp"-->
+                <!--                                android:layout_width="match_parent"-->
+                <!--                                android:layout_height="wrap_content">-->
+
+
+                <!--                                <ImageView-->
+                <!--                                    android:backgroundTint="@color/black"-->
+                <!--                                    android:id="@+id/ivTelegramLinkShare"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:layout_width="@dimen/_20sdp"-->
+                <!--                                    android:layout_height="@dimen/_20sdp"-->
+                <!--                                    android:background="@drawable/share_ic"-->
+                <!--                                    />-->
+
+                <!--                                <TextView-->
+                <!--                                    android:id="@+id/tvTelegramLinkShare"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:gravity="center"-->
+                <!--                                    android:layout_width="match_parent"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:text="Share"-->
+                <!--                                    android:textColor="@color/black"-->
+                <!--                                    android:textSize="@dimen/_10sdp"-->
+                <!--                                    android:fontFamily="@font/poppins_medium"-->
+                <!--                                    />-->
+
+                <!--                            </RelativeLayout>-->
+                <!--                            <RelativeLayout-->
+                <!--                                android:id="@+id/rlTelegramLinkJoin"-->
+                <!--                                android:background="@color/blue_300"-->
+                <!--                                android:layout_weight="1"-->
+                <!--                                android:padding="@dimen/_10sdp"-->
+                <!--                                android:layout_width="match_parent"-->
+                <!--                                android:layout_height="match_parent">-->
+
+
+                <!--                                <ImageView-->
+                <!--                                    android:id="@+id/ivTelegramLinkJoin"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:layout_width="@dimen/_20sdp"-->
+                <!--                                    android:layout_height="@dimen/_18sdp"-->
+                <!--                                    android:background="@drawable/chat_ic"-->
+                <!--                                    android:backgroundTint="@color/white"-->
+                <!--                                    />-->
+
+                <!--                                <TextView-->
+                <!--                                    android:id="@+id/tvTelegramLinkJoin"-->
+                <!--                                    android:layout_centerVertical="true"-->
+                <!--                                    android:gravity="center"-->
+                <!--                                    android:layout_width="match_parent"-->
+                <!--                                    android:layout_height="wrap_content"-->
+                <!--                                    android:text="Join"-->
+                <!--                                    android:textColor="@color/white"-->
+                <!--                                    android:textSize="@dimen/_10sdp"-->
+                <!--                                    android:fontFamily="@font/poppins_medium"-->
+                <!--                                    />-->
+
+                <!--                            </RelativeLayout>-->
+
+
+                <!--                        </LinearLayout>-->
+
+
+                <!--                    </LinearLayout>-->
+
+
+                <!--                </com.google.android.material.card.MaterialCardView>-->
+
+
+                <!--            <com.google.android.material.button.MaterialButton-->
+                <!--                android:layout_marginHorizontal="@dimen/_14sdp"-->
+                <!--                android:id="@+id/btnchatsupport"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="@dimen/_24sdp"-->
+                <!--                android:fontFamily="@font/poppins_medium"-->
+                <!--                app:backgroundTint="@null"-->
+                <!--                android:background="@drawable/gradient_button"-->
+                <!--                android:text="Chat Support"-->
+                <!--                android:textAllCaps="false"-->
+                <!--                android:textSize="@dimen/_14sdp"-->
+                <!--                />-->
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</layout>
+

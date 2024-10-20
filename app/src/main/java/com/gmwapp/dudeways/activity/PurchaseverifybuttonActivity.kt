@@ -36,7 +36,7 @@ import okhttp3.RequestBody
 import java.io.File
 
 @AndroidEntryPoint
-class PurchaseverifybuttonActivity : AppCompatActivity(), PlanListAdapter.onItemClick {
+class PurchaseverifybuttonActivity : BaseActivity(), PlanListAdapter.onItemClick {
 
     lateinit var binding: ActivityPurchaseverifybuttonBinding
     lateinit var mContext: PurchaseverifybuttonActivity

@@ -12,7 +12,7 @@ import com.gmwapp.dudeways.utils.Session
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class Stage4Activity : AppCompatActivity() {
+class Stage4Activity : BaseActivity() {
 
     lateinit var binding: ActivityStage4Binding
     lateinit var mContext: Stage4Activity

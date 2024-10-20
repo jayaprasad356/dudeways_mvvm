@@ -25,7 +25,7 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FreePointsActivity : AppCompatActivity() {
+class FreePointsActivity : BaseActivity() {
 
     lateinit var binding: ActivityFreePointsBinding
     lateinit var mContext: FreePointsActivity

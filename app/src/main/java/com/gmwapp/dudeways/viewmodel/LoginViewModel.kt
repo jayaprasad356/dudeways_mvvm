@@ -3,6 +3,7 @@ package com.gmwapp.dudeways.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gmwapp.dudeways.model.AppUpdateResponse
 import com.gmwapp.dudeways.model.LoginResponse
 import com.gmwapp.dudeways.model.ProffessionResponse
 import com.gmwapp.dudeways.repositories.LoginRepositories
@@ -16,6 +17,7 @@ class LoginViewModel @Inject constructor(val loginRepositories: LoginRepositorie
     val isLoading = MutableLiveData(false)
     val loginLiveData = MutableLiveData<LoginResponse>()
     val proffessionLiveData = MutableLiveData<ProffessionResponse>()
+    val appUpdateLiveData = MutableLiveData<AppUpdateResponse>()
 
     fun doLogin(email: String) {
         viewModelScope.launch {
@@ -31,6 +33,23 @@ class LoginViewModel @Inject constructor(val loginRepositories: LoginRepositorie
 
         }
     }
+
+    fun appUpdate() {
+        viewModelScope.launch {
+            isLoading.postValue(true)
+            loginRepositories.appUpdate().let {
+                if (it.body() != null) {
+                    appUpdateLiveData.postValue(it.body())
+                    isLoading.postValue(false)
+                } else {
+                    isLoading.postValue(false)
+                }
+            }
+
+        }
+    }
+
+
 
     fun getProffession() {
         viewModelScope.launch {

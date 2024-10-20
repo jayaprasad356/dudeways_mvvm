@@ -4,11 +4,13 @@ import android.util.Log
 import com.gmwapp.dudeways.model.AddChatResponse
 import com.gmwapp.dudeways.model.AddPointsResponse
 import com.gmwapp.dudeways.model.AddTripResponse
+import com.gmwapp.dudeways.model.AppUpdateResponse
 import com.gmwapp.dudeways.model.BackImageResponse
 import com.gmwapp.dudeways.model.BaseResponse
 import com.gmwapp.dudeways.model.ChatResponse
 import com.gmwapp.dudeways.model.ConnectModel
 import com.gmwapp.dudeways.model.ConnectResponse
+import com.gmwapp.dudeways.model.CoverImageResponse
 import com.gmwapp.dudeways.model.FontImageResponse
 import com.gmwapp.dudeways.model.HomeProfile
 import com.gmwapp.dudeways.model.HomeResponse
@@ -21,15 +23,20 @@ import com.gmwapp.dudeways.model.NotificationResponse
 import com.gmwapp.dudeways.model.OtherUserDetailModel
 import com.gmwapp.dudeways.model.OtherUserDetailResponse
 import com.gmwapp.dudeways.model.PlanListResponse
+import com.gmwapp.dudeways.model.PrivarcyPolicyResponse
 import com.gmwapp.dudeways.model.ProffessionResponse
 import com.gmwapp.dudeways.model.PurchaseResponse
+import com.gmwapp.dudeways.model.RefundPolicyResponse
 import com.gmwapp.dudeways.model.RegisterModel
 import com.gmwapp.dudeways.model.RegisterResponse
 import com.gmwapp.dudeways.model.RewardResponse
 import com.gmwapp.dudeways.model.SearchResponse
 import com.gmwapp.dudeways.model.SelfiImageResponse
 import com.gmwapp.dudeways.model.SettingsResponse
+import com.gmwapp.dudeways.model.TermsConditionResponse
 import com.gmwapp.dudeways.model.UserDataResponse
+import com.gmwapp.dudeways.model.WalletResponse
+import com.gmwapp.dudeways.model.WithdrawResponse
 import com.gmwapp.dudeways.utils.Constant
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -42,6 +49,9 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 
 interface ApiService {
+
+    @POST(Constant.APPUPDATE)
+    suspend fun appUpdate():Response<AppUpdateResponse>
 
     @FormUrlEncoded
     @POST(Constant.CHECK_EMAIL)
@@ -271,5 +281,68 @@ interface ApiService {
         @Field(Constant.LIMIT) limit: String,
         @Field(Constant.GENDER) gender: String
     ): Response<SearchResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.DELETE_ACCOUNT)
+    suspend fun deleteAccount(
+        @Field(Constant.USER_ID) userId: String
+    ): Response<BaseResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.ADD_FEEDBACK)
+    suspend fun addFeedBack(
+        @Field(Constant.USER_ID) userId: String,
+        @Field("feedback") feedBack: String
+    ): Response<BaseResponse>
+
+    @POST(Constant.TERMS_CONDITIONS)
+    suspend fun termsConditions(): Response<TermsConditionResponse>
+
+    @POST(Constant.REFUND_POLICY)
+    suspend fun getRefundPolicy(): Response<RefundPolicyResponse>
+
+    @POST(Constant.PRIVACY_POLICY)
+    suspend fun getPrivarcyPolicy(): Response<PrivarcyPolicyResponse>
+
+    @Multipart
+    @POST(Constant.UPDATE_COVER_IMG)
+    suspend fun getCoverImage(
+        @Part(Constant.USER_ID) userId: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<CoverImageResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.UPDATE_NOTIFY)
+    suspend fun updateNotify(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.MESSAGE_NOTIFY) notify: String,
+        @Field(Constant.ADD_FRIEND_NOTIFY) addFriendNotify: String,
+        @Field(Constant.VIEW_NOTIFY) viewNotify: String
+    ): Response<BaseResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.WITHDRAWALS_LIST)
+    suspend fun getWithdraw(
+        @Field(Constant.USER_ID) userId: String
+    ): Response<WithdrawResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.WITHDRAWALS)
+    suspend fun withdraw(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.AMOUNT) amount: String
+    ): Response<WalletResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.UPDATE_BANK)
+    suspend fun updateBank(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.ACCOUNT_HOLDER_NAME) name: String,
+        @Field(Constant.ACCOUNT_NUMBER) number: String,
+        @Field(Constant.IFSC_CODE) ifsc: String,
+        @Field(Constant.BANK_NAME) bankName: String,
+        @Field(Constant.BRANCH_NAME) branchName: String
+    ): Response<BaseResponse>
+
 
 }

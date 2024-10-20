@@ -15,7 +15,7 @@ import com.gmwapp.dudeways.utils.Session
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TripCompletedActivity : AppCompatActivity() {
+class TripCompletedActivity : BaseActivity() {
 
     lateinit var binding: ActivityTripCompletedBinding
     lateinit var mContext: TripCompletedActivity

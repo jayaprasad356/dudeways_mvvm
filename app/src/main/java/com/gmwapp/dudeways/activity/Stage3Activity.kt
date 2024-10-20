@@ -27,7 +27,7 @@ import okhttp3.RequestBody
 import java.io.File
 
 @AndroidEntryPoint
-class Stage3Activity : AppCompatActivity() {
+class Stage3Activity : BaseActivity() {
 
     lateinit var binding: ActivityStage3Binding
     lateinit var mContext: Stage3Activity

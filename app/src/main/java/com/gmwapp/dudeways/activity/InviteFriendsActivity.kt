@@ -17,7 +17,7 @@ import com.gmwapp.dudeways.utils.Session
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class InviteFriendsActivity : AppCompatActivity() {
+class InviteFriendsActivity : BaseActivity() {
 
     lateinit var binding: ActivityInviteFriendsBinding
     lateinit var mContext: InviteFriendsActivity

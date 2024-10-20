@@ -35,7 +35,7 @@ import com.gmwapp.dudeways.viewmodel.ChatViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PurchasepointActivity : AppCompatActivity() {
+class PurchasepointActivity : BaseActivity() {
 
     lateinit var binding: ActivityPurchasepointBinding
     lateinit var mContext: PurchasepointActivity
