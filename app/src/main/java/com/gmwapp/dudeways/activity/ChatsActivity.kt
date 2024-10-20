@@ -17,10 +17,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
@@ -31,17 +33,21 @@ import com.gmwapp.dudeways.OnMessagesFetchedListner
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.adapter.ChatAdapter
 import com.gmwapp.dudeways.databinding.ActivityChatsBinding
+import com.gmwapp.dudeways.extentions.chat_status
 import com.gmwapp.dudeways.extentions.fetchMessages
+import com.gmwapp.dudeways.extentions.isNetworkAvailable
 import com.gmwapp.dudeways.extentions.logError
 import com.gmwapp.dudeways.extentions.logInfo
 import com.gmwapp.dudeways.extentions.observeUserStatus
 import com.gmwapp.dudeways.extentions.playReceiveTone
+import com.gmwapp.dudeways.extentions.updateMessagesForSender
 import com.gmwapp.dudeways.model.ChatList
 import com.gmwapp.dudeways.model.ChatModel
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.AddFriendViewModel
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -211,7 +217,24 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
         }*/
 
         binding.sendButton.setOnClickListener {
+            if (isNetworkAvailable(mContext)) {
+                if (binding.messageEdittext.text.toString().trim().isEmpty()) {
+                    Toast.makeText(mContext, "Please enter message", Toast.LENGTH_SHORT).show()
+                } else {
+                    chatViewModel.addChat(
+                        session.getData(Constant.USER_ID).toString(),
+                        receiverId.toString(),
+                        "1", "1",
+                        binding.messageEdittext.text.toString().trim()
+                    )
+                }
 
+            } else {
+                Toast.makeText(
+                    mContext, getString(R.string.str_error_internet_connections),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         binding.ivMore.setOnClickListener {
@@ -264,7 +287,125 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
             }
         })
 
-        chatViewModel.otherUserDetailLiveData.observe(this, Observer {
+        chatViewModel.isLoading.observe(this, Observer {
+            if (it) {
+                binding.pbLoadData.visibility = View.VISIBLE
+            } else {
+                binding.pbLoadData.visibility = View.GONE
+            }
+        })
+
+        chatViewModel.addChatLiveData.observe(this, Observer {
+            if (it.success) {
+                chat_status = it.chat_status
+                session.setData(Constant.CHAT_STATUS, chat_status)
+                session.setData(Constant.MSG_SEEN, "1")
+                val message = binding.messageEdittext.text.toString()
+                if (message.isNotEmpty()) {
+                    isBlocked(senderId, receiverId) { isBlocked ->
+                        if (isBlocked) {
+                            binding.sendButton.isClickable = true
+                            makeToast("You cannot send messages to this user blocked.")
+                        } else {
+                            binding.sendButton.isClickable = true
+
+                            senderName?.let { sName ->
+                                receiverName?.let { rName ->
+                                    updateMessagesForSender(
+                                        databaseReference = databaseReference,
+                                        senderID = senderId,
+                                        receiverID = receiverId,
+                                        senderName = senderName!!,
+                                        receiverName = receiverName!!,
+                                        message = message,
+                                        soundPool = soundPool,
+                                        sentTone = sentTone
+                                    )
+                                    binding.messageEdittext.text.clear()
+                                } ?: logError(
+                                    CHATS_ACTIVITY,
+                                    "Unable to send your message."
+                                )
+                            } ?: logError(
+                                CHATS_ACTIVITY,
+                                "Unable to send your message."
+                            )
+                        }
+                    }
+                } else {
+                    binding.sendButton.isClickable = true
+                    makeToast("Enter text to send")
+                }
+
+                //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
+
+            } else {
+                binding.sendButton.isClickable = true
+
+                chat_status = it.chat_status
+                session.setData(Constant.CHAT_STATUS, chat_status)
+
+
+                val dialogView =
+                    activity.layoutInflater.inflate(R.layout.dilog_chat_point, null)
+
+                val dialogBuilder = AlertDialog.Builder(activity)
+                    .setView(dialogView)
+                    .create()
+                val title = dialogView.findViewById<TextView>(R.id.tvTitle)
+                val btnPurchase =
+                    dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
+                val tvDescription =
+                    dialogView.findViewById<TextView>(R.id.tvDescription)
+                val tvSubDescription =
+                    dialogView.findViewById<TextView>(R.id.tvSubDescription)
+
+                tvDescription.text =
+                    "Buy 100 points to chat with 10 female users for up to 10 hours."
+                tvDescription.setTextColor(ContextCompat.getColor(activity, R.color.primary))
+
+                tvSubDescription.visibility = View.GONE
+
+                title.text = "You have ${session.getData(Constant.POINTS)} Points"
+
+                btnPurchase.setOnClickListener {
+                    val intent = Intent(activity, PurchasepointActivity::class.java)
+                    activity.startActivity(intent)
+                    dialogBuilder.dismiss()
+                }
+
+
+                dialogBuilder.show()
+
+                //    Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
+
+            }
+
+
+        })
+
+        chatViewModel.deleteChatLiveData.observe(this, Observer
+        {
+            if (it.success) {
+                Toast.makeText(
+                    mContext, getString(R.string.str_error_internet_connections),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val Intent = Intent(activity, HomeActivity::class.java)
+                startActivity(Intent)
+                finish()
+
+            } else {
+                Toast.makeText(
+                    mContext, getString(R.string.str_error_internet_connections),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+        chatViewModel.otherUserDetailLiveData.observe(this, Observer
+        {
             if (it.success) {
                 // Assign values to variables
                 senderId = userId.toString()
@@ -312,7 +453,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
             }
         })
 
-        chatViewModel.readChatLiveData.observe(this, Observer {
+        chatViewModel.readChatLiveData.observe(this, Observer
+        {
             if (it.success) {
 
             } else {
@@ -320,7 +462,8 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
             }
         })
 
-        viewModel.addFriendLiveData.observe(this, Observer {
+        viewModel.addFriendLiveData.observe(this, Observer
+        {
             if (it.success) {
                 val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
@@ -370,6 +513,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
             .build()
 
         sentTone = soundPool.load(this, R.raw.sent_new, 1)
+
 
     }
 
@@ -460,7 +604,7 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
                     R.id.menu_report -> {
                         viewModel.addFriend(
                             session.getData(Constant.USER_ID).toString(),
-                            receiverId, "2"
+                            receiverId.toString(), "2"
                         )
                         true
                     }
@@ -509,14 +653,26 @@ class ChatsActivity : AppCompatActivity(), OnMessagesFetchedListner {
         val receiverChatReference =
             databaseReference.child("CHATS_V2").child(receiverName).child(senderName)
 
-        senderChatReference.removeValue().addOnSuccessListener {
-            deleteChat(receiverID)
-            makeToast("Chat cleared successfully")
-            messages.clear()
-            chatAdapter?.notifyDataSetChanged()
-        }.addOnFailureListener {
-            makeToast("Failed to clear chat")
+        if (isNetworkAvailable(mContext)) {
+            senderChatReference.removeValue().addOnSuccessListener {
+                chatViewModel.deleteChat(
+                    session.getData(Constant.USER_ID).toString(),
+                    receiverId
+                )
+                makeToast("Chat cleared successfully")
+                messages.clear()
+                chatAdapter?.notifyDataSetChanged()
+            }.addOnFailureListener {
+                makeToast("Failed to clear chat")
+            }
+
+        } else {
+            Toast.makeText(
+                mContext, getString(R.string.str_error_internet_connections),
+                Toast.LENGTH_SHORT
+            ).show()
         }
+
 
         receiverChatReference.removeValue().addOnFailureListener {
             makeToast("Failed to clear chat for receiver")

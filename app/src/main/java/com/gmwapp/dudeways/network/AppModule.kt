@@ -29,10 +29,9 @@ object AppModule {
     @Singleton
     @Provides
     fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
-        OkHttpClient.Builder().
-        connectTimeout(100,TimeUnit.SECONDS)
-            .readTimeout(100,TimeUnit.SECONDS).apply {
-        }.build()
+        OkHttpClient.Builder().connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100, TimeUnit.SECONDS).apply {
+            }.build()
 
     @Provides
     @Singleton
@@ -52,29 +51,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAddPointRetrofit(okHttpClient: OkHttpClient): Retrofit {
-
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
-
-
-        return Retrofit.Builder()
-            .baseUrl(Constant.BaseUrl) // Replace with your base URL
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(okHttpClient)
-            .build()
-    }
-
-    @Provides
-    @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun providePointApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 }

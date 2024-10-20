@@ -2,6 +2,8 @@ package com.gmwapp.dudeways.activity
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.androidbrowserhelper.trusted.LauncherActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -98,6 +101,14 @@ class PurchasepointActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
+        viewModel.addPointsLiveData.observe(this, Observer {
+            val intent = Intent(mContext, LauncherActivity::class.java)
+            intent.setData(Uri.parse(it.longurl))
+            startActivity(intent)
+            finish()// Directly starting the intent without launcher
+
+        })
     }
 
     inner class PurchaseAdapter(
@@ -115,13 +126,13 @@ class PurchasepointActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
             val item = list[position]
-            holder.binding.tvTitle.text = "Get " + item.title + " Points"
+            holder.binding.tvTitle.text = "Get " + item.points + " Points"
 
-            if (item.percentage == "0") {
+            if (item.offer_percentage == "0") {
                 holder.binding.tvPercentage.visibility = View.GONE
             } else {
                 holder.binding.tvPercentage.visibility = View.VISIBLE
-                holder.binding.tvPercentage.text = item.percentage + "% OFF"
+                holder.binding.tvPercentage.text = item.offer_percentage + "% OFF"
             }
 
 
@@ -174,7 +185,14 @@ class PurchasepointActivity : AppCompatActivity() {
                     ).show()
                 } else {
                     session.setData(Constant.POINT_PAYMENT_MOBILE, mobileNumber)
-                    initiatePaymentLink(pointsId, amount)
+                    viewModel.addPoints(
+                        session.getData(Constant.NAME).toString(),
+                        amount,
+                        session.getData(Constant.EMAIL).toString(),
+                        session.getData(Constant.POINT_PAYMENT_MOBILE).toString(),
+                        session.getData(Constant.USER_ID).toString() + "-" + pointsId
+                    )
+                    // initiatePaymentLink(pointsId, amount)
                     dialog.dismiss() // Dismiss the dialog after submitting
                 }
             }

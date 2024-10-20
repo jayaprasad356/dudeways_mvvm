@@ -1,6 +1,8 @@
 package com.gmwapp.dudeways.repositories
 
 import com.gmwapp.dudeways.network.ApiService
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class RegisterRepositories @Inject constructor(val apiService: ApiService) {
@@ -14,7 +16,7 @@ class RegisterRepositories @Inject constructor(val apiService: ApiService) {
         name, email, age, gender, proffessionId, state, city, introduction
     )
 
-    suspend fun updateImage(userId:String,
-                            filePath:String)=apiService.updateImage(userId,
+    suspend fun updateImage(userId:RequestBody,
+                            filePath:MultipartBody.Part?)=apiService.updateImage(userId,
                                 filePath)
 }

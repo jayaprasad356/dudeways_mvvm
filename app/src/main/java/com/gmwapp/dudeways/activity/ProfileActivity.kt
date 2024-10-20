@@ -19,6 +19,9 @@ import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 
 @AndroidEntryPoint
@@ -53,9 +56,27 @@ class ProfileActivity : AppCompatActivity() {
         binding.btnUpdateProfile.setOnClickListener {
 
             if (session?.getBoolean("is_profile_in") == true) {
+
+                val uid: RequestBody = RequestBody.create(
+                    "multipart/form-data".toMediaTypeOrNull(), session.getData(Constant.USER_ID).toString()
+                )
+
+                var profileBody: MultipartBody.Part? = null
+                if (filePath1?.isNotEmpty() == true) {
+                    val file = File(filePath1)
+                    // create RequestBody instance from file
+                    val requestFile = RequestBody.create(
+                        "multipart/form-data".toMediaTypeOrNull(), file
+                    )
+                    profileBody = MultipartBody.Part.createFormData(
+                        Constant.PROFILE, file.name, requestFile
+                    )
+                }
+
+
                 viewModel.doUpdateImage(
-                    session.getData(Constant.USER_ID).toString(),
-                    filePath1.toString()
+                    uid,
+                    profileBody
                 )
             } else {
                 Toast.makeText(this, "Please select profile image", Toast.LENGTH_SHORT).show()

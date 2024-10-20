@@ -283,11 +283,13 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
             val category = homeCategoryList[position]
             holder.binding.model = category
 
-            holder.binding.tvName.text = if (position == 3 && selectedDate != null) {
+            holder.binding.tvName.text=category.name
+
+           /* holder.binding.tvName.text = if (position == 3 && selectedDate != null) {
                 selectedDate
             } else {
                 category.name
-            }
+            }*/
 
             if (selectedItemPosition == position) {
                 holder.binding.cardView.setCardBackgroundColor(activity.resources.getColor(R.color.primary))

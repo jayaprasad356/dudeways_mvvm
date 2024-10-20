@@ -78,7 +78,7 @@ class SpinActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.addPurchaseLiveData.observe(this, Observer {
+        viewModel.spinPointsLiveData.observe(this, Observer {
             if (it.success) {
                 session.setData(Constant.POINTS, it.data.points)
                 Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
@@ -150,7 +150,7 @@ class SpinActivity : AppCompatActivity() {
 
         }
         if (isNetworkAvailable(mContext)) {
-            viewModel.addPurchase(session.getData(Constant.USER_ID).toString(), "10")
+            viewModel.spinPoints(session.getData(Constant.USER_ID).toString(), "10")
         } else {
             Toast.makeText(
                 mContext,

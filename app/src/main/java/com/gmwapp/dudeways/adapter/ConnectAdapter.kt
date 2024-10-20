@@ -12,6 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
+import com.gmwapp.dudeways.activity.ChatsActivity
+import com.gmwapp.dudeways.activity.ProfileInfoActivity
 import com.gmwapp.dudeways.adapter.HomeProfilesAdapter.ItemHolder
 import com.gmwapp.dudeways.databinding.LayoutHomeConnectBinding
 import com.gmwapp.dudeways.databinding.LayoutHomeProfilesBinding
@@ -22,8 +24,7 @@ import com.gmwapp.dudeways.utils.Session
 class ConnectAdapter(
     val activity: Activity,
     connect: java.util.ArrayList<ConnectModel>,
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val connect: ArrayList<ConnectModel>
     val activitys: Activity
 
@@ -86,51 +87,43 @@ class ConnectAdapter(
         }
 
 
-//        holder.itemView.setOnClickListener{
-//            val intent = Intent(activity, ProfileinfoActivity::class.java)
-//            activity.startActivity(intent)
-//        }
-
-
         val point = session.getData(Constant.POINTS)
 
-        /*
 
-                holder.itemView.setOnClickListener {
+        holder.itemView.setOnClickListener {
 
-                    Log.d("id", "chat_user_id " + report.id)
-                    Log.d("id", "chat_user_id name " + report.name)
-                    Log.d("id", "chat_user_id profile " + report.profile)
-                    Log.d("id", "chat_user_id unique_name " + report.unique_name)
-                    Log.d("id", "chat_user_id verified " + report.verified)
+            Log.d("id", "chat_user_id " + report.id)
+            Log.d("id", "chat_user_id name " + report.name)
+            Log.d("id", "chat_user_id profile " + report.profile)
+            Log.d("id", "chat_user_id unique_name " + report.unique_name)
+            Log.d("id", "chat_user_id verified " + report.verified)
 
-                    if (report.friend_user_id == session.getData(Constant.USER_ID)) {
-                        Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val intent = Intent(activity, ChatsActivity::class.java)
-                        intent.putExtra("id", report.id)
-                        intent.putExtra("name", report.name)
-                        session.setData("reciver_profile", report.profile)
-                        intent.putExtra("chat_user_id", report.friend_user_id)
-                        intent.putExtra("unique_name", report.unique_name)
-                        intent.putExtra("friend_verified", report.verified)
-                        activity.startActivity(intent)
-                    }
+            if (report.friend_user_id == session.getData(Constant.USER_ID)) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", report.id)
+                intent.putExtra("name", report.name)
+                session.setData("reciver_profile", report.profile)
+                intent.putExtra("chat_user_id", report.friend_user_id)
+                intent.putExtra("unique_name", report.unique_name)
+                intent.putExtra("friend_verified", report.verified)
+                activity.startActivity(intent)
+            }
 
 
-                }
+        }
 
-                holder.ivProfile.setOnClickListener {
-                    val intent = Intent(activity, ProfileinfoActivity::class.java)
-                    intent.putExtra("name", report.name)
-                    intent.putExtra("chat_user_id", report.friend_user_id)
-                    intent.putExtra("id", report.id)
-                    session.setData("reciver_profile", report.profile)
-                    intent.putExtra("friend", report.friend)
-                    activity.startActivity(intent)
+        holder.binding.ivProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileInfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.friend_user_id)
+            intent.putExtra("id", report.id)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("friend", report.friend)
+            activity.startActivity(intent)
 
-                }
-        */
+        }
 
 
         holder.binding.tvName.text = report.name
@@ -148,9 +141,7 @@ class ConnectAdapter(
 
 
 
-        Glide.with(activitys)
-            .load(report.profile)
-            .placeholder(R.drawable.profile_placeholder)
+        Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.binding.ivProfile)
 
 

@@ -37,41 +37,56 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ProfileInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Stage3Activity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.SelfiActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Stage2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Stage1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.IdverficationActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.PurchaseverifybuttonActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.Stage4Activity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.VerifiedActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.InviteFriendsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.SpinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.LauncherActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.FreePointsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.PurchasepointActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.ChatsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.TripCompletedActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.MyTripsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.StarttripActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.ProfileActivity"
             android:exported="true" />
@@ -116,6 +131,48 @@
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
+        <activity
+            android:name="com.google.androidbrowserhelper.trusted.LauncherActivity"
+            android:exported="true">
+
+            <!-- Edit android:value to change the url opened by the TWA -->
+            <meta-data
+                android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                android:value="https://YOUR_SITE_URL" />
+
+            <!--
+              This intent-filter allows the TWA to handle Intents to open
+              YOUR_SITE_URL
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <!-- Edit android:host to handle links to the target URL-->
+                <data
+                    android:scheme="https"
+                    android:host="YOUR_SITE_URL"/>
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.gmwapp.dudeways.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

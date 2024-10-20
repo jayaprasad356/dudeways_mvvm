@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.ChatsActivity
+import com.gmwapp.dudeways.activity.ProfileInfoActivity
 import com.gmwapp.dudeways.adapter.ConnectAdapter.ItemHolder
 import com.gmwapp.dudeways.databinding.LayoutChatListBinding
 import com.gmwapp.dudeways.databinding.LayoutHomeConnectBinding
@@ -79,8 +80,8 @@ class ChatListAdapter(
 
         holder.binding.TVSentTime.text = report.latest_msg_time
 
-        /*holder.IV_user_profile.setOnClickListener {
-            val intent = Intent(activity, ProfileinfoActivity::class.java)
+        holder.binding.IVUserProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileInfoActivity::class.java)
             intent.putExtra("name", report.name)
             intent.putExtra("chat_user_id", report.chat_user_id)
             intent.putExtra("id", report.id)
@@ -89,7 +90,6 @@ class ChatListAdapter(
             activity.startActivity(intent)
 
         }
-*/
         Glide.with(activitys)
             .load(report.profile)
             .placeholder(R.drawable.profile_placeholder)

@@ -10,9 +10,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
+import com.gmwapp.dudeways.activity.ChatsActivity
 import com.gmwapp.dudeways.databinding.LayoutHomeProfilesBinding
 import com.gmwapp.dudeways.databinding.LayoutHomeUserlistBinding
 import com.gmwapp.dudeways.model.HomeUserlist
+import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 
 class HomeUserlistAdapter(
@@ -46,20 +48,19 @@ class HomeUserlistAdapter(
         Glide.with(activitys).load(report.profile).placeholder(R.drawable.placeholder_bg)
             .into(holder.binding.ivProfile)
 
-        /*
-                holder.ivProfile.setOnClickListener {
-                    if (report.id == session.getData(Constant.USER_ID)) {
-                        Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val intent = Intent(activity, ChatsActivity::class.java)
-                        intent.putExtra("id", report.id)
-                        intent.putExtra("name", report.name)
-                        session.setData("reciver_profile", report.profile)
-                        intent.putExtra("chat_user_id", report.id)
-                        intent.putExtra("unique_name", report.unique_name)
-                        activity.startActivity(intent)
-                    }
-                }*/
+        holder.binding.ivProfile.setOnClickListener {
+            if (report.id == session.getData(Constant.USER_ID)) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", report.id)
+                intent.putExtra("name", report.name)
+                session.setData("reciver_profile", report.profile)
+                intent.putExtra("chat_user_id", report.id)
+                intent.putExtra("unique_name", report.unique_name)
+                activity.startActivity(intent)
+            }
+        }
     }
 
 

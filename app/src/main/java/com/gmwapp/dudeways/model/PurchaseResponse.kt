@@ -8,8 +8,6 @@ data class PurchaseResponse(
 
 data class PurchaseModel(
     val id: String,
-    val title:String,
-    val percentage:String,
     val points: String,
     val offer_percentage: String,
     val price: String,

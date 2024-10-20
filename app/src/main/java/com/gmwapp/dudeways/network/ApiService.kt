@@ -1,11 +1,15 @@
 package com.gmwapp.dudeways.network
 
 import android.util.Log
+import com.gmwapp.dudeways.model.AddChatResponse
+import com.gmwapp.dudeways.model.AddPointsResponse
 import com.gmwapp.dudeways.model.AddTripResponse
+import com.gmwapp.dudeways.model.BackImageResponse
 import com.gmwapp.dudeways.model.BaseResponse
 import com.gmwapp.dudeways.model.ChatResponse
 import com.gmwapp.dudeways.model.ConnectModel
 import com.gmwapp.dudeways.model.ConnectResponse
+import com.gmwapp.dudeways.model.FontImageResponse
 import com.gmwapp.dudeways.model.HomeProfile
 import com.gmwapp.dudeways.model.HomeResponse
 import com.gmwapp.dudeways.model.HomeUserResponse
@@ -13,13 +17,17 @@ import com.gmwapp.dudeways.model.HomeUserlist
 import com.gmwapp.dudeways.model.LoginModel
 import com.gmwapp.dudeways.model.LoginResponse
 import com.gmwapp.dudeways.model.MyTripResponse
+import com.gmwapp.dudeways.model.NotificationResponse
 import com.gmwapp.dudeways.model.OtherUserDetailModel
 import com.gmwapp.dudeways.model.OtherUserDetailResponse
+import com.gmwapp.dudeways.model.PlanListResponse
 import com.gmwapp.dudeways.model.ProffessionResponse
 import com.gmwapp.dudeways.model.PurchaseResponse
 import com.gmwapp.dudeways.model.RegisterModel
 import com.gmwapp.dudeways.model.RegisterResponse
 import com.gmwapp.dudeways.model.RewardResponse
+import com.gmwapp.dudeways.model.SearchResponse
+import com.gmwapp.dudeways.model.SelfiImageResponse
 import com.gmwapp.dudeways.model.SettingsResponse
 import com.gmwapp.dudeways.model.UserDataResponse
 import com.gmwapp.dudeways.utils.Constant
@@ -56,10 +64,11 @@ interface ApiService {
     ): Response<RegisterResponse>
 
 
-    @FormUrlEncoded
+    @Multipart
     @POST(Constant.UPDATE_IMAGE)
     suspend fun updateImage(
-        @Field(Constant.USER_ID) userId: String, @Field(Constant.PROFILE) profile: String
+        @Part(Constant.USER_ID) userId: RequestBody,
+        @Part profile: MultipartBody.Part?
     ): Response<RegisterResponse>
 
     @FormUrlEncoded
@@ -113,8 +122,7 @@ interface ApiService {
     @Multipart
     @POST(Constant.UPDATE_TRIP_IMAGE)
     suspend fun updateTripImage(
-        @Part(Constant.TRIP_ID) uid: RequestBody,
-        @Part image: MultipartBody.Part?
+        @Part(Constant.TRIP_ID) uid: RequestBody, @Part image: MultipartBody.Part?
     ): Response<BaseResponse>
 
     @FormUrlEncoded
@@ -169,8 +177,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST(Constant.POINTS_LIST)
-    suspend fun getPurchase(@Field(Constant.USER_ID) userId: String):
-            Response<PurchaseResponse>
+    suspend fun getPurchase(@Field(Constant.USER_ID) userId: String): Response<PurchaseResponse>
 
     @FormUrlEncoded
     @POST(Constant.ADD_POINTS_REQUEST)
@@ -180,19 +187,89 @@ interface ApiService {
         @Field("email") email: String,
         @Field("phone") phone: String,
         @Field("purpose") purpose: String,
-    ): Response<BaseResponse>
+    ): Response<AddPointsResponse>
 
     @FormUrlEncoded
     @POST(Constant.REWARD_POINTS)
     suspend fun addPurchase(
-        @Field(Constant.USER_ID) userId: String,
-        @Field("points") points: String
+        @Field(Constant.USER_ID) userId: String, @Field("points") points: String
+    ): Response<RewardResponse>
+
+
+    @FormUrlEncoded
+    @POST(Constant.SPIN_POINTS)
+    suspend fun spinPoints(
+        @Field(Constant.USER_ID) userId: String, @Field("points") points: String
     ): Response<RewardResponse>
 
     @FormUrlEncoded
     @POST(Constant.OTHER_USER_DETAILS)
     suspend fun otherUserDetails(
-        @Field(Constant.USER_ID) userId: String,
-        @Field(Constant.OTHER_USER_ID) otherUserId: String
+        @Field(Constant.USER_ID) userId: String, @Field(Constant.OTHER_USER_ID) otherUserId: String
     ): Response<OtherUserDetailResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.PLAN_LIST)
+    suspend fun getPlan(@Field(Constant.USER_ID) userId: String): Response<PlanListResponse>
+
+    @Multipart
+    @POST(Constant.PAYMENT_IMAGE_API)
+    suspend fun getPaymentImage(
+        @Part(Constant.USER_ID) uid: RequestBody, @Part image: MultipartBody.Part?
+    ): Response<BaseResponse>
+
+    @Multipart
+    @POST(Constant.VERIFY_SELFIE_IMAGE)
+    suspend fun verifySelfiImage(
+        @Part(Constant.USER_ID) uid: RequestBody, @Part image: MultipartBody.Part?
+    ): Response<SelfiImageResponse>
+
+    @Multipart
+    @POST(Constant.VERIFY_FRONT_IMAGE)
+    suspend fun verifyFrontImage(
+        @Part(Constant.USER_ID) uid: RequestBody, @Part image: MultipartBody.Part?
+    ): Response<FontImageResponse>
+
+    @Multipart
+    @POST(Constant.VERIFY_BACK_IMAGE)
+    suspend fun verifyBackImage(
+        @Part(Constant.USER_ID) uid: RequestBody, @Part image: MultipartBody.Part?
+    ): Response<BackImageResponse>
+
+
+    @FormUrlEncoded
+    @POST(Constant.DELETE_CHAT)
+    suspend fun deleteChat(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.CHAT_USER_ID) chatUserId: String
+    ): Response<BaseResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.ADD_CHAT)
+    suspend fun addChat(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.CHAT_USER_ID) chatUserId: String,
+        @Field(Constant.UNREAD) unread: String,
+        @Field(Constant.MSG_SEEN) msgSeen: String,
+        @Field(Constant.MESSAGE) message: String
+    ): Response<AddChatResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.NOTFICATION_LIST)
+    suspend fun getNotifications(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.OFFSET) offset: String,
+        @Field(Constant.LIMIT) limit: String
+    ): Response<NotificationResponse>
+
+
+    @FormUrlEncoded
+    @POST(Constant.USERS_LIST)
+    suspend fun getUsers(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.OFFSET) offset: String,
+        @Field(Constant.LIMIT) limit: String,
+        @Field(Constant.GENDER) gender: String
+    ): Response<SearchResponse>
+
 }

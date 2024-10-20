@@ -2,16 +2,21 @@ package com.gmwapp.dudeways.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
+import com.gmwapp.dudeways.activity.ChatsActivity
+import com.gmwapp.dudeways.activity.ProfileInfoActivity
 import com.gmwapp.dudeways.databinding.LayoutHomeProfilesBinding
 import com.gmwapp.dudeways.model.HomeProfile
+import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 
 class HomeProfilesAdapter(
@@ -98,31 +103,29 @@ class HomeProfilesAdapter(
                 )
             }
         }
-        /*  holder.llProfile.setOnClickListener {
-              val intent = Intent(activity, ProfileinfoActivity::class.java)
-              intent.putExtra("name", report.name)
-              intent.putExtra("chat_user_id", report.user_id)
-              intent.putExtra("id", report.id)
-              session.setData("reciver_profile", report.profile)
-              intent.putExtra("friend", report.friend)
-              activity.startActivity(intent)
-          }
-  */
-        /*      holder.rlChat.setOnClickListener {
-                  if (report.user_id == session.getData(Constant.USER_ID)) {
-                      Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
-                  } else {
-                      val intent = Intent(activity, ChatsActivity::class.java)
-                      intent.putExtra("id", report.id)
-                      intent.putExtra("name", report.name)
-                      session.setData("reciver_profile", report.profile)
-                      intent.putExtra("chat_user_id", report.user_id)
-                      intent.putExtra("unique_name", report.unique_name)
-                      intent.putExtra("friend_verified", report.verified)
-                      activity.startActivity(intent)
-                  }
-              }
-      */
+        holder.binding.llProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileInfoActivity::class.java)
+            intent.putExtra("name", report.name)
+            intent.putExtra("chat_user_id", report.user_id)
+            intent.putExtra("id", report.id)
+            session.setData("reciver_profile", report.profile)
+            intent.putExtra("friend", report.friend)
+            activity.startActivity(intent)
+        }
+        holder.binding.rlChat.setOnClickListener {
+            if (report.user_id == session.getData(Constant.USER_ID)) {
+                Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(activity, ChatsActivity::class.java)
+                intent.putExtra("id", report.id)
+                intent.putExtra("name", report.name)
+                session.setData("reciver_profile", report.profile)
+                intent.putExtra("chat_user_id", report.user_id)
+                intent.putExtra("unique_name", report.unique_name)
+                intent.putExtra("friend_verified", report.verified)
+                activity.startActivity(intent)
+            }
+        }
         Glide.with(activity).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
             .into(holder.binding.ivProfileImage)
 

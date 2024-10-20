@@ -99,6 +99,8 @@ class MessagesFragment : Fragment() {
 
         viewModel.chatLiveData.observe(requireActivity(), Observer {
             if (it.success) {
+                isLoading = false
+                binding.swipeRefreshLayout.isRefreshing = false
                 total = it.total.toInt()
                 if (offset == 0) {
                     chatList.clear()

@@ -107,10 +107,19 @@ class InterestFragment : Fragment() {
         if (isLoading) return
         isLoading = true
 
-        viewModel.getConnect(
-            session.getData(Constant.USER_ID).toString(),
-            offset.toString(), limit.toString()
-        )
+
+        if (isNetworkAvailable(requireActivity())){
+
+            viewModel.getConnect(
+                session.getData(Constant.USER_ID).toString(),
+                offset.toString(), limit.toString()
+            )
+        }else{
+            Toast.makeText(requireActivity(),getString(R.string.str_error_internet_connections),
+                Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
     private fun addObsereves() {

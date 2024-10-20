@@ -280,7 +280,7 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
 
 
         binding.ivSearch.setOnClickListener {
-            fm.beginTransaction().replace(R.id.fragment_container, searchFragment).commit()
+            fm.beginTransaction().replace(R.id.fragment_container, SearchFragment()).commit()
         }
 
         binding.civProfile.setOnClickListener {
@@ -345,7 +345,6 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             R.id.navMessages -> transaction.replace(R.id.fragment_container, MessagesFragment())
             R.id.navNotification -> transaction.replace(R.id.fragment_container, NotificationFragment())
         }
-        transaction.addToBackStack(null)
         transaction.commit()
         settingsViewModel.getSettings()
         return true
