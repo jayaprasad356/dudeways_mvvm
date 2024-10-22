@@ -284,13 +284,13 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         }
 
         binding.civProfile.setOnClickListener {
-            /*val transaction = fm.beginTransaction()
+            val transaction = fm.beginTransaction()
             transaction.replace(
                 R.id.fragment_container, MyProfileFragment()
             )
-            transaction.commit()*/
+            transaction.commit()
 
-            startActivity(Intent(mContext,ProfileViewActivity::class.java))
+            //startActivity(Intent(mContext,ProfileViewActivity::class.java))
         }
 
 

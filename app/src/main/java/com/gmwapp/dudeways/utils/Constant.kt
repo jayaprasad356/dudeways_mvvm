@@ -62,6 +62,7 @@ object Constant {
     const val NOTFICATION_LIST: String = "api/notification_list"
     const val UPDATE_NOTIFY: String = "api/update_notify"
     const val ADD_FRIENDS: String = "api/add_friends"
+    const val ADD_REPORTS: String = "api/add_reports"
     const val MSG_SEEN_URL: String = BaseUrl + "msg_seen"
     const val READ_CHATS: String = "api/read_chats"
     const val UNREAD_ALL: String = "api/unread_all"

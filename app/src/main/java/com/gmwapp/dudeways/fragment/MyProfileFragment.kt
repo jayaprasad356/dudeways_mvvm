@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -102,18 +103,35 @@ class MyProfileFragment : Fragment() {
 
         sharedPreferences = activity?.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)!!
 
+
+        binding.darkModeSwitch.setOnCheckedChangeListener(null)  // Clear previous listener
+
+// Set the initial state from SharedPreferences
         binding.darkModeSwitch.isChecked = sharedPreferences.getBoolean("dark_mode", false)
 
+// Reattach the listener
         binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Disable switch to prevent multiple rapid clicks
+            binding.darkModeSwitch.isEnabled = false
+
+            // Save the new state in SharedPreferences
             sharedPreferences.edit().putBoolean("dark_mode", isChecked).apply()
+
+            // Apply the theme change
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
+
+            // Recreate the activity to apply the new theme
             activity?.recreate()
 
-
+            // Re-enable the switch after recreation
+            binding.darkModeSwitch.isEnabled = true
         }
+
+
+
         binding.rlDeletemyaccount.setOnClickListener {
             showDeleteAccountDialog()
         }
@@ -247,9 +265,9 @@ class MyProfileFragment : Fragment() {
 
 
         binding.ivBack.setOnClickListener {
-            //requireActivity().onBackPressedDispatcher.onBackPressed()
-            startActivity(Intent(requireActivity(), HomeActivity::class.java))
-            requireActivity().finish()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+//            startActivity(Intent(requireActivity(), HomeActivity::class.java))
+//            requireActivity().finish()
         }
 
 
@@ -320,10 +338,10 @@ class MyProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.rlCustomerSupport.setOnClickListener {
-            val intent = Intent(activity, CustomerSupportActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.rlCustomerSupport.setOnClickListener {
+//            val intent = Intent(activity, CustomerSupportActivity::class.java)
+//            startActivity(intent)
+//        }
 
         binding.rlVerificationBadge.visibility = View.GONE
 
@@ -583,5 +601,23 @@ class MyProfileFragment : Fragment() {
             }
         }
 
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        // verification_list()
+        handleOnBackPressed()
+
+    }
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Replace the current fragment with HomeFragment
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, HomeFragment())
+                    .commit()
+            }
+        })
     }
 }

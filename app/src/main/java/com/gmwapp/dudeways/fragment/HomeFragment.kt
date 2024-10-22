@@ -192,7 +192,7 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
 
         binding.apply {
             rvUserList.layoutManager =
-                LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             rvUserList.setHasFixedSize(true)
             homeUserListAdapter = HomeUserlistAdapter(activity, homeUserlist)
             rvUserList.adapter = homeUserListAdapter

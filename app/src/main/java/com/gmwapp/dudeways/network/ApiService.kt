@@ -121,6 +121,15 @@ interface ApiService {
         @Field(Constant.FRIEND) friend: String
     ): Response<BaseResponse>
 
+
+    @FormUrlEncoded
+    @POST(Constant.ADD_REPORTS)
+    suspend fun reportFriends(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.CHAT_USER_ID) friendUserId: String,
+        @Field(Constant.MESSAGE) message: String
+    ): Response<BaseResponse>
+
     @FormUrlEncoded
     @POST(Constant.FREINDS_LIST)
     suspend fun getConnect(

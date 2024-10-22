@@ -12,6 +12,13 @@ class FriendRespositories @Inject constructor(val apiService: ApiService) {
         userId, friendUserId, friend
     )
 
+    suspend fun reportFriends(
+        userId: String,
+        friendUserId: String,
+        message: String
+    ) = apiService.reportFriends(
+        userId, friendUserId,message
+    )
     suspend fun getConnect(userId: String, offset: String, limit: String) =
         apiService.getConnect(userId, offset, limit)
 }

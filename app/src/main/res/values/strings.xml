@@ -69,5 +69,7 @@
     <string name="cancel">Cancel</string>
     <string name="purchase_point">Purchase Point</string>
     <string name="str_error_internet_connections">Please check your internet connections</string>
+    <string name="report_user">Report User</string>
+    <string name="report">Report</string>
 
 </resources>

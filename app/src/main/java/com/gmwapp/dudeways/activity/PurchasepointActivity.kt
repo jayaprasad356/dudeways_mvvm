@@ -149,7 +149,25 @@ class PurchasepointActivity : BaseActivity() {
             }
 
             holder.itemView.setOnClickListener {
-                showMobileInputDialog(item.id, item.price)
+
+                val  amount = item.price
+                val pointsId = item.id
+
+                if (session.getData(Constant.POINT_PAYMENT_MOBILE)?.isNotEmpty() == true)
+                {
+                    viewModel.addPoints(
+                        session.getData(Constant.NAME).toString(),
+                        amount,
+                        session.getData(Constant.EMAIL).toString(),
+                        session.getData(Constant.POINT_PAYMENT_MOBILE).toString(),
+                        session.getData(Constant.USER_ID).toString() + "-" + pointsId
+                    )
+
+                }
+                else{
+                    showMobileInputDialog(item.id, item.price)
+                }
+
             }
 
         }

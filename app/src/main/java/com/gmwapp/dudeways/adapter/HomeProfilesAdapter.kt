@@ -3,6 +3,7 @@ package com.gmwapp.dudeways.adapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -126,8 +127,32 @@ class HomeProfilesAdapter(
                 activity.startActivity(intent)
             }
         }
-        Glide.with(activity).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
-            .into(holder.binding.ivProfileImage)
+//        Glide.with(activity).load(report.trip_image).placeholder(R.drawable.placeholder_bg)
+//            .into(holder.binding.ivProfileImage)
+
+        Glide.with(activity)
+            .asBitmap()
+            .load(report.trip_image)
+            .placeholder(R.drawable.placeholder_bg)
+            .into(object :
+                com.bumptech.glide.request.target.BitmapImageViewTarget(holder.binding.ivProfileImage) {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                ) {
+                    // Calculate the new dimensions based on the image aspect ratio
+                    val width = resource.width / 1
+                    val height = resource.height / 1
+
+                    // Set the ImageView's dimensions
+                    holder.binding.ivProfileImage.layoutParams.width = width
+                    holder.binding.ivProfileImage.layoutParams.height = height
+                    holder.binding.ivProfileImage.requestLayout()
+
+                    // Set the loaded bitmap to the ImageView
+                    holder.binding.ivProfileImage.setImageBitmap(resource)
+                }
+            })
 
         Glide.with(activity).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.binding.ivProfile)

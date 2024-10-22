@@ -95,10 +95,11 @@
                         android:scaleType="fitXY" />
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:id="@+id/ivPost"
-                        android:layout_width="@dimen/_280sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitXY" />
+                        />
 
 
                     <ImageButton

@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -47,6 +48,7 @@ import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.AddFriendViewModel
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
+import com.gmwapp.dudeways.viewmodel.ReportFriendViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -89,6 +91,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
     var verified = ""
     private val viewModel: AddFriendViewModel by viewModels()
     private val chatViewModel: ChatViewModel by viewModels()
+    private val reportviewModel: ReportFriendViewModel by viewModels()
+
     var userId: String? = ""
     var chatId: String? = ""
 
@@ -210,11 +214,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         })
 
 
-        /*binding.ivProfile.setOnClickListener{
-            val intent = Intent(activity, ProfileinfoActivity::class.java)
+        binding.ivProfile.setOnClickListener{
+            val intent = Intent(activity, ProfileInfoActivity::class.java)
             intent.putExtra("chat_user_id", receiverId!!)
             activity.startActivity(intent)
-        }*/
+        }
 
         binding.sendButton.setOnClickListener {
             if (isNetworkAvailable(mContext)) {
@@ -383,6 +387,9 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             }
 
 
+
+
+
         })
 
         chatViewModel.deleteChatLiveData.observe(this, Observer
@@ -472,6 +479,16 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
 
             } else {
                 Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        reportviewModel.reportFrientLiveData.observe(this, Observer {
+            if (it.success) {
+
+                Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
+
+            } else {
+                Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -601,11 +618,17 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                         true
                     }
 
-                    R.id.menu_report -> {
+                    R.id.menu_remove -> {
                         viewModel.addFriend(
                             session.getData(Constant.USER_ID).toString(),
                             receiverId.toString(), "2"
                         )
+                        true
+                    }
+
+                    R.id.menu_report -> {
+                        showReportInputDialog()
+
                         true
                     }
 
@@ -616,6 +639,52 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             popupMenu.show()
         }
     }
+
+    private fun showReportInputDialog() {
+        // Inflate custom dialog layout
+        val dialogView =
+            LayoutInflater.from(activity).inflate(R.layout.custom_report_dialog, null)
+
+        // Find the views
+        val etMessage: EditText = dialogView.findViewById(R.id.etMessage)
+        val btnSubmit: Button = dialogView.findViewById(R.id.btnSubmit)
+        val btnCancel: Button = dialogView.findViewById(R.id.btnCancel)
+
+        // Create AlertDialog with the custom layout
+        val dialog = AlertDialog.Builder(activity)
+            .setView(dialogView)
+            .create()
+
+        // Set click listener for submit button
+        btnSubmit.setOnClickListener {
+            val etMessages = etMessage.text.toString().trim()
+
+            // Validate the mobile number
+            if (etMessages.isEmpty()) {
+                Toast.makeText(activity, "Please enter Report Message", Toast.LENGTH_SHORT)
+                    .show()
+            }  else {
+                reportviewModel.reportFriend(
+                    session.getData(Constant.USER_ID).toString(),
+                    receiverId,
+                    etMessages
+                )
+
+                dialog.dismiss() // Dismiss the dialog after submitting
+            }
+        }
+
+        // Set click listener for cancel button
+        btnCancel.setOnClickListener {
+            dialog.dismiss() // Dismiss the dialog when cancelled
+        }
+
+        // Show the dialog
+        dialog.show()
+    }
+
+
+
 
     private fun updateBlockStatus(senderId: String, receiverId: String, isBlocked: Boolean) {
         val blockReference =
@@ -631,6 +700,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             makeToast("Failed to update block status")
         }
     }
+
+
 
     private fun isBlocked(senderId: String, receiverId: String, callback: (Boolean) -> Unit) {
         val blockReference =

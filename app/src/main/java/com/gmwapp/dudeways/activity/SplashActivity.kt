@@ -72,10 +72,10 @@ class SplashActivity : BaseActivity() {
                 //   Toast.makeText(activity,latestVersion + currentVersion!!.toInt() , Toast.LENGTH_SHORT).show()
                 val description = it.data[0].description
                 if (currentVersion!!.toInt() >= latestVersion.toInt()) {
-                    binding.videoView.setOnCompletionListener {
+//                    binding.videoView.setOnCompletionListener {
                         GotoActivity()
                         // Do something when the video ends
-                    }
+//                    }
                 } else {
                     showUpdateDialog(link, description)
                 }
@@ -130,8 +130,8 @@ class SplashActivity : BaseActivity() {
         if (isNetworkAvailable(mContext)) {
             val videoUri =
                 Uri.parse("android.resource://" + packageName + "/" + R.raw.logo_animation)
-            binding.videoView.setVideoURI(videoUri)
-            binding.videoView.start()
+//            binding.videoView.setVideoURI(videoUri)
+//            binding.videoView.start()
 
             viewModel.appUpdate()
 
