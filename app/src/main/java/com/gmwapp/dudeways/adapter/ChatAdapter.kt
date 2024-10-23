@@ -1,10 +1,12 @@
 package com.gmwapp.dudeways.adapter
 
 import android.app.AlertDialog
+import android.content.Intent.getIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -15,16 +17,19 @@ import com.gmwapp.dudeways.databinding.SenderChatMessageBinding
 import com.gmwapp.dudeways.model.ChatList
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
+import com.google.firebase.database.FirebaseDatabase
 import com.zoho.livechat.android.utils.SalesIQCache.messages
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+
 class ChatAdapter(
     private val conversations: MutableList<ChatList?>,
     private val onClick: (ChatList) -> Unit,
     private var session: Session,
-    private val onMessageDelete: (ChatList) -> Unit
+    private val onMessageDelete: (ChatList) -> Unit,
+    private val receiverName: String // Add receiverName here
 ) : RecyclerView.Adapter<ChatAdapter.ItemHolder>() {
 
     inner class ItemHolder(private val binding: ViewBinding) :
@@ -93,11 +98,42 @@ class ChatAdapter(
         }
 
         private fun deleteMessage(chatMessage: ChatList) {
-            // Perform deletion logic here
-            conversations.remove(chatMessage)
-            notifyDataSetChanged()
-            onMessageDelete(chatMessage)
+            val senderName = session.getData(Constant.UNIQUE_NAME).toString() // Assuming this is the sender's name
+            val chatId = chatMessage.chatID.toString()
+
+
+           // Toast.makeText(binding.root.context, "$senderName", Toast.LENGTH_SHORT).show()
+            // Reference to the message you want to delete
+            val messageRef = FirebaseDatabase.getInstance().getReference("CHATS_V2")
+                .child(senderName)
+                .child(receiverName)
+                .child(chatId)
+
+            // Perform the delete operation
+            messageRef.removeValue()
+                .addOnSuccessListener {
+                    // Message deleted successfully
+                    println("Message deleted successfully: $chatId")
+
+                    // Remove from local conversations list
+                    val position = conversations.indexOfFirst { it?.chatID == chatId }
+                    if (position != -1) {
+                        conversations.removeAt(position) // Remove the message from the list
+                        notifyItemRemoved(position) // Notify the adapter about item removal
+                    } else {
+                        println("Message not found in local list: $chatId")
+                    }
+                }
+                .addOnFailureListener { error ->
+                    // Handle the error
+                    println("Error deleting message: ${error.message}")
+                }
         }
+
+
+
+
+
 
         private fun handleDateHeader(dateHeader: TextView, shouldShow: Boolean, date: String) {
             if (shouldShow) {
@@ -186,4 +222,7 @@ class ChatAdapter(
         conversations.add(message)
         notifyItemInserted(messages.size - 1)
     }
+
+
+
 }

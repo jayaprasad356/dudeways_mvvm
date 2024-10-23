@@ -38,15 +38,20 @@ import com.gmwapp.dudeways.model.UserDataResponse
 import com.gmwapp.dudeways.model.WalletResponse
 import com.gmwapp.dudeways.model.WithdrawResponse
 import com.gmwapp.dudeways.utils.Constant
+import com.google.android.gms.fido.u2f.api.messagebased.ResponseType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ApiService {
 
@@ -327,6 +332,13 @@ interface ApiService {
         @Field(Constant.MESSAGE_NOTIFY) notify: String,
         @Field(Constant.ADD_FRIEND_NOTIFY) addFriendNotify: String,
         @Field(Constant.VIEW_NOTIFY) viewNotify: String
+    ): Response<BaseResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.UPDATE_MOBILE)
+    suspend fun updateMobile(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.MOBILE) notify: String,
     ): Response<BaseResponse>
 
     @FormUrlEncoded

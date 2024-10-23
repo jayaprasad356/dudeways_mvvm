@@ -130,7 +130,7 @@ class Stage2Activity : BaseActivity() {
             if (it.success) {
                 Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
                 session.setData(Constant.SELFIE_IMAGE, it.data[0].selfie_image)
-                startActivity(Intent(this, Stage1Activity::class.java))
+                startActivity(Intent(this, ProfileVerifyActivity::class.java))
                 finish()
 
             } else {

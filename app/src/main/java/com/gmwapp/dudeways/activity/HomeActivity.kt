@@ -95,6 +95,20 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         initUI(savedInstanceState)
         addListner()
         addObsereves()
+
+        // Check if there are any extras
+        val fragmentToOpen = intent.getStringExtra("fragment_to_open")
+        if (fragmentToOpen != null) {
+            // Logic to open the desired fragment
+            when (fragmentToOpen) {
+                "desiredFragmentTag" -> {
+
+                    fm.beginTransaction().replace(R.id.fragment_container, MessagesFragment()).commit()
+
+                }
+                // Add more cases if needed for other fragments
+            }
+        }
     }
 
     private fun initUI(savedInstanceState: Bundle?) {
@@ -172,7 +186,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
                 session.setData(Constant.INSTAGRAM_LINK, array[0].instagram_link)
                 session.setData(Constant.TELEGRAM_LINK, array[0].telegram_link)
                 session.setData(Constant.UPI_ID, array[0].upi_id)
-
+                session.setData(Constant.MOBILE, array[0].mobile)
             } else {
                 Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
             }

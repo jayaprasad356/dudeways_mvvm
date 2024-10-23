@@ -20,6 +20,7 @@
 
 
     <color name="primary">#FF5084</color>
+    <color name="primary_Dark">#FF0059</color>
     <color name="primary_gradient_light">#FF8CAE</color>
     <color name="primary_light">#FF8CAE</color>
     <color name="primary_extra_light">#FFE5ED</color>

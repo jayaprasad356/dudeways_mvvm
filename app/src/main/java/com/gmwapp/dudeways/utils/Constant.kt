@@ -12,6 +12,9 @@ object Constant {
 
     const val BaseUrl: String = MainBaseUrl
 
+    fun getOTPUrl(key: String, mobile: String, otp: String): String {
+        return "https://api.authkey.io/request?authkey=$key&mobile=$mobile&country_code=91&sid=14576&otp=$otp"
+    }
 
     const val REGISTER: String = "api/register"
     const val PROFESSION_LIST: String = "api/profession_list"
@@ -61,6 +64,7 @@ object Constant {
     const val CHAT_LIST: String = "api/chat_list"
     const val NOTFICATION_LIST: String = "api/notification_list"
     const val UPDATE_NOTIFY: String = "api/update_notify"
+    const val UPDATE_MOBILE: String = "api/update_mobile"
     const val ADD_FRIENDS: String = "api/add_friends"
     const val ADD_REPORTS: String = "api/add_reports"
     const val MSG_SEEN_URL: String = BaseUrl + "msg_seen"

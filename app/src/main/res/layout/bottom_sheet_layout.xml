@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+
+
+    <LinearLayout
+        android:id="@+id/llMobile"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvDialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_mobile_number"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:paddingBottom="10dp"
+            android:textAlignment="textStart"/>
+
+        <EditText
+            android:id="@+id/etMobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mobile_number"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:padding="12dp"
+            android:background="@drawable/edit_text2"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_gravity="center"
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_medium"
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_button"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/llOtp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter OTP"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:paddingBottom="10dp"
+            android:textAlignment="textStart"/>
+
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/optView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            app:bar_height="@dimen/_2sdp"
+            android:fontFamily="@font/poppins_medium"
+            app:height="@dimen/_35sdp"
+            app:length="6"
+            app:otp_box_background="@drawable/edit_text2"
+            app:otp_text_size="@dimen/_18sdp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:width="@dimen/_35sdp" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_gravity="center"
+            android:id="@+id/btnVerify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_medium"
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_button"
+            android:text="@string/verify"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </LinearLayout>
+
+
+
+
+    <ProgressBar
+        android:id="@+id/pbLoadData"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:theme="@style/CircularProgress"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</LinearLayout>

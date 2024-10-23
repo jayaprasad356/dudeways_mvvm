@@ -99,26 +99,28 @@ class ChatListAdapter(
         val point = session.getData(Constant.POINTS)
 
         holder.itemView.setOnClickListener {
-
-
             if (report.chat_user_id == session.getData(Constant.USER_ID)) {
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
             } else {
-                //        chatList.clear()
-                val intent = Intent(activity, ChatsActivity::class.java)
-                intent.putExtra("id", report.id)
-                intent.putExtra("name", report.name)
-                session.setData("reciver_profile", report.profile)
-                intent.putExtra("chat_user_id", report.chat_user_id)
-                intent.putExtra("unread", report.unread)
-                intent.putExtra("unique_name", report.unique_name)
-                intent.putExtra("friend_verified", report.verified)
-                session.setData(Constant.MSG_SEEN, report.msg_seen)
+                val intent = Intent(activity, ChatsActivity::class.java).apply {
+                    putExtra("id", report.id)
+                    putExtra("name", report.name)
+                    session.setData("reciver_profile", report.profile)
+                    putExtra("chat_user_id", report.chat_user_id)
+                    putExtra("unread", report.unread)
+                    putExtra("unique_name", report.unique_name)
+                    putExtra("friend_verified", report.verified)
+                    session.setData(Constant.MSG_SEEN, report.msg_seen)
+                }
+
                 activity.startActivity(intent)
+
+
+
+
             }
-
-
         }
+
 
 
     }

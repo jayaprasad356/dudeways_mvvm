@@ -15,6 +15,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
 import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupMenu
@@ -50,6 +51,7 @@ import com.gmwapp.dudeways.viewmodel.AddFriendViewModel
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
 import com.gmwapp.dudeways.viewmodel.ReportFriendViewModel
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -132,13 +134,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             receiverName = intent?.getStringExtra("unique_name").toString()
             binding.tvName.text = intent!!.getStringExtra("name")
             chatViewModel.getReadChats(
-                session.getData(Constant.USER_ID)
-                    .toString(), receiverId, "0"
+                session.getData(Constant.USER_ID).toString(), receiverId, "0"
             )
 
 
-            chatReference =
-                databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
+            chatReference = databaseReference.child("CHATS_V2").child(senderName!!).child(receiverName!!)
             typingStatusReference = firebaseDatabase.getReference("typing_status/$senderId")
             // You can now use these variables or proceed to open a new activity if needed
 
@@ -750,6 +750,10 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         }
     }
 
+
+
+
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onMessagesFetched(conversations: MutableList<ChatList?>) {
         var lastDisplayedDateTime: Long? = null
@@ -848,22 +852,21 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             conversations,
             onClick = { /* Handle message click */ },
             session,
-            onMessageDelete = { chatModel ->
-                // Handle message deletion here, e.g., remove from database
-                // You might need to implement logic to actually delete the message from your data source
-                // For example:
-                // chatViewModel.deleteMessage(chatModel)
-            }
+            onMessageDelete = { chatModel -> },
+                    receiverName.toString(),
+
         )
+
+
+
         binding.RVChats.apply {
             layoutManager = LinearLayoutManager(this@ChatsActivity)
             adapter = chatAdapter
-            scrollToPosition(
-                chatAdapter?.itemCount?.minus(1) ?: 0
-            ) // Ensure scrolling to the last message
+            scrollToPosition(chatAdapter!!.itemCount - 1)
             invalidate()
         }
     }
+
 
 
     override fun onDestroy() {
