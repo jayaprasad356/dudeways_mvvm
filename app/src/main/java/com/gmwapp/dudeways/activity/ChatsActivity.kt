@@ -50,6 +50,7 @@ import com.gmwapp.dudeways.viewmodel.AddFriendViewModel
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
 import com.gmwapp.dudeways.viewmodel.ReportFriendViewModel
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.Timestamp
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -59,6 +60,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
@@ -85,6 +87,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
     private var isConversationsFetching: Boolean = true
     private lateinit var typingStatusReference: DatabaseReference
     private var lastMessageId: String? = null
+    private var lastMessage: String = ""
 
 
     var gender = ""
@@ -229,7 +232,18 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                         session.getData(Constant.USER_ID).toString(),
                         receiverId.toString(),
                         "1", "1",
-                        binding.messageEdittext.text.toString().trim()
+                        binding.messageEdittext.text.toString().trim(),
+                        ChatList(
+                            attachmentType = "TEXT",
+                            chatID = System.currentTimeMillis().toString()+"-"+Random.nextInt(100000, 999999).toString(),
+                            dateTime = Timestamp.now().toDate().time,
+                            message = binding.messageEdittext.text.toString().trim(),
+                            msgSeen = false,
+                            receiverID = this@ChatsActivity.receiverId,
+                            senderID = this@ChatsActivity.senderId,
+                            type = "TEXT",
+                            sentBy = session.getData(Constant.NAME)
+                        )
                     )
                 }
 
@@ -254,7 +268,9 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val chatModel = snapshot.getValue(ChatList::class.java)
                     logInfo(CHATS_ACTIVITY, "from firebase child added - $chatModel")
-                    onMessageAdded(chatModel)
+                    if(senderId != chatModel?.senderID) {
+                        onMessageAdded(chatModel)
+                    }
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -298,13 +314,18 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 binding.pbLoadData.visibility = View.GONE
             }
         })
-
+        chatViewModel.addLocalChatLiveData.observe(this, Observer {
+            binding.sendButton.isClickable = true
+            lastMessage = binding.messageEdittext.text.toString()
+            binding.messageEdittext.text.clear()
+            onMessageAdded(it)
+        })
         chatViewModel.addChatLiveData.observe(this, Observer {
             if (it.success) {
                 chat_status = it.chat_status
                 session.setData(Constant.CHAT_STATUS, chat_status)
                 session.setData(Constant.MSG_SEEN, "1")
-                val message = binding.messageEdittext.text.toString()
+                val message = lastMessage
                 if (message.isNotEmpty()) {
                     isBlocked(senderId, receiverId) { isBlocked ->
                         if (isBlocked) {
@@ -344,7 +365,12 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 //   Toast.makeText(this, chat_status, Toast.LENGTH_SHORT).show()
 
 
-            } else {
+            } else if(it.errorCode == 429) {
+                makeToast(getString(R.string.please_try_again_later))
+            } else if(it.errorCode !=null){
+                makeToast(getString(R.string.please_try_again_later)+" "+it.errorCode)
+            }
+            else {
                 binding.sendButton.isClickable = true
 
                 chat_status = it.chat_status
