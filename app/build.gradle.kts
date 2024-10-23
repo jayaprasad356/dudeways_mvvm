@@ -146,5 +146,7 @@ dependencies {
 
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.5.0")
 
+    implementation ("com.github.aabhasr1:OtpView:v1.1.2")
+
 
 }

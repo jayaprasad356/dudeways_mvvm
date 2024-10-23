@@ -25,6 +25,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/logo"
         android:installLocation="internalOnly"
         android:label="@string/app_name"
@@ -36,6 +37,12 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.ProfileVerifyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.EarningActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.ProfileViewActivity"
             android:exported="false" />

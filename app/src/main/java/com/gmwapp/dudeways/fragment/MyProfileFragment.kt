@@ -27,6 +27,7 @@ import com.canhub.cropper.CropImageView
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.CustomerSupportActivity
 import com.gmwapp.dudeways.activity.DeactivateActivity
+import com.gmwapp.dudeways.activity.EarningActivity
 import com.gmwapp.dudeways.activity.HomeActivity
 import com.gmwapp.dudeways.activity.InviteFriendsActivity
 import com.gmwapp.dudeways.activity.LoginActivity
@@ -145,6 +146,21 @@ class MyProfileFragment : Fragment() {
         binding.rlWallet.setOnClickListener {
             val intent = Intent(activity, WalletActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.tvEarning.setOnClickListener {
+
+            if (session.getData(Constant.MOBILE).toString().isBlank()){
+                val bottomSheetFragment = EarningsBottomSheetFragment()
+                bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+            }
+
+            else{
+                val intent = Intent(activity, EarningActivity::class.java)
+                startActivity(intent)
+            }
+
+
         }
 
         // Configure Google Sign-In

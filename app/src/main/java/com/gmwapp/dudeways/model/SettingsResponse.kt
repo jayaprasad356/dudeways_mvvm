@@ -9,5 +9,6 @@ data class SettingsResponse(
 data class SettingsModel(
     val instagram_link: String,
     val telegram_link: String,
-    val upi_id: String
+    val upi_id: String,
+    val mobile: String
 )

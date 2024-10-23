@@ -4,8 +4,9 @@
 
     <!-- Base theme for light mode -->
     <style name="Theme.Paring" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimaryVariant">@color/primary</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Define text color for light mode -->
         <item name="android:textColor">@color/black</item>
@@ -25,6 +26,7 @@
     <style name="Theme.Paring.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimaryVariant">@color/primary</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Define text color for dark mode -->
         <item name="android:textColor">@color/white</item>
@@ -45,16 +47,14 @@
     </style>
 
 
-    <style name="Theme.Paring.Fullscreen" parent="Theme.Paring">
-        <item name="android:actionBarStyle">@style/Widget.Theme.Paring.ActionBar.Fullscreen</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
+
+
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
-    <style name="ThemeOverlay.Paring.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
-        <item name="fullscreenTextColor">@color/light_blue_A200</item>
-    </style>
 
 
 </resources>

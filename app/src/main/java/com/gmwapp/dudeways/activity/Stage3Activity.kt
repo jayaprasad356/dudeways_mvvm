@@ -147,7 +147,7 @@ class Stage3Activity : BaseActivity() {
         viewModel.backImageLiveData.observe(this, Observer {
             if (it.success) {
                 session.setData(Constant.BACK_IMAGE, it.data.back_image)
-                startActivity(Intent(this, PurchaseverifybuttonActivity::class.java))
+                startActivity(Intent(this, ProfileVerifyActivity::class.java))
                 finish()
 
             } else {
@@ -177,7 +177,6 @@ class Stage3Activity : BaseActivity() {
                 val imgFile: File = File(filePath1)
                 if (imgFile.exists()) {
                     val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
-
                     if (session.getData(Constant.FrontPROOF) == "0") {
                         binding.ivFrontproof.setImageBitmap(myBitmap)
                         binding.ibFrontproof.visibility = View.GONE
