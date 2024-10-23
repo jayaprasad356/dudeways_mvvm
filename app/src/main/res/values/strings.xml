@@ -71,6 +71,7 @@
     <string name="str_error_internet_connections">Please check your internet connections</string>
     <string name="report_user">Report User</string>
     <string name="report">Report</string>
+    <string name="please_try_again_later">Too many request. Please try again later</string>
     <string name="start_your_earnings">Start Your Earnings</string>
     <string name="verify">Verify</string>
     <string name="complete_the_verification_process_and_earn_more">Complete the verification process and earn more.</string>

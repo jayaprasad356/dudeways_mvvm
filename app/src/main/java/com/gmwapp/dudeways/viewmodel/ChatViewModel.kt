@@ -7,6 +7,7 @@ import com.gmwapp.dudeways.model.AddChatResponse
 import com.gmwapp.dudeways.model.AddPointsResponse
 import com.gmwapp.dudeways.model.BackImageResponse
 import com.gmwapp.dudeways.model.BaseResponse
+import com.gmwapp.dudeways.model.ChatList
 import com.gmwapp.dudeways.model.ChatResponse
 import com.gmwapp.dudeways.model.FontImageResponse
 import com.gmwapp.dudeways.model.OtherUserDetailModel
@@ -38,6 +39,7 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
     val paymentImageLiveData = MutableLiveData<BaseResponse>()
     val deleteChatLiveData = MutableLiveData<BaseResponse>()
     val addChatLiveData = MutableLiveData<AddChatResponse>()
+    val addLocalChatLiveData = MutableLiveData<ChatList>()
     val selfiImageLiveData = MutableLiveData<SelfiImageResponse>()
     val fontImageLiveData = MutableLiveData<FontImageResponse>()
     val backImageLiveData = MutableLiveData<BackImageResponse>()
@@ -75,13 +77,10 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
 
     fun getReadChats(userId: String, chatUserId: String, msgSeen: String) {
         viewModelScope.launch {
-            isLoading.postValue(true)
             chatRepositories.getReadChats(userId, chatUserId, msgSeen).let {
                 if (it.body() != null) {
                     readChatLiveData.postValue(it.body())
-                    isLoading.postValue(false)
                 } else {
-                    isLoading.postValue(false)
                 }
             }
 
@@ -261,15 +260,23 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
 
 
     fun addChat(userId: String,chatUserId: String,
-                unRead:String,msgSeen: String,message:String) {
+                unRead:String,msgSeen: String,message:String, chatList: ChatList) {
         viewModelScope.launch {
-            isLoading.postValue(true)
+            addLocalChatLiveData.postValue(chatList)
             chatRepositories.addChat(userId,chatUserId,unRead,msgSeen,message).let {
                 if (it.body() != null) {
                     addChatLiveData.postValue(it.body())
-                    isLoading.postValue(false)
                 } else {
-                    isLoading.postValue(false)
+                    if(it.code() != null) {
+                        addChatLiveData.postValue(
+                            AddChatResponse(
+                                false,
+                                errorCode = it.code(),
+                                message = "",
+                                chat_status = "0"
+                            )
+                        )
+                    }
                 }
             }
 
