@@ -268,7 +268,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val chatModel = snapshot.getValue(ChatList::class.java)
                     logInfo(CHATS_ACTIVITY, "from firebase child added - $chatModel")
-                    if(senderId != chatModel?.senderID) {
+                    if(!session.getData(Constant.NAME).equals(chatModel?.sentBy)) {
                         onMessageAdded(chatModel)
                     }
                 }
