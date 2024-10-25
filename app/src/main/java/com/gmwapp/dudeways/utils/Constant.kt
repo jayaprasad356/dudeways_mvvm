@@ -34,6 +34,9 @@ object Constant {
     const val TERMS_CONDITIONS: String = "api/terms_conditions"
 
     const val UPDATE_IMAGE: String = "api/update_image"
+    const val USER_EARNINGS: String = "api/user_earnings"
+    const val USER_EARNINGS_WITHOUT_PROOF: String = "api/user_earnings"
+    const val SELFI_IMAGE_URL: String = "api/selfi_image"
     const val UPDATE_COVER_IMG: String = "api/update_cover_img"
     const val VERIFY_FRONT_IMAGE: String = "api/verify_front_image"
     const val VERIFY_BACK_IMAGE: String = "api/verify_back_image"
@@ -148,6 +151,8 @@ object Constant {
     const val PROFILE_USER_ID: String = "profile_user_id"
     const val FRIEND: String = "friend"
     const val PAYMENT_IMAGE: String = "payment_image"
+    const val SELFI_IMAGE: String = "selfi_image"
+    const val PROOF_IMAGE: String = "proof_image"
 
     const val NAME: String = "name"
     const val ACCOUNT_HOLDER_NAME: String = "account_holder_name"
@@ -208,7 +213,7 @@ object Constant {
     const val FRONT_IMAGE: String = "front_image"
     const val BACK_IMAGE: String = "back_image"
     const val BACK_PRESSED: String = "back_pressed"
-    const val SELFIE_IMAGE: String = "selfie_image"
+    const val SELFIE_IMAGE: String = "selfi_image"
     const val VERIFICATION_FALSE: String = "verification_false"
     const val BOOKID: String = "book_id"
     const val CART_ID: String = "cart_id"

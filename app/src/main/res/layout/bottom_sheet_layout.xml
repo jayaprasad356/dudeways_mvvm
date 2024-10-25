@@ -21,7 +21,18 @@
             android:layout_height="wrap_content"
             android:text="@string/enter_mobile_number"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
+            android:paddingBottom="10dp"
+            android:textAlignment="textStart"/>
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="* Only for verification purpose not showing to anyone."
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="@dimen/_8sdp"
+            android:textColor="@color/red"
             android:paddingBottom="10dp"
             android:textAlignment="textStart"/>
 
@@ -49,6 +60,7 @@
             app:backgroundTint="@null"
             android:background="@drawable/gradient_button"
             android:text="@string/submit"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="@dimen/_12sdp" />
 
@@ -66,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="Enter OTP"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textColor="?attr/myTextColor"
             android:paddingBottom="10dp"
             android:textAlignment="textStart"/>
 
@@ -97,6 +109,7 @@
             app:backgroundTint="@null"
             android:background="@drawable/gradient_button"
             android:text="@string/verify"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="@dimen/_12sdp" />
 

@@ -174,17 +174,40 @@
                                     android:textColor="?attr/textgrey"
                                     android:textSize="@dimen/_10sdp" />
 
-                                <TextView
-                                    android:id="@+id/tvEarning"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/start_your_earnings"
+
+                                <RelativeLayout
+                                    android:id="@+id/rlEarning"
+                                    android:paddingHorizontal="@dimen/_10sdp"
                                     android:background="@drawable/round_corner"
                                     android:backgroundTint="@color/primary_Dark"
-                                    android:textColor="@color/white"
-                                    android:paddingHorizontal="@dimen/_10sdp"
-                                    android:paddingVertical="@dimen/_4sdp"
-                                    />
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+
+                                    <TextView
+                                        android:id="@+id/tvEarning"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/start_your_earnings"
+                                        android:textColor="@color/white"
+                                        android:layout_gravity="center"
+                                        android:paddingHorizontal="@dimen/_10sdp"
+                                        android:drawablePadding="@dimen/_4ssp"
+                                        android:paddingVertical="@dimen/_4sdp"
+                                        />
+
+                                    <ImageView
+                                        android:layout_marginTop="@dimen/_10sdp"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/tvEarning"
+                                        android:layout_width="@dimen/_14sdp"
+                                        android:layout_height="@dimen/_14sdp"
+                                        android:background="@drawable/ic"
+                                        />
+
+                                </RelativeLayout>
+
+
 
 
                                 <androidx.core.widget.NestedScrollView
@@ -413,6 +436,36 @@
 
 
                                         </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:id="@+id/rlCustomerSupport"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:paddingHorizontal="@dimen/_20sdp"
+                                            android:paddingVertical="@dimen/_10sdp">
+
+
+                                            <ImageView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_marginLeft="@dimen/_5sdp"
+                                                android:background="@drawable/information_ic" />
+
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerVertical="true"
+                                                android:layout_marginLeft="@dimen/_30sdp"
+                                                android:fontFamily="@font/poppins_regular"
+                                                android:text="Customer Support"
+                                                android:textColor="?attr/textmenu"
+                                                android:textSize="@dimen/_12sdp" />
+
+
+                                        </RelativeLayout>
+
 
 
 

@@ -36,8 +36,7 @@
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_marginTop="0dp"
                 android:src="@color/grey"
-                app:civ_border_color="@color/primary"
-                app:civ_border_width="@dimen/_1sdp" />
+              />
 
             <!-- Chat Bubble -->
             <androidx.constraintlayout.widget.ConstraintLayout

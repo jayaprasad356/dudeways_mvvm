@@ -35,6 +35,7 @@ import com.gmwapp.dudeways.model.SelfiImageResponse
 import com.gmwapp.dudeways.model.SettingsResponse
 import com.gmwapp.dudeways.model.TermsConditionResponse
 import com.gmwapp.dudeways.model.UserDataResponse
+import com.gmwapp.dudeways.model.UserEarningsResponse
 import com.gmwapp.dudeways.model.WalletResponse
 import com.gmwapp.dudeways.model.WithdrawResponse
 import com.gmwapp.dudeways.utils.Constant
@@ -85,6 +86,26 @@ interface ApiService {
         @Part(Constant.USER_ID) userId: RequestBody,
         @Part profile: MultipartBody.Part?
     ): Response<RegisterResponse>
+
+
+
+
+    @Multipart
+    @POST(Constant.USER_EARNINGS)
+    suspend fun updateEarningImage(
+        @Part(Constant.USER_ID) userId: RequestBody,
+        @Part(Constant.TYPE) type: RequestBody,
+        @Part selfi_image: MultipartBody.Part?,
+        @Part proof_image: MultipartBody.Part?,
+        ): Response<UserEarningsResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.USER_EARNINGS_WITHOUT_PROOF)
+    suspend fun updateWithoutProofImage(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.TYPE) type: String,
+        ): Response<BaseResponse>
+
 
     @FormUrlEncoded
     @POST(Constant.UPDATE_LOCATION)

@@ -103,14 +103,16 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/ivUploadSelfie"
                                 android:layout_gravity="center"
-                                android:layout_width="@dimen/_12sdp"
-                                android:layout_height="@dimen/_12sdp"
-                                android:background="@drawable/ic_camera"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:src="@drawable/ic_camera"
                                 />
 
 
                             <TextView
+                                android:id="@+id/tvUploadSelfie"
                                 android:layout_marginLeft="@dimen/_18sdp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
@@ -158,13 +160,15 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
+                                android:id="@+id/ivUploadIDProof"
                                 android:layout_gravity="center"
-                                android:layout_width="@dimen/_12sdp"
-                                android:layout_height="@dimen/_12sdp"
-                                android:background="@drawable/ic_camera"
+                                android:layout_width="@dimen/_14sdp"
+                                android:layout_height="@dimen/_14sdp"
+                                android:src="@drawable/ic_camera"
                                 />
 
                             <TextView
+                                android:id="@+id/tvUploadIDProof"
                                 android:layout_marginLeft="@dimen/_18sdp"
                                 android:layout_gravity="center"
                                 android:layout_width="wrap_content"
@@ -268,6 +272,25 @@
                 android:textColor="@color/text_grey"
                 android:layout_marginTop="8dp"
                 android:gravity="center" />
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginBottom="63dp"
+                android:enabled="false"
+                android:background="@drawable/gradient_button"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_14sdp"
+                app:backgroundTint="@null" />
 
 
         </LinearLayout>

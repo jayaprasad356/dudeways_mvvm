@@ -228,6 +228,8 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         session.setData(Constant.UNREAD_COUNT, data.unread_count.toString())
         session.setData(Constant.VERIFIED_STATUS, data.verified.toString())
         session.setData(Constant.BALANCE, data.balance.toString())
+        session.setData(Constant.SELFI_IMAGE, data.selfi_image.toString())
+        session.setData(Constant.PROOF_IMAGE, data.proof_image.toString())
         Log.d(
             "USERDETAILS",
             "USERDETAILS VERIFIED_STATUS: " + session.getData(Constant.VERIFIED_STATUS)
@@ -322,8 +324,8 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
     private fun initializeZohoSalesIQ() {
         val initConfig = InitConfig()
         ZohoSalesIQ.init(application,
-            "FkbMlSXKPaATeaZN35ZmjRdYaU29Wkx2QMkU75bCptU3ZA8TYZl2%2B%2BvFc55TAwVG_in",
-            "xHGPBNAi6lC%2Fm7ngAEy%2FPSgch2eW42oPrw91hcyRHElKYqtGLQkB%2FuE%2F7QPdaD9BbNzYtKPn9U0kV316gEW6vUjMNMCKY5Jey7HFiemj%2BueB02iLgVZl6g%3D%3D",
+            "FkbMlSXKPaDPJTBvIOKZ7yZS78x2e%2FYPV9rdVzhraTF1V22I2tahvt3bhEaayH7fqZso778jBuA%3D_in",
+            "xHGPBNAi6lC%2Fm7ngAEy%2FPSgch2eW42oPMx3W53lFWhg0T6llUBSBjSop2i8OG6yCoFvD8S5JoocJ8T0px73PQ9wcBnopYxHRcVhmI2KKbM4%2ByWaWjs1gQA%3D%3D",
             initConfig,
             object : InitListener {
                 override fun onInitSuccess() {

@@ -219,7 +219,7 @@ class PurchaseverifybuttonActivity : BaseActivity(), PlanListAdapter.onItemClick
     override fun onClick() {
         viewModel.addPoints(
             "tamil", "10.00", "test@gmail.com",
-            "6382088746", "1"
+            "", "1"
         )
     }
 

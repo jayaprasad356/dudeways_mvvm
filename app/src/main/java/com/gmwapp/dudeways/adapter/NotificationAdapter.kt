@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
@@ -52,6 +53,14 @@ class NotificationAdapter(
         holder.binding.tvName.text = report.name
         holder.binding.tvMessage.text = report.message
         holder.binding.tvtime.text = report.time
+
+        if (report.gender == "male") {
+            holder.binding.civProfile.borderColor = ContextCompat.getColor(activity, R.color.blue_200)
+        }
+        else {
+            holder.binding.civProfile.borderColor = ContextCompat.getColor(activity, R.color.primary)
+        }
+
         Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.binding.civProfile)
 
