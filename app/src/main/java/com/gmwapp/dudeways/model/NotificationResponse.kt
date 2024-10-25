@@ -21,4 +21,5 @@ data class NotificationModel(
     var created_at: String? = "",
     var unique_name: String? = "",
     var verified: String? = "",
+    var gender: String? = "",
 )

@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityRefundBinding
 import com.gmwapp.dudeways.extentions.isNetworkAvailable
+import com.gmwapp.dudeways.utils.Constant
+import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,6 +26,7 @@ class RefundActivity : BaseActivity() {
     lateinit var binding: ActivityRefundBinding
     lateinit var mContext: RefundActivity
     private val viewModel: ProfileViewModel by viewModels()
+    lateinit var session: Session
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,8 @@ class RefundActivity : BaseActivity() {
     }
 
     private fun initUI() {
+
+
 
         binding.ivBack.setOnClickListener {
             onBackPressed()

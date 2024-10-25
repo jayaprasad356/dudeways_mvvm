@@ -51,10 +51,32 @@
             android:textSize="@dimen/_10sdp"
             />
 
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
         <com.google.android.material.button.MaterialButton
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:id="@+id/btnFreePoints"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            app:backgroundTint="@null"
+            android:background="@drawable/gradient_button"
+            android:backgroundTint="@color/blue_200"
+            android:text="Free Points"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_10sdp"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_weight="1"
             android:id="@+id/btnPurchase"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
@@ -62,10 +84,11 @@
             android:background="@drawable/gradient_button"
             android:text="@string/purchase_point"
             android:textAllCaps="false"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_10sdp"
             />
 
 
+        </LinearLayout>
 
     </LinearLayout>
 

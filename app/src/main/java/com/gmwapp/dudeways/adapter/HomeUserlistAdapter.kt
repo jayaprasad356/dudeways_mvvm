@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
@@ -45,8 +46,15 @@ class HomeUserlistAdapter(
         val report: HomeUserlist = homeUserlist[position]
 
 
-        Glide.with(activitys).load(report.profile).placeholder(R.drawable.placeholder_bg)
+        Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
             .into(holder.binding.ivProfile)
+
+        if (report.gender == "male") {
+            holder.binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.blue_200)
+        }
+        else {
+            holder.binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.primary)
+        }
 
         holder.binding.ivProfile.setOnClickListener {
             if (report.id == session.getData(Constant.USER_ID)) {

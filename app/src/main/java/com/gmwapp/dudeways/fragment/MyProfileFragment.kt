@@ -1,6 +1,7 @@
 package com.gmwapp.dudeways.fragment
 
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -28,6 +29,7 @@ import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.CustomerSupportActivity
 import com.gmwapp.dudeways.activity.DeactivateActivity
 import com.gmwapp.dudeways.activity.EarningActivity
+import com.gmwapp.dudeways.activity.FreePointsActivity
 import com.gmwapp.dudeways.activity.HomeActivity
 import com.gmwapp.dudeways.activity.InviteFriendsActivity
 import com.gmwapp.dudeways.activity.LoginActivity
@@ -36,6 +38,7 @@ import com.gmwapp.dudeways.activity.NotificationActivity
 import com.gmwapp.dudeways.activity.PrivacypolicyActivity
 import com.gmwapp.dudeways.activity.PurchasepointActivity
 import com.gmwapp.dudeways.activity.RefundActivity
+import com.gmwapp.dudeways.activity.SpinActivity
 import com.gmwapp.dudeways.activity.TermsconditionActivity
 import com.gmwapp.dudeways.activity.WalletActivity
 import com.gmwapp.dudeways.databinding.FragmentMyProfileBinding
@@ -43,11 +46,17 @@ import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.ProfileViewModel
 import com.gmwapp.dudeways.viewmodel.RegisterViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import com.zoho.salesiqembed.ZohoSalesIQ
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -64,6 +73,8 @@ class MyProfileFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
 
 
+    private var rewardedAd: RewardedAd? = null
+    private val adId = "ca-app-pub-8693482193769963/5956761344"
     private val auth by lazy {
         FirebaseAuth.getInstance()
     }
@@ -100,7 +111,7 @@ class MyProfileFragment : Fragment() {
         (activity as HomeActivity).binding.bottomNavigationView.visibility = View.GONE
         (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
 
-
+        loadRewardedVideoAd()
 
         sharedPreferences = activity?.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)!!
 
@@ -131,8 +142,6 @@ class MyProfileFragment : Fragment() {
             binding.darkModeSwitch.isEnabled = true
         }
 
-
-
         binding.rlDeletemyaccount.setOnClickListener {
             showDeleteAccountDialog()
         }
@@ -148,43 +157,16 @@ class MyProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.tvEarning.setOnClickListener {
-
-            if (session.getData(Constant.MOBILE).toString().isBlank()){
-                val bottomSheetFragment = EarningsBottomSheetFragment()
-                bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
-            }
-
-            else{
-                val intent = Intent(activity, EarningActivity::class.java)
-                startActivity(intent)
-            }
-
+        binding.rlEarning.setOnClickListener {
+            val intent = Intent(activity, EarningActivity::class.java)
+            startActivity(intent)
 
         }
-
-        // Configure Google Sign-In
-
-        val verify = session.getData(Constant.VERIFIED)
-//
-//        if (verify == "1"){
-//            binding.ivVerify.visibility = View.VISIBLE
-//        }
-//        else{
-//            binding.ivVerify.visibility = View.GONE
-//        }
-
-
         binding.ivAddProfile.setOnClickListener {
             isCameraRequest = false
             pickImageFromGallery()
         }
 
-        /*  binding.ivEdit.setOnClickListener {
-            val intent = Intent(activity, EditProfileActivity::class.java)
-            startActivity(intent)
-        }
-*/
         binding.ivCamera.setOnClickListener {
             isCameraRequest = true
             pickImageFromGallery()
@@ -228,52 +210,22 @@ class MyProfileFragment : Fragment() {
             .into(binding.civProfile)
         Glide.with(requireActivity()).load(session.getData(Constant.COVER_IMG))
             .placeholder(R.drawable.placeholder_bg).into(binding.ivCover)
-//
-//        binding.tvProfessional.text = session.getData(Constant.PROFESSION)
-//        binding.tvCity.text = session.getData(Constant.CITY)
-//        binding.tvState.text = session.getData(Constant.STATE)
-//        binding.tvGender.text = session.getData(Constant.GENDER)
         binding.tvName.text = session.getData(Constant.NAME)
         binding.tvUsername.text = "@" + session.getData(Constant.UNIQUE_NAME)
-//        //   binding.tvPlace.text = session.getData(Constant.CITY) + ", " + session.getData(Constant.STATE)
-//        binding.tvIntroduction.text = session.getData(Constant.INTRODUCTION)
-
-
         val gender = session.getData(Constant.GENDER)
         Log.d("gender", "gender: $gender")
         val age = session.getData(Constant.AGE)
-//        binding.ivAge.text = age
-//
-//        if(gender == "male") {
-//            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.male_ic))
-//        }
-//        else if (gender == "female"){
-//            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.female_ic))
-//        }
-//        else{
-//            binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.third_gender))
-//        }
-//
-//        if (gender == "male") {
-//            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue_200))
-//        } else if(gender == "female"){
-//            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary))
-//        }
-//
-//        else{
-//            binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.green))
-//        }
 
 
         if (gender == "male") {
             binding.rlWallet.visibility = View.GONE
+            binding.rlEarning.visibility = View.GONE
+            binding.rlStorepoints.visibility = View.VISIBLE
         } else {
             binding.rlWallet.visibility = View.VISIBLE
+            binding.rlEarning.visibility = View.VISIBLE
+            binding.rlStorepoints.visibility = View.GONE
         }
-
-
-
-
         binding.rlMytrips.setOnClickListener {
             val intent = Intent(activity, MyTripsActivity::class.java)
             startActivity(intent)
@@ -288,7 +240,6 @@ class MyProfileFragment : Fragment() {
 
 
         binding.rlStorepoints.setOnClickListener {
-
             val dialogView =
                 requireActivity().layoutInflater.inflate(R.layout.dilog_chat_point, null)
 
@@ -296,8 +247,8 @@ class MyProfileFragment : Fragment() {
                 .setView(dialogView)
                 .create()
             val title = dialogView.findViewById<TextView>(R.id.tvTitle)
-            val btnPurchase =
-                dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
+            val btnPurchase = dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
+            val btnFreePoints = dialogView.findViewById<MaterialButton>(R.id.btnFreePoints)
             val tvDescription =
                 dialogView.findViewById<TextView>(R.id.tvDescription)
             val tvSubDescription =
@@ -316,36 +267,12 @@ class MyProfileFragment : Fragment() {
                 dialogBuilder.dismiss()
             }
 
+            btnFreePoints.setOnClickListener {
+                loadRewardedVideoAd()
+                showRewardedVideoAd()
+            }
 
             dialogBuilder.show()
-
-//            val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
-//
-//            val dialogBuilder = AlertDialog.Builder(activity)
-//                .setView(dialogView)
-//                .create()
-//            val title = dialogView.findViewById<TextView>(R.id.dialog_title)
-//            val btnPurchase = dialogView.findViewById<LinearLayout>(R.id.btnPurchase)
-//            val btnFreePoints = dialogView.findViewById<LinearLayout>(R.id.btnFreePoints)
-//            val tv_min_points = dialogView.findViewById<TextView>(R.id.tv_min_points)
-//
-//            tv_min_points.visibility = View.GONE
-//
-//            title.text = "You have ${session.getData(Constant.POINTS)} Points"
-//
-//            btnPurchase.setOnClickListener {
-//                val intent = Intent(activity, PurchasepointActivity::class.java)
-//                startActivity(intent)
-//                dialogBuilder.dismiss()
-//            }
-//
-//            btnFreePoints.setOnClickListener {
-//                val intent = Intent(activity, FreePointsActivity::class.java)
-//                startActivity(intent)
-//                dialogBuilder.dismiss()
-//            }
-//
-//            dialogBuilder.show()
         }
 
 
@@ -353,28 +280,62 @@ class MyProfileFragment : Fragment() {
             val intent = Intent(activity, DeactivateActivity::class.java)
             startActivity(intent)
         }
+        binding.rlCustomerSupport.setOnClickListener {
+            if (gender == "male") {
+                // Open Gmail directly to compose an email
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse("mailto:dudeways24@gmail.com") // Replace with your email
+                    putExtra(Intent.EXTRA_SUBJECT, "Customer Support")
+                    putExtra(Intent.EXTRA_TEXT, "Hello, I need help with...")
+                }
+                intent.setPackage("com.google.android.gm") // Ensures only Gmail app handles the intent
 
-//        binding.rlCustomerSupport.setOnClickListener {
-//            val intent = Intent(activity, CustomerSupportActivity::class.java)
-//            startActivity(intent)
-//        }
+                try {
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(activity, "Gmail app not found", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // Open Zoho SalesIQ chat
+                ZohoSalesIQ.Chat.show()
+            }
+        }
+
+
 
         binding.rlVerificationBadge.visibility = View.GONE
-
-//        binding.rlVerificationBadge.setOnClickListener {
-//
-//
-//            verification_list()
-//
-//
-//
-//        }
-
         binding.rlLogout.setOnClickListener {
             showLogoutConfirmationDialog()
         }
 
 
+    }
+
+    private fun loadRewardedVideoAd() {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(requireActivity(), adId, adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                rewardedAd = null
+                //  Toast.makeText(this@FreePointsActivity, "Ad Failed To Load", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdLoaded(ad: RewardedAd) {
+                rewardedAd = ad
+                //  Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun showRewardedVideoAd() {
+        rewardedAd?.let { ad ->
+            ad.show(requireActivity()) { rewardItem: RewardItem ->
+
+                val intent = Intent(activity, SpinActivity::class.java)
+                requireActivity().startActivity(intent)
+            }
+        } ?: run {
+            loadRewardedVideoAd()
+        }
     }
 
 
@@ -503,15 +464,21 @@ class MyProfileFragment : Fragment() {
     }
 
     private fun logout() {
-        googleSignInClient.signOut().addOnCompleteListener(requireActivity()) {
-            // Clear session data and redirect to login
-            clearSessionData(requireActivity())
-            redirectToLogin(requireActivity())
-            session.clearData()
+        googleSignInClient.signOut().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Logout successful, clear session data and redirect
+                Toast.makeText(requireActivity(), "Logout successful", Toast.LENGTH_SHORT).show()
+                clearSessionData(requireActivity())
+                session.clearData() // Ensure session data is cleared
 
-
+                redirectToLogin(requireActivity())
+            } else {
+                // Handle failure scenario (if any)
+                Toast.makeText(requireActivity(), "Logout failed. Please try again.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 
     private fun clearSessionData(context: Context) {
         val sharedPreferences = context.getSharedPreferences("UserSession", Context.MODE_PRIVATE)
@@ -607,6 +574,8 @@ class MyProfileFragment : Fragment() {
                             }
 
 
+                            //  Toast.makeText(requireActivity(), "$profileBody", Toast.LENGTH_SHORT).show()
+
                             registerViewModel.doUpdateImage(
                                 uid,
                                 profileBody
@@ -626,14 +595,17 @@ class MyProfileFragment : Fragment() {
         handleOnBackPressed()
 
     }
+
     private fun handleOnBackPressed() {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Replace the current fragment with HomeFragment
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, HomeFragment())
-                    .commit()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Replace the current fragment with HomeFragment
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, HomeFragment())
+                        .commit()
+                }
+            })
     }
 }

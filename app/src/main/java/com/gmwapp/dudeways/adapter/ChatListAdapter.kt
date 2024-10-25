@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
@@ -98,6 +99,15 @@ class ChatListAdapter(
 
         val point = session.getData(Constant.POINTS)
 
+
+        if (report.gender == "male") {
+            holder.binding.IVUserProfile.borderColor = ContextCompat.getColor(activity, R.color.blue_200)
+        }
+        else {
+            holder.binding.IVUserProfile.borderColor = ContextCompat.getColor(activity, R.color.primary)
+        }
+
+
         holder.itemView.setOnClickListener {
             if (report.chat_user_id == session.getData(Constant.USER_ID)) {
                 Toast.makeText(activity, "You can't chat with yourself", Toast.LENGTH_SHORT).show()
@@ -110,6 +120,7 @@ class ChatListAdapter(
                     putExtra("unread", report.unread)
                     putExtra("unique_name", report.unique_name)
                     putExtra("friend_verified", report.verified)
+                    putExtra("gender", report.gender)
                     session.setData(Constant.MSG_SEEN, report.msg_seen)
                 }
 

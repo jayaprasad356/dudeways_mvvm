@@ -26,4 +26,5 @@ data class ChatModel(
     var verified: String? = "",
     var unread: String? = "",
     var points: String? = "",
+    var gender: String? = "",
 )

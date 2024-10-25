@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="@dimen/_64sdp"
@@ -10,7 +11,9 @@
             android:id="@+id/ivProfile"
             android:layout_width="@dimen/_54sdp"
             android:layout_height="@dimen/_54sdp"
-            android:background="@drawable/profile_placeholder" />
+            app:civ_border_color="@color/primary"
+            app:civ_border_width="@dimen/_2sdp"
+             />
 
         <ImageView
             android:id="@+id/ivVerify"

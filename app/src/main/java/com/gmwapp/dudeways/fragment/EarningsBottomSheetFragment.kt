@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.EarningActivity
+import com.gmwapp.dudeways.activity.ProfileVerifyActivity
 import com.gmwapp.dudeways.network.ApiService
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
@@ -94,9 +95,10 @@ class EarningsBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         viewModel.updateMobileLiveData.observe(viewLifecycleOwner) { response ->
-            val intent = Intent(activity, EarningActivity::class.java)
+            val intent = Intent(activity, ProfileVerifyActivity::class.java)
             startActivity(intent)
-            showToast(response.message)
+            session.setData(Constant.MOBILE, etMobileNumber.text.toString())
+            dismiss()
         }
     }
 
@@ -112,7 +114,6 @@ class EarningsBottomSheetFragment : BottomSheetDialogFragment() {
     private fun generateRandomOtp(): Int {
         val random = Random()
         otp = 100000 + random.nextInt(900000)
-        showToast("Generated OTP: $otp")
         return otp
     }
 

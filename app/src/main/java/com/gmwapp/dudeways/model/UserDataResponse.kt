@@ -33,5 +33,7 @@ data class UserDataModel(
     val balance: String,
     val latitude: String,
     val longtitude: String,
+    val selfi_image: String,
+    val proof_image: String,
 
 )

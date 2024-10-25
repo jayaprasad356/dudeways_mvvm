@@ -150,6 +150,16 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             verified = session.getData(Constant.VERIFIED).toString()
 
 
+            val oppositeGender = intent?.getStringExtra("gender")
+
+            if (oppositeGender == "male") {
+                binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.blue_200)
+            }
+            else {
+                binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.primary)
+            }
+
+
 //            if (friend_verified == "1") {
 //                binding.tvAbout.visibility = View.VISIBLE
 //                binding.ivVerified.visibility = View.VISIBLE
@@ -346,7 +356,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                                         soundPool = soundPool,
                                         sentTone = sentTone
                                     )
-                                    binding.messageEdittext.text.clear()
+                                //    binding.messageEdittext.text.clear()
                                 } ?: logError(
                                     CHATS_ACTIVITY,
                                     "Unable to send your message."

@@ -244,6 +244,18 @@
 
                     </LinearLayout>
 
+                        <TextView
+                            android:id="@+id/tvText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            />
+
                         <Button
                             android:id="@+id/btnEnableWithVerification"
                             android:layout_width="wrap_content"
@@ -254,11 +266,13 @@
                             android:text="Enable"
                             android:layout_gravity="right"
                             android:textColor="@color/white" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <!-- Without Verification Card -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvWithoutVerification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:elevation="4dp"
@@ -450,7 +464,7 @@
                             android:backgroundTint="@color/primary"
                             android:paddingHorizontal="24dp"
                             android:paddingVertical="8dp"
-                            android:text="Enabled"
+                            android:text="Enable"
                             android:layout_gravity="right"
                             android:textColor="@color/white" />
                     </LinearLayout>
