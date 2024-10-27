@@ -15,18 +15,13 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.Animation
 import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,15 +39,19 @@ import com.gmwapp.dudeways.extentions.observeUserStatus
 import com.gmwapp.dudeways.extentions.playReceiveTone
 import com.gmwapp.dudeways.extentions.updateMessagesForSender
 import com.gmwapp.dudeways.model.ChatList
-import com.gmwapp.dudeways.model.ChatModel
+import com.gmwapp.dudeways.model.EmojiPopupHelper
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.AddFriendViewModel
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
 import com.gmwapp.dudeways.viewmodel.ReportFriendViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -81,6 +80,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
     private var receiverId = ""
     private var senderName: String? = null
     private var receiverName: String? = null
+    private lateinit var emojiPopupHelper: EmojiPopupHelper
 
     private lateinit var soundPool: SoundPool
     private var sentTone: Int = 0
@@ -101,6 +101,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
     var userId: String? = ""
     var chatId: String? = ""
 
+    private var rewardedAd: RewardedAd? = null
+    private val adId = "ca-app-pub-8693482193769963/5956761344"
 
     private fun handleDeepLink(intent: Intent?) {
         val action = intent?.action
@@ -184,12 +186,19 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         initUI()
         addListner()
         addObsereves()
+        loadRewardedVideoAd()
     }
 
     private fun initUI() {
         activity = this
         session = Session(activity)
         handleDeepLink(intent)
+
+
+
+        emojiPopupHelper = EmojiPopupHelper(this)
+
+        emojiPopupHelper.setupEmojiPopup(binding.messageEdittext, binding.emojiButton, findViewById(R.id.main))
 
 
     }
@@ -207,10 +216,11 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             if (keypadHeight > screenHeight * 0.15) { // keyboard is opened
                 binding.RVChats.postDelayed({
                     //here
-                    //     binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
+                       binding.RVChats.smoothScrollToPosition(chatAdapter?.itemCount?.minus(1) ?: 0)
                 }, 100)
             }
         }
+
 
         binding.messageEdittext.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -233,37 +243,53 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
             activity.startActivity(intent)
         }
 
-        binding.sendButton.setOnClickListener {
-            if (isNetworkAvailable(mContext)) {
-                if (binding.messageEdittext.text.toString().trim().isEmpty()) {
-                    Toast.makeText(mContext, "Please enter message", Toast.LENGTH_SHORT).show()
-                } else {
-                    chatViewModel.addChat(
-                        session.getData(Constant.USER_ID).toString(),
-                        receiverId.toString(),
-                        "1", "1",
-                        binding.messageEdittext.text.toString().trim(),
-                        ChatList(
-                            attachmentType = "TEXT",
-                            chatID = System.currentTimeMillis().toString()+"-"+Random.nextInt(100000, 999999).toString(),
-                            dateTime = Timestamp.now().toDate().time,
-                            message = binding.messageEdittext.text.toString().trim(),
-                            msgSeen = false,
-                            receiverID = this@ChatsActivity.receiverId,
-                            senderID = this@ChatsActivity.senderId,
-                            type = "TEXT",
-                            sentBy = session.getData(Constant.NAME)
-                        )
-                    )
-                }
 
-            } else {
-                Toast.makeText(
-                    mContext, getString(R.string.str_error_internet_connections),
-                    Toast.LENGTH_SHORT
-                ).show()
+        isBlocked(senderId, receiverId) { isBlocked ->
+            binding.sendButton.setOnClickListener {
+                    if (isNetworkAvailable(mContext)) {
+                        if (binding.messageEdittext.text.toString().trim().isEmpty()) {
+                            Toast.makeText(mContext, "Please enter message", Toast.LENGTH_SHORT).show()
+                        } else {
+                            if (isBlocked) {
+                                binding.sendButton.isClickable = true
+                                makeToast("You cannot send messages to this user blocked.")
+                            }
+                            else{
+                                chatViewModel.addChat(
+                                    session.getData(Constant.USER_ID).toString(),
+                                    receiverId.toString(),
+                                    "1", "1",
+                                    binding.messageEdittext.text.toString().trim(),
+                                    ChatList(
+                                        attachmentType = "TEXT",
+                                        chatID = System.currentTimeMillis().toString()+"-"+Random.nextInt(100000, 999999).toString(),
+                                        dateTime = Timestamp.now().toDate().time,
+                                        message = binding.messageEdittext.text.toString().trim(),
+                                        msgSeen = false,
+                                        receiverID = this@ChatsActivity.receiverId,
+                                        senderID = this@ChatsActivity.senderId,
+                                        type = "TEXT",
+                                        sentBy = session.getData(Constant.NAME)
+                                    )
+                                )
+                            }
+
+
+                        }
+
+                    } else {
+                        Toast.makeText(
+                            mContext, getString(R.string.str_error_internet_connections),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
-        }
+
+
+
+
+
 
         binding.ivMore.setOnClickListener {
             showPopupMenu()
@@ -327,9 +353,14 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         chatViewModel.addLocalChatLiveData.observe(this, Observer {
             binding.sendButton.isClickable = true
             lastMessage = binding.messageEdittext.text.toString()
-            binding.messageEdittext.text.clear()
+            binding.messageEdittext.text!!.clear()
             onMessageAdded(it)
         })
+
+
+
+
+
         chatViewModel.addChatLiveData.observe(this, Observer {
             if (it.success) {
                 chat_status = it.chat_status
@@ -337,13 +368,15 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 session.setData(Constant.MSG_SEEN, "1")
                 val message = lastMessage
                 if (message.isNotEmpty()) {
-                    isBlocked(senderId, receiverId) { isBlocked ->
+                    isBlocked(senderId, receiverId)
+                    {
+                        isBlocked ->
                         if (isBlocked) {
                             binding.sendButton.isClickable = true
                             makeToast("You cannot send messages to this user blocked.")
+
                         } else {
                             binding.sendButton.isClickable = true
-
                             senderName?.let { sName ->
                                 receiverName?.let { rName ->
                                     updateMessagesForSender(
@@ -401,6 +434,9 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 val tvSubDescription =
                     dialogView.findViewById<TextView>(R.id.tvSubDescription)
 
+                val btnFreePoints = dialogView.findViewById<MaterialButton>(R.id.btnFreePoints)
+
+
                 tvDescription.text =
                     "Buy 100 points to chat with 10 female users for up to 10 hours."
                 tvDescription.setTextColor(ContextCompat.getColor(activity, R.color.primary))
@@ -415,6 +451,13 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                     dialogBuilder.dismiss()
                 }
 
+
+                btnFreePoints.setOnClickListener {
+                    loadRewardedVideoAd()
+                    showRewardedVideoAd()
+                    dialogBuilder.dismiss()
+
+                }
 
                 dialogBuilder.show()
 
@@ -974,6 +1017,34 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         dialog.show()
 
 
+    }
+
+
+    private fun loadRewardedVideoAd() {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(activity, adId, adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                rewardedAd = null
+                //  Toast.makeText(this@FreePointsActivity, "Ad Failed To Load", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdLoaded(ad: RewardedAd) {
+                rewardedAd = ad
+                //  Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun showRewardedVideoAd() {
+        rewardedAd?.let { ad ->
+            ad.show(activity) { rewardItem: RewardItem ->
+
+                val intent = Intent(activity, SpinActivity::class.java)
+                activity.startActivity(intent)
+            }
+        } ?: run {
+            loadRewardedVideoAd()
+        }
     }
 
 }

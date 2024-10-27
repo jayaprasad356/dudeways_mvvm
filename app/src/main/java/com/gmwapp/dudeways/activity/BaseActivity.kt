@@ -6,16 +6,21 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.gmwapp.dudeways.R
+import com.vanniktech.emoji.EmojiManager
+import com.vanniktech.emoji.google.GoogleEmojiProvider
 
 open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setAppTheme()  // Apply theme before calling super.onCreate()
         super.onCreate(savedInstanceState)
+        EmojiManager.install(GoogleEmojiProvider())
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        EmojiManager.install(GoogleEmojiProvider())
+
         // Handle configuration changes here, if needed
     }
 

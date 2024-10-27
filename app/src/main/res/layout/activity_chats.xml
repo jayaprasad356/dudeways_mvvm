@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
+        android:layout_marginBottom="@dimen/_4ssp"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -175,37 +176,68 @@
 
 
             <RelativeLayout
+                android:background="@drawable/edit_text_messages_background"
                 android:id="@+id/llMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:paddingHorizontal="@dimen/_4ssp"
+                android:paddingVertical="@dimen/_8ssp"
                 android:orientation="horizontal"
-                android:padding="@dimen/_5sdp">
+                android:layout_margin="@dimen/_5sdp">
+
+                <!-- Emoji Button -->
+                <ImageButton
+                    android:id="@+id/emojiButton"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_4sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@drawable/emoji_icon"
+                    android:backgroundTint="?attr/textmenu"
+                    />
 
                 <!-- EditText for typing new message -->
-                <EditText
+                <com.vanniktech.emoji.EmojiEditText
                     android:id="@+id/messageEdittext"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/sendButton"
-                    android:background="@drawable/edit_text_messages_background"
+                    android:layout_toRightOf="@id/emojiButton"
+                    android:layout_centerVertical="true"
                     android:hint="@string/type_a_message"
                     android:inputType="textMultiLine"
                     android:maxLines="5"
-                    android:padding="@dimen/_12sdp"
                     android:scrollbars="vertical"
+                    android:background="@null"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey"
                     android:textCursorDrawable="@drawable/color_cursor" />
 
+                <!-- Send Button -->
 
-                <ImageButton
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/sendButton"
-                    android:layout_width="@dimen/_54sdp"
-                    android:layout_height="@dimen/_54sdp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/button_sent" />
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    android:elevation="0dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/primary_Dark"
+                    >
+
+
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:background="@drawable/ic_sent"
+                    />
+
+
+                </com.google.android.material.card.MaterialCardView>
 
             </RelativeLayout>
 

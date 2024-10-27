@@ -16,8 +16,8 @@ android {
         applicationId = "com.gmwapp.dudeways"
         minSdk = 24
         targetSdk = 34
-        versionCode = 24
-        versionName = "24.0"
+        versionCode = 25
+        versionName = "25.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,6 +60,8 @@ android {
 dependencies {
 
     implementation(libs.play.services.location)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.play.services.fido)
     val lifecycle_version = "2.6.2"
     val glideVersion = "4.11.0"
 
@@ -147,6 +149,13 @@ dependencies {
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.5.0")
 
     implementation ("com.github.aabhasr1:OtpView:v1.1.2")
+
+
+    //implementation ("com.vanniktech:emoji-google:0.21.0")
+    implementation ("com.vanniktech:emoji:0.7.0")
+    implementation ("com.vanniktech:emoji-google:0.7.0")
+
+
 
 
 }
