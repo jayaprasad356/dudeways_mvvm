@@ -102,12 +102,6 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         mContext = this
-
-        FirebaseCrashlytics.getInstance().log("Test crash")
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
-        throw RuntimeException("Test Crash") // Force a crash
-
-
         initUI(savedInstanceState)
         addListner()
         addObsereves()
