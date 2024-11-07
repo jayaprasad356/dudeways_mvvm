@@ -5,7 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
-
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -16,8 +16,8 @@ android {
         applicationId = "com.gmwapp.dudeways"
         minSdk = 24
         targetSdk = 34
-        versionCode = 25
-        versionName = "25.0"
+        versionCode = 26
+        versionName = "26.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -135,16 +135,18 @@ dependencies {
 
 
     //  implementation("com.github.mmoamenn:LuckyWheel_Android:0.1.2")
-    implementation("com.google.android.gms:play-services-auth:18.1.0")
     implementation("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
     // implementation("com.google.android.gms:play-services-ads:21.0.0+")
 
     implementation("com.google.android.gms:play-services-ads:21.0.0+")
 
 
-    implementation("com.google.firebase:firebase-auth:23.0.0")
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    implementation ("com.google.gms:google-services:4.3.14")
+    implementation("com.google.firebase:firebase-crashlytics:18.4.1")
+    implementation("com.google.firebase:firebase-analytics:21.3.0")
+
+
 
     implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.5.0")
 
@@ -158,4 +160,10 @@ dependencies {
 
 
 
+    implementation ("com.github.ZEGOCLOUD:zego_uikit_prebuilt_call_android:+")
+
+
+
+    implementation ("com.airbnb.android:lottie:3.4.0")
 }
+

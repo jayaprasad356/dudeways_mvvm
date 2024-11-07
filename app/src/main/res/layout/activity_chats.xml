@@ -117,6 +117,19 @@
 
 
                 <ImageButton
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:id="@+id/ivphone"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/call_ic"
+                    android:backgroundTint="@color/primary"
+                    android:onClick="onMoreOptionsClicked" />
+
+
+                <ImageButton
                     android:id="@+id/ivMore"
                     android:layout_width="12dp"
                     android:layout_height="30dp"
@@ -196,6 +209,19 @@
                     android:background="@drawable/emoji_icon"
                     android:backgroundTint="?attr/textmenu"
                     />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/stickerRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/white"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal" />
+
 
                 <!-- EditText for typing new message -->
                 <com.vanniktech.emoji.EmojiEditText

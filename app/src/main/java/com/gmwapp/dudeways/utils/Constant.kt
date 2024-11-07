@@ -66,6 +66,7 @@ object Constant {
     const val FREINDS_LIST: String = "api/friends_list"
     const val CHAT_LIST: String = "api/chat_list"
     const val NOTFICATION_LIST: String = "api/notification_list"
+    const val RANDOM_USER: String = "api/random_user"
     const val UPDATE_NOTIFY: String = "api/update_notify"
     const val UPDATE_MOBILE: String = "api/update_mobile"
     const val ADD_FRIENDS: String = "api/add_friends"

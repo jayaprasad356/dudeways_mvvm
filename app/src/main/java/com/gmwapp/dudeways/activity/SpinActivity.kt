@@ -1,5 +1,6 @@
 package com.gmwapp.dudeways.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -19,6 +20,11 @@ import com.gmwapp.dudeways.extentions.isNetworkAvailable
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 import java.util.Random
@@ -34,6 +40,9 @@ class SpinActivity : BaseActivity() {
     private val sectorDegrees = IntArray(sectors.size)
     private var isSpinning = false
     private val viewModel: ChatViewModel by viewModels()
+    private var rewardedAd: RewardedAd? = null
+    private val adId = "ca-app-pub-8693482193769963/5956761344"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +59,8 @@ class SpinActivity : BaseActivity() {
         session = Session(mContext)
 
         degreeForSectors()
+
+        loadRewardedVideoAd()
 
 
     }
@@ -80,6 +91,7 @@ class SpinActivity : BaseActivity() {
 
         viewModel.spinPointsLiveData.observe(this, Observer {
             if (it.success) {
+                showRewardedVideoAd()
                 session.setData(Constant.POINTS, it.data.points)
                 Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
             } else {
@@ -157,6 +169,43 @@ class SpinActivity : BaseActivity() {
                 getString(R.string.str_error_internet_connections),
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    private fun loadRewardedVideoAd() {
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(this, adId, adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                rewardedAd = null
+                //  Toast.makeText(this@FreePointsActivity, "Ad Failed To Load", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdLoaded(ad: RewardedAd) {
+                rewardedAd = ad
+                //  Toast.makeText(this@FreePointsActivity, "Ad Loaded", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun showRewardedVideoAd() {
+
+        rewardedAd?.let { ad ->
+
+            ad.show(this) { rewardItem: RewardItem ->
+
+                viewModel.spinPointsLiveData.observe(this, Observer {
+                    if (it.success) {
+                        session.setData(Constant.POINTS, it.data.points)
+                        Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
+
+                    }
+                })
+
+            }
+        } ?: run {
+            loadRewardedVideoAd()
         }
     }
 

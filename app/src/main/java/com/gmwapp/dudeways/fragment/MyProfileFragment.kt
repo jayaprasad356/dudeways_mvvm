@@ -268,8 +268,12 @@ class MyProfileFragment : Fragment() {
             }
 
             btnFreePoints.setOnClickListener {
-                loadRewardedVideoAd()
-                showRewardedVideoAd()
+//                loadRewardedVideoAd()
+//                showRewardedVideoAd()
+
+                val intent = Intent(activity, SpinActivity::class.java)
+                requireActivity().startActivity(intent)
+                dialogBuilder.dismiss()
             }
 
             dialogBuilder.show()

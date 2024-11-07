@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:background="@color/primary"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_margin="@dimen/_30sdp"
+        android:padding="10dp"
+        android:id="@+id/targetuserid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Target User id"
+        android:background="@drawable/edit_text_bg"
+        />
+
+    <com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
+        android:layout_below="@+id/targetuserid"
+        android:layout_marginTop="10dp"
+        android:id="@+id/voiceCallButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:id="@+id/avRecharge"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        app:lottie_rawRes="@raw/location"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        />
+
+
+    <TextView
+        android:id="@+id/tvText"
+        android:gravity="center"
+        android:layout_below="@+id/avRecharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Finding a call partner"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        />
+
+    <TextView
+        android:layout_below="@id/tvText"
+        android:id="@+id/tvText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please wait while we find a call partner"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_8sdp"
+        android:gravity="center"
+        />
+    
+    <Button
+        android:layout_below="@+id/tvText2"
+        android:id="@+id/btnCancel"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        />
+
+
+</RelativeLayout>
+
+</layout>

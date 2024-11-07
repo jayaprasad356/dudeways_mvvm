@@ -60,8 +60,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
+import com.zegocloud.uikit.service.defines.ZegoUIKitUser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
+
 
 @AndroidEntryPoint
 class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
@@ -294,6 +297,16 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         binding.ivMore.setOnClickListener {
             showPopupMenu()
         }
+//
+//        binding.ivphone.setOnClickListener {
+//            val intent = Intent(activity, CallActivity::class.java).apply {
+//                putExtra("TARGET_USER_ID", receiverId.toString())
+//                putExtra("TARGET_USER_NAME", receiverName.toString())
+//            }
+//            activity?.startActivity(intent)
+//        }
+
+
         fetchMessages(chatReference, this@ChatsActivity) {
             isConversationsFetching = it
         }
@@ -453,9 +466,8 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
 
 
                 btnFreePoints.setOnClickListener {
-                    loadRewardedVideoAd()
-                    showRewardedVideoAd()
-                    dialogBuilder.dismiss()
+                    val intent = Intent(activity, SpinActivity::class.java)
+                    startActivity(intent)
 
                 }
 

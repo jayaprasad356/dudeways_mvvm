@@ -7,6 +7,7 @@ import com.gmwapp.dudeways.model.AddTripResponse
 import com.gmwapp.dudeways.model.AppUpdateResponse
 import com.gmwapp.dudeways.model.BackImageResponse
 import com.gmwapp.dudeways.model.BaseResponse
+import com.gmwapp.dudeways.model.CallResponse
 import com.gmwapp.dudeways.model.ChatResponse
 import com.gmwapp.dudeways.model.ConnectModel
 import com.gmwapp.dudeways.model.ConnectResponse
@@ -307,6 +308,13 @@ interface ApiService {
         @Field(Constant.LIMIT) limit: String
     ): Response<NotificationResponse>
 
+    @FormUrlEncoded
+    @POST(Constant.RANDOM_USER)
+    suspend fun getRandomUser(
+        @Field(Constant.USER_ID) userId: String
+    ): Response<CallResponse>
+
+
 
     @FormUrlEncoded
     @POST(Constant.USERS_LIST)
@@ -385,6 +393,17 @@ interface ApiService {
         @Field(Constant.BANK_NAME) bankName: String,
         @Field(Constant.BRANCH_NAME) branchName: String
     ): Response<BaseResponse>
+
+
+
+
+
+    @FormUrlEncoded
+    @POST(Constant.TRIP_LIST)
+    suspend fun getSticker(
+        @Field(Constant.USER_ID) userId: String,
+    ): Response<HomeResponse>
+
 
 
 }

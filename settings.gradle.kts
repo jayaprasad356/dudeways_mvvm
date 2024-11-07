@@ -20,6 +20,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         maven { url = uri("https://jitpack.io") }
+        maven(url = "<https://jitpack.io>")
         maven {
             url = uri( "https://maven.zohodl.com")
         }
@@ -27,7 +28,11 @@ dependencyResolutionManagement {
             url = uri( "https://s3-ap-southeast-1.amazonaws.com/godel-release/godel/")
         }
 
+
         mavenCentral()
+
+        maven { url= uri("https://storage.zego.im/maven") }   // <- Add this line.
+
     }
 }
 

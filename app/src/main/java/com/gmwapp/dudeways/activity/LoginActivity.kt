@@ -252,7 +252,7 @@ class LoginActivity : BaseActivity() {
             if (email == "testdudeways@gmail.com" && password == "test@123") {
                 // Move to HomeActivity
                 val intent = Intent(this, HomeActivity::class.java)
-                session.setData(Constant.USER_ID, "50")
+                session.setData(Constant.USER_ID, "456")
                 session.setBoolean("is_logged_in", true)
                 startActivity(intent)
                 dialog.dismiss() // Dismiss dialog after login

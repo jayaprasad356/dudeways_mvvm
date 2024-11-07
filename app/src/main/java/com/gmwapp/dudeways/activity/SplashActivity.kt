@@ -128,10 +128,6 @@ class SplashActivity : BaseActivity() {
             e.printStackTrace()
         }
         if (isNetworkAvailable(mContext)) {
-            val videoUri =
-                Uri.parse("android.resource://" + packageName + "/" + R.raw.logo_animation)
-//            binding.videoView.setVideoURI(videoUri)
-//            binding.videoView.start()
 
             viewModel.appUpdate()
 

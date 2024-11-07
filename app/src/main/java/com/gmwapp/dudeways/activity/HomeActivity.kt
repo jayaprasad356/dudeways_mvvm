@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,7 +17,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -44,6 +44,14 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.gson.Gson
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
+import com.zegocloud.uikit.plugin.invitation.ZegoInvitationType
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallConfig
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService
+import com.zegocloud.uikit.prebuilt.call.config.DurationUpdateListener
+import com.zegocloud.uikit.prebuilt.call.config.ZegoCallDurationConfig
+import com.zegocloud.uikit.prebuilt.call.core.invite.ZegoCallInvitationData
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig
+import com.zegocloud.uikit.prebuilt.call.invite.internal.ZegoUIKitPrebuiltCallConfigProvider
 import com.zoho.commons.InitConfig
 import com.zoho.livechat.android.listeners.InitListener
 import com.zoho.salesiqembed.ZohoSalesIQ
@@ -87,6 +95,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
     private val viewModel: HomeViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
 
+    var isAllFabsVisible: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,11 +124,15 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
         session = Session(this)
 
+
+
+
         initializeComponents()
         initializeOneSignal()
         initializeZohoSalesIQ()
         setupBottomNavigation()
         loadProfilePicture()
+        callfab()
 
         // Restore selected item from saved instance state if available
         if (savedInstanceState != null) {
@@ -149,8 +162,159 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     }
 
+    private fun callfab() {
+        val userId = session.getData(Constant.USER_ID).toString()
+        val userName = session.getData(Constant.NAME).toString()
+
+        val videoCallFab = binding.videoCallFab
+        val audioCallFab = binding.audioCallFab
+        val videoCallActionText = binding.videoCallActionText
+        val audioCallActionText = binding.audioCallActionText
+        val mAddFab = binding.randomActionFab
+
+        setupZegoUIKit(userId,userName)
+
+
+
+        // Initially hide all sub FABs and action texts
+        audioCallFab.visibility = View.GONE
+        videoCallFab.visibility = View.GONE
+        audioCallActionText.visibility = View.GONE
+        videoCallActionText.visibility = View.GONE
+
+        // Set the visibility flag
+        isAllFabsVisible = false
+
+        // Set the initial icon for the extended state
+        mAddFab.setIconResource(R.drawable.random_ic) // Replace with your icon for shrinked state
+
+        // Set the initial state of the parent FAB
+        mAddFab.extend()
+
+        mAddFab.setOnClickListener {
+            if (!isAllFabsVisible!!) {
+                // Show sub FABs and action texts
+                audioCallFab.show()
+                videoCallFab.show()
+                audioCallActionText.visibility = View.VISIBLE
+                videoCallActionText.visibility = View.VISIBLE
+
+                // Change the icon and shrink the parent FAB
+                mAddFab.setIconResource(R.drawable.close_ic) // Replace with your icon for expanded state
+                mAddFab.shrink()
+
+                isAllFabsVisible = true
+            } else {
+                // Hide sub FABs and action texts
+                audioCallFab.hide()
+                videoCallFab.hide()
+                audioCallActionText.visibility = View.GONE
+                videoCallActionText.visibility = View.GONE
+
+                // Change the icon and extend the parent FAB
+                mAddFab.setIconResource(R.drawable.random_ic) // Replace with your icon for shrinked state
+                mAddFab.extend()
+
+                isAllFabsVisible = false
+            }
+        }
+
+        // Set up click listeners for the sub FABs
+        videoCallFab.setOnClickListener {
+            val intent = Intent(this, CallActivity::class.java)
+            intent.putExtra("Userid", userId)
+            intent.putExtra("type", "video")
+            startActivity(intent)
+            setupZegoUIKit(userId,userName)
+        }
+
+        audioCallFab.setOnClickListener {
+            val intent = Intent(this, CallActivity::class.java)
+            intent.putExtra("Userid", userId)
+            intent.putExtra("type", "audio")
+            startActivity(intent)
+            setupZegoUIKit(userId,userName)
+        }
+    }
+
     private fun addListner() {
 
+    }
+
+    private fun setupZegoUIKit(Userid: Any, userName: String) {
+
+        // Android's application context
+        val application: Application = application
+
+        val appID: Long = 1888627579
+        val appSign: String = "00c8fd9ffedcbf5ecd66be30efcfb28928b1f83aa57f23106c7b38f369835af2"
+        val userID: String = Userid.toString()
+        val userName: String = userName.toString()
+
+
+        val callInvitationConfig = ZegoUIKitPrebuiltCallInvitationConfig()
+
+
+      //  callInvitationConfig.incomingCallRingtone = "outgoingcallringtone" // No file extension
+        callInvitationConfig.outgoingCallRingtone = "outgoingcallringtone" // No file extension
+
+
+
+        // Set the custom call configuration provider
+        callInvitationConfig.provider = object : ZegoUIKitPrebuiltCallConfigProvider {
+            override fun requireConfig(invitationData: ZegoCallInvitationData): ZegoUIKitPrebuiltCallConfig {
+                val config: ZegoUIKitPrebuiltCallConfig = when {
+                    invitationData.type == ZegoInvitationType.VIDEO_CALL.value && invitationData.invitees.size > 1 -> {
+                        ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+                    }
+                    invitationData.type != ZegoInvitationType.VIDEO_CALL.value && invitationData.invitees.size > 1 -> {
+                        ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
+                    }
+                    invitationData.type != ZegoInvitationType.VIDEO_CALL.value -> {
+                        ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
+                    }
+                    else -> {
+                        ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+                    }
+                }
+
+
+
+
+
+
+                // Set up call duration configuration with a listener
+                config.durationConfig = ZegoCallDurationConfig().apply {
+                    isVisible = true
+                    durationUpdateListener = object : DurationUpdateListener {
+                        override fun onDurationUpdate(seconds: Long) {
+                            Log.d("TAG", "onDurationUpdate() called with: seconds = [$seconds]")
+                            if (seconds.toInt() == 60 * 5) {  // Ends call after 5 minutes
+                           //     ZegoUIKitPrebuiltCallService.endCall()
+                            }
+                        }
+                    }
+                }
+
+
+
+
+
+                return config
+            }
+        }
+// Initialize the Zego call service with the provided details
+
+
+
+        ZegoUIKitPrebuiltCallService.init(application, appID, appSign, userID, userName, callInvitationConfig)
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ZegoUIKitPrebuiltCallService.unInit()
     }
 
     private fun addObsereves() {
