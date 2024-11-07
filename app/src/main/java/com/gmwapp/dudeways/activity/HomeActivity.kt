@@ -41,6 +41,7 @@ import com.gmwapp.dudeways.viewmodel.SettingsViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationBarView
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
@@ -101,6 +102,12 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         mContext = this
+
+        FirebaseCrashlytics.getInstance().log("Test crash")
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+        throw RuntimeException("Test Crash") // Force a crash
+
+
         initUI(savedInstanceState)
         addListner()
         addObsereves()
@@ -118,6 +125,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
                 // Add more cases if needed for other fragments
             }
         }
+
     }
 
     private fun initUI(savedInstanceState: Bundle?) {
@@ -256,7 +264,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
 
       //  callInvitationConfig.incomingCallRingtone = "outgoingcallringtone" // No file extension
-        callInvitationConfig.outgoingCallRingtone = "outgoingcallringtone" // No file extension
+      //  callInvitationConfig.outgoingCallRingtone = "outgoingcallringtone" // No file extension
 
 
 
