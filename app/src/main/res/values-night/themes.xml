@@ -1,9 +1,5 @@
 <resources>
 
-    <style name="ThemeOverlay.Paring.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
-        <item name="fullscreenTextColor">@color/light_blue_A400</item>
-    </style>
     <style name="CircularProgress" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/primary</item>
     </style>

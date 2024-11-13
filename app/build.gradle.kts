@@ -25,6 +25,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            isCrunchPngs = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -35,17 +36,19 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    packagingOptions {
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("META-INF/LICENSE.txt")
-        exclude("META-INF/license.txt")
-        exclude("META-INF/NOTICE")
-        exclude("META-INF/NOTICE.txt")
-        exclude("META-INF/notice.txt")
-        exclude("META-INF/ASL2.0")
-        exclude("META-INF/*.kotlin_module")
-        exclude("META-INF/androidx.cardview_cardview.version")
+    packaging {
+        resources {
+            excludes +="META-INF/DEPENDENCIES"
+            excludes +="META-INF/LICENSE"
+            excludes +="META-INF/LICENSE.txt"
+            excludes +="META-INF/license.txt"
+            excludes +="META-INF/NOTICE"
+            excludes +="META-INF/NOTICE.txt"
+            excludes +="META-INF/notice.txt"
+            excludes +="META-INF/ASL2.0"
+            excludes +="META-INF/*.kotlin_module"
+            excludes +="META-INF/androidx.cardview_cardview.version"
+        }
     }
 
     dataBinding {
