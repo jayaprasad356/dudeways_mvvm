@@ -1,8 +1,15 @@
 package com.gmwapp.dudeways.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.BackoffPolicy
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.gmwapp.dudeways.model.AddChatResponse
 import com.gmwapp.dudeways.model.AddPointsResponse
 import com.gmwapp.dudeways.model.BackImageResponse
@@ -10,18 +17,19 @@ import com.gmwapp.dudeways.model.BaseResponse
 import com.gmwapp.dudeways.model.ChatList
 import com.gmwapp.dudeways.model.ChatResponse
 import com.gmwapp.dudeways.model.FontImageResponse
-import com.gmwapp.dudeways.model.OtherUserDetailModel
 import com.gmwapp.dudeways.model.OtherUserDetailResponse
 import com.gmwapp.dudeways.model.PlanListResponse
 import com.gmwapp.dudeways.model.PurchaseResponse
 import com.gmwapp.dudeways.model.RewardResponse
 import com.gmwapp.dudeways.model.SelfiImageResponse
 import com.gmwapp.dudeways.repositories.ChatRepositories
+import com.gmwapp.dudeways.workers.MessageSendWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
+
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) : ViewModel() {
@@ -259,8 +267,9 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
     }
 
 
-    fun addChat(userId: String,chatUserId: String,
-                unRead:String,msgSeen: String,message:String, chatList: ChatList) {
+    fun addChat(context: Context, userId: String, chatUserId: String,
+                unRead:String, msgSeen: String, message:String, chatList: ChatList) {
+
         viewModelScope.launch {
             addLocalChatLiveData.postValue(chatList)
             chatRepositories.addChat(userId,chatUserId,unRead,msgSeen,message).let {
@@ -277,6 +286,24 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
                             )
                         )
                     }
+                    val constraints = Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build()
+                    val data: Data = Data.Builder()
+                        .putString("userId", userId)
+                        .putString("chatUserId", chatUserId)
+                        .putString("unRead", unRead)
+                        .putString("msgSeen", msgSeen)
+                        .putString("message", message)
+                        .build()
+                    val oneTimeWorkRequest = OneTimeWorkRequest.Builder(
+                        MessageSendWorker::class.java
+                    )
+                        .setInputData(data)
+                        .setConstraints(constraints)
+                        .build()
+                    WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
+
                 }
             }
 

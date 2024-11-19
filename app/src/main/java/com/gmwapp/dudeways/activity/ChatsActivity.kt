@@ -28,6 +28,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gmwapp.dudeways.OnMessagesFetchedListner
@@ -292,7 +294,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                                 makeToast("You cannot send messages to this user blocked.")
                             }
                             else{
-                                chatViewModel.addChat(
+                                chatViewModel.addChat(this,
                                     session.getData(Constant.USER_ID).toString(),
                                     receiverId.toString(),
                                     "1", "1",

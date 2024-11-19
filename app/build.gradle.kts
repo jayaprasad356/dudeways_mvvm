@@ -90,6 +90,7 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3" )// Use latest version
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("com.google.firebase:firebase-firestore-ktx:24.9.1")
+    implementation ("androidx.work:work-runtime-ktx:1.0.0")
 
 
     //di
