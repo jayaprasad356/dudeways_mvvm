@@ -1,6 +1,7 @@
 package com.gmwapp.dudeways.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,6 +29,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -111,11 +115,13 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
         }
     }
 
-    fun addPoints(buyerName:String,amount:String,
-                  email:String,phone:String,purpose:String) {
+    fun addPoints(
+        buyerName: String, amount: String,
+        email: String, phone: String, purpose: String
+    ) {
         viewModelScope.launch {
             isLoading.postValue(true)
-            chatRepositories.addPoints(buyerName,amount,email,phone,purpose).let {
+            chatRepositories.addPoints(buyerName, amount, email, phone, purpose).let {
                 if (it.body() != null) {
                     addPointsLiveData.postValue(it.body() as AddPointsResponse)
                     isLoading.postValue(false)
@@ -126,7 +132,6 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
 
         }
     }
-
 
 
     fun addPurchase(userId: String, points: String) {
@@ -251,7 +256,7 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
         }
     }
 
-    fun deleteChat(uid: String,chatUserId: String) {
+    fun deleteChat(uid: String, chatUserId: String) {
         viewModelScope.launch {
             isLoading.postValue(true)
             chatRepositories.deleteChat(uid, chatUserId).let {
@@ -267,25 +272,57 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
     }
 
 
-    fun addChat(context: Context, userId: String, chatUserId: String,
-                unRead:String, msgSeen: String, message:String, chatList: ChatList) {
+    fun addChat(
+        context: Context, userId: String, chatUserId: String,
+        unRead: String, msgSeen: String, message: String, chatList: ChatList
+    ) {
 
         viewModelScope.launch {
             addLocalChatLiveData.postValue(chatList)
-            chatRepositories.addChat(userId,chatUserId,unRead,msgSeen,message).let {
-                if (it.body() != null) {
-                    addChatLiveData.postValue(it.body())
-                } else {
-                    if(it.code() != null) {
-                        addChatLiveData.postValue(
-                            AddChatResponse(
-                                false,
-                                errorCode = it.code(),
-                                message = "",
-                                chat_status = "0"
+            Log.e("siva", "addChat : " + chatRepositories)
+            chatRepositories.addChat(userId, chatUserId, unRead, msgSeen, message, object :
+                Callback<AddChatResponse> {
+                override fun onResponse(
+                    call: Call<AddChatResponse>,
+                    response: Response<AddChatResponse>
+                ) {
+                    Log.e("siva", "response"+response.body())
+                    if (response.body() != null) {
+                        addChatLiveData.postValue(response.body())
+                    } else {
+                        if (response.code() != null) {
+                            addChatLiveData.postValue(
+                                AddChatResponse(
+                                    false,
+                                    errorCode = response.code(),
+                                    message = "",
+                                    chat_status = "0"
+                                )
                             )
+                        }
+                        val constraints = Constraints.Builder()
+                            .setRequiredNetworkType(NetworkType.CONNECTED)
+                            .build()
+                        val data: Data = Data.Builder()
+                            .putString("userId", userId)
+                            .putString("chatUserId", chatUserId)
+                            .putString("unRead", unRead)
+                            .putString("msgSeen", msgSeen)
+                            .putString("message", message)
+                            .build()
+                        val oneTimeWorkRequest = OneTimeWorkRequest.Builder(
+                            MessageSendWorker::class.java
                         )
+                            .setInputData(data)
+                            .setConstraints(constraints)
+                            .build()
+                        WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
+
                     }
+                }
+
+                override fun onFailure(call: Call<AddChatResponse>, t: Throwable) {
+                    Log.e("siva", "failed")
                     val constraints = Constraints.Builder()
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()
@@ -303,9 +340,8 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
                         .setConstraints(constraints)
                         .build()
                     WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
-
                 }
-            }
+            })
 
         }
     }

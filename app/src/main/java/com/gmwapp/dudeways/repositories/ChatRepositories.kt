@@ -1,8 +1,13 @@
 package com.gmwapp.dudeways.repositories
 
+import android.util.Log
+import com.gmwapp.dudeways.model.AddChatResponse
 import com.gmwapp.dudeways.network.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class ChatRepositories @Inject constructor(val apiService: ApiService) {
@@ -84,8 +89,12 @@ class ChatRepositories @Inject constructor(val apiService: ApiService) {
         userId,chatUserId
     )
 
-    suspend fun addChat(userId: String,chatUserId: String,
-                        unRead:String,msgSeen: String,message:String)
-    =apiService.addChat(userId,chatUserId,unRead,msgSeen,message)
+    fun addChat(userId: String,chatUserId: String,
+                        unRead:String,msgSeen: String,message:String, callback: Callback<AddChatResponse>) {
+        Log.e("siva", "api called")
+        val chats: Call<AddChatResponse> =
+            apiService.addChat(userId, chatUserId, unRead, msgSeen, message)
+        return chats.enqueue(callback)
+    }
 
 }
