@@ -310,6 +310,57 @@
                     </androidx.core.widget.NestedScrollView>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Language Field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:hint="Select Native Language"
+                    style="@style/CustomTextInputLayout"
+                    android:theme="@style/CustomTextInputEditText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLanguage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:drawableEnd="@drawable/down_arrow"
+                        android:drawableTint="@color/primary"
+                        android:editable="false"
+                        android:text=""
+                        android:focusableInTouchMode="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Language Dropdown List -->
+                <com.google.android.material.card.MaterialCardView
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:visibility="gone"
+                    android:id="@+id/cardLanguage"
+                    android:padding="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    app:cardBackgroundColor="@color/primary_extra_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.core.widget.NestedScrollView
+                        android:scrollbarThumbVertical="@drawable/custom_scrollbar"
+                        android:scrollbars="vertical"
+                        android:scrollbarSize="@dimen/_10sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvLanguage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </androidx.core.widget.NestedScrollView>
+                </com.google.android.material.card.MaterialCardView>
+
+
                 <!-- City Field -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

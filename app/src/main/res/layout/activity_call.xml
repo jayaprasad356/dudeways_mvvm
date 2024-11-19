@@ -10,69 +10,148 @@
     android:background="@color/primary"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_margin="@dimen/_30sdp"
-        android:padding="10dp"
-        android:id="@+id/targetuserid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Target User id"
-        android:background="@drawable/edit_text_bg"
-        />
+
 
     <com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
-        android:layout_below="@+id/targetuserid"
+         android:visibility="gone"
         android:layout_marginTop="10dp"
         android:id="@+id/voiceCallButton"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:id="@+id/avRecharge"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        app:lottie_rawRes="@raw/location"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        />
 
-
-    <TextView
-        android:id="@+id/tvText"
-        android:gravity="center"
-        android:layout_below="@+id/avRecharge"
+    <RelativeLayout
+        android:id="@+id/rl1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Finding a call partner"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppins_semibold"
-        />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_below="@id/tvText"
-        android:id="@+id/tvText2"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:id="@+id/avRecharge"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            app:lottie_rawRes="@raw/location"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            />
+
+
+        <TextView
+            android:id="@+id/tvText"
+            android:gravity="center"
+            android:layout_below="@+id/avRecharge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finding a call partner"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            />
+
+        <TextView
+            android:layout_below="@id/tvText"
+            android:id="@+id/tvText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please wait while we find a call partner"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_8sdp"
+            android:gravity="center"
+            />
+
+        <Button
+            android:layout_below="@+id/tvText2"
+            android:id="@+id/btnCancel"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancel"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            />
+
+        <TextView
+            android:layout_below="@+id/btnCancel"
+            android:id="@+id/tvText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please wait while we find a call partner"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="@dimen/_8sdp"
-        android:gravity="center"
-        />
-    
-    <Button
-        android:layout_below="@+id/tvText2"
-        android:id="@+id/btnCancel"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cancel"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        />
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:id="@+id/tvText6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_below="@+id/tvText6"
+            android:id="@+id/avcall"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            app:lottie_rawRes="@raw/callagain"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            />
+
+
+
+        <TextView
+            android:layout_below="@+id/avcall"
+            android:id="@+id/tvText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Do you want call again ?"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_8sdp"
+            android:gravity="center"
+            />
+
+
+        <Button
+            android:layout_below="@+id/tvText4"
+            android:id="@+id/btnContinue"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Call Next"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            />
+
+        <Button
+            android:layout_below="@+id/tvText4"
+            android:id="@+id/btnBack"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            />
+
+
+    </RelativeLayout>
+
 
 
 </RelativeLayout>

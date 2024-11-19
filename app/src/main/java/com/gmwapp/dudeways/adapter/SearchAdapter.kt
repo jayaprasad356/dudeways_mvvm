@@ -64,12 +64,17 @@ class SearchAdapter(
         }
 
 
+
         val gender = report.gender
 
         if (gender == "male") {
             holder.binding.ivGender.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.male_ic))
+            holder.binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.blue_200)
+
         } else {
             holder.binding.ivGender.setBackgroundDrawable(activity.resources.getDrawable(R.drawable.female_ic))
+            holder.binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.primary)
+
         }
 
         if (gender == "male") {

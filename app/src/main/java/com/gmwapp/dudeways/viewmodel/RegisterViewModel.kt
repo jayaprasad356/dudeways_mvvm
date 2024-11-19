@@ -24,7 +24,8 @@ class RegisterViewModel @Inject constructor(val registerRepositories: RegisterRe
         proffessionId: String,
         state: String,
         city: String,
-        introduction: String
+        introduction: String,
+        language:String
     ) {
         viewModelScope.launch {
             isLoading.postValue(true)
@@ -36,7 +37,7 @@ class RegisterViewModel @Inject constructor(val registerRepositories: RegisterRe
                 proffessionId,
                 state,
                 city,
-                introduction
+                introduction,language
             ).let {
                 if (it.body() != null) {
                     registerLiveData.postValue(it.body())

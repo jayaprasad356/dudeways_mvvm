@@ -34,6 +34,8 @@
                     android:textColor="?attr/myTextColor"
                     android:textSize="@dimen/_12sdp" />
 
+
+
                 <!-- Progress Text -->
                 <TextView
                     android:id="@+id/tvProgressText"
@@ -105,6 +107,17 @@
                 android:lines="5"
                 android:padding="@dimen/_10sdp"
                 android:textCursorDrawable="@drawable/color_cursor" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="* Don't include your personal details like insta id,mobile number,etc."
+                android:textColor="@color/red"
+                android:textSize="@dimen/_10sdp" />
 
         </LinearLayout>
 

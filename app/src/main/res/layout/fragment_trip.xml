@@ -5,6 +5,7 @@
     <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#eec8a4"
         tools:context=".Fragment.TripFragment">
 
 
@@ -14,10 +15,11 @@
 
 
         <ImageView
+            android:layout_marginBottom="@dimen/_80sdp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/trip_img"
-            android:scaleType="fitXY"></ImageView>
+            android:layout_height="wrap_content"
+            android:background="@drawable/trip_img_converted"
+            android:scaleType="fitXY"/>
 
 
         <TextView
@@ -27,9 +29,8 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_100sdp"
             android:fontFamily="@font/poppins_bold"
-            android:padding="@dimen/_5sdp"
             android:text="Find Your Perfect Travel Mate"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/_18sdp" />
 
         <TextView
@@ -39,10 +40,9 @@
             android:layout_above="@+id/btTrips"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:padding="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_medium"
             android:text="Explore the world with your buddy"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="@dimen/_12sdp" />
 
         <LinearLayout

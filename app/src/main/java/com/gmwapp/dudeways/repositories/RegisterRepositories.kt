@@ -11,9 +11,10 @@ class RegisterRepositories @Inject constructor(val apiService: ApiService) {
         age: String, gender: String,
         proffessionId: String,
         state: String, city: String,
-        introduction: String
+        introduction: String,
+        language: String,
     ) = apiService.doRegister(
-        name, email, age, gender, proffessionId, state, city, introduction
+        name, email, age, gender, proffessionId, state, city, introduction,language
     )
 
     suspend fun updateImage(userId:RequestBody,

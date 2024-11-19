@@ -3,13 +3,14 @@ package com.gmwapp.dudeways.fragment
 import android.app.Activity
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,6 @@ import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.userAgent
 
 @AndroidEntryPoint
 class MessagesFragment : Fragment() {
@@ -44,12 +44,11 @@ class MessagesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_messages, container, false)
         initUI()
-        addListner()
-        addObsereves()
+        addListener()
+        addObservers()
         return binding.root
     }
 
@@ -65,50 +64,43 @@ class MessagesFragment : Fragment() {
 
         if (isNetworkAvailable(activity)) {
             chatList()
-
         } else {
             Toast.makeText(
-                activity, getString(R.string.str_error_internet_connections),
+                activity,
+                getString(R.string.str_error_internet_connections),
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    private fun addListner() {
-
+    private fun addListener() {
+        // Add any required listeners here (e.g., button click listeners)
     }
 
-    private fun addObsereves() {
-        viewModel.isLoading.observe(requireActivity(), Observer {
-            if (it) {
-                binding.pbLoadData.visibility = View.VISIBLE
-            } else {
-                binding.pbLoadData.visibility = View.GONE
-            }
-        })
-
-        viewModel.unreadMessageLiveData.observe(requireActivity(), Observer {
+    private fun addObservers() {
+        viewModel.unreadMessageLiveData.observe(viewLifecycleOwner, Observer {
             if (it.success) {
                 currentDialog?.dismiss()
                 offset = 0
                 chatList()
-            } else {
-
             }
         })
 
-        viewModel.chatLiveData.observe(requireActivity(), Observer {
+        viewModel.chatLiveData.observe(viewLifecycleOwner, Observer {
+            isLoading = false
+            binding.swipeRefreshLayout.isRefreshing = false
+
             if (it.success) {
-                isLoading = false
-                binding.swipeRefreshLayout.isRefreshing = false
                 total = it.total.toInt()
-                if (offset == 0) {
-                    chatList.clear()
+                if (offset == 0) chatList.clear()
+
+                // Prevent duplicate entries
+                it.data.forEach { newItem ->
+                    if (!chatList.contains(newItem)) chatList.add(newItem)
                 }
 
-                chatList.addAll(it.data)
-                chatlistAdapter?.notifyDataSetChanged()
-                offset += limit
+                chatlistAdapter.notifyDataSetChanged()
+                offset += limit // Increment offset after successful data load
             } else {
                 Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
             }
@@ -153,14 +145,11 @@ class MessagesFragment : Fragment() {
         val dialog = dialogBuilder.create()
         dialog.show()
 
-        // Optionally, you can configure the dialog's UI elements here
         val btnNo: TextView = dialogView.findViewById(R.id.btnNo)
         val btnYes: TextView = dialogView.findViewById(R.id.btnYes)
 
         btnNo.setOnClickListener {
             offset = 0
-
-            // Refresh the chat list
             chatList()
             dialog.dismiss()
         }
@@ -168,8 +157,6 @@ class MessagesFragment : Fragment() {
         btnYes.setOnClickListener {
             readChats(dialog)
         }
-
-
     }
 
     private fun readChats(dialog: Dialog) {
@@ -177,11 +164,11 @@ class MessagesFragment : Fragment() {
         viewModel.getUnreadMessage(session.getData(Constant.USER_ID).toString())
     }
 
-
     private fun chatList() {
         if (isLoading) return
         isLoading = true
 
+        Log.d("MessagesFragment", "Fetching chat list with offset: $offset")
         viewModel.getChat(
             session.getData(Constant.USER_ID).toString(),
             offset.toString(), limit.toString()
@@ -190,32 +177,15 @@ class MessagesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Clear the chat list and reset the offset
-        //chatList.clear()
         offset = 0
-
-        // Refresh the chat list
         chatList()
-
-
-        // Display a toast message for debugging purposes
-        //   Toast.makeText(activity, "onResume", Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {
         super.onStart()
         if (isVisible) {
-            // Clear the chat list and reset the offset
-            //    chatList.clear()
             offset = 0
-
-            // Refresh the chat list
-            chatList()            //  verification_list()
-
-            // Display a toast message for debugging purposes
-            //   Toast.makeText(activity, "Fragment is visible", Toast.LENGTH_SHORT).show()
+            chatList()
         }
     }
-
-
 }

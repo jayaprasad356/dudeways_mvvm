@@ -68,6 +68,7 @@ class SplashActivity : BaseActivity() {
                 val latestVersion = it.data[0].app_version
                 val link = it.data[0].link
                 session.setData(Constant.LOGIN, it.data[0].login)
+                session.setData(Constant.CALL_MODE, it.data[0].call_mode)
 
                 //   Toast.makeText(activity,latestVersion + currentVersion!!.toInt() , Toast.LENGTH_SHORT).show()
                 val description = it.data[0].description

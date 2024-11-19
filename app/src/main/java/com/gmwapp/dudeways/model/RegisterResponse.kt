@@ -20,4 +20,5 @@ data class RegisterModel(
     val refer_code: String,
     val referred_by: String,
     val introduction: String,
+    val language: String,
 )

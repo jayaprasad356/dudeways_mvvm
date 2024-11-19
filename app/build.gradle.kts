@@ -16,8 +16,8 @@ android {
         applicationId = "com.gmwapp.dudeways"
         minSdk = 24
         targetSdk = 34
-        versionCode = 26
-        versionName = "26.0"
+        versionCode = 30
+        versionName = "30.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,7 +25,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            isCrunchPngs = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -36,19 +35,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    packaging {
-        resources {
-            excludes +="META-INF/DEPENDENCIES"
-            excludes +="META-INF/LICENSE"
-            excludes +="META-INF/LICENSE.txt"
-            excludes +="META-INF/license.txt"
-            excludes +="META-INF/NOTICE"
-            excludes +="META-INF/NOTICE.txt"
-            excludes +="META-INF/notice.txt"
-            excludes +="META-INF/ASL2.0"
-            excludes +="META-INF/*.kotlin_module"
-            excludes +="META-INF/androidx.cardview_cardview.version"
-        }
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/notice.txt")
+        exclude("META-INF/ASL2.0")
+        exclude("META-INF/*.kotlin_module")
+        exclude("META-INF/androidx.cardview_cardview.version")
     }
 
     dataBinding {
@@ -90,7 +87,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     //coroutine
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3" )// Use latest version
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.9.1")
 
 
     //di
@@ -144,7 +143,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-ads:21.0.0+")
 
 
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation ("com.google.gms:google-services:4.3.14")
     implementation("com.google.firebase:firebase-crashlytics:18.4.1")
     implementation("com.google.firebase:firebase-analytics:21.3.0")
@@ -168,5 +167,13 @@ dependencies {
 
 
     implementation ("com.airbnb.android:lottie:3.4.0")
+
+    implementation ("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1") // Add this for coroutine support
+    kapt ("androidx.room:room-compiler:2.6.1")
+
+
+
+
 }
 

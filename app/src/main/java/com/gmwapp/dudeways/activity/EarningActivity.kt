@@ -48,6 +48,11 @@ class EarningActivity : BaseActivity() {
     private fun initUI() {
         val proof1 = session.getData(Constant.SELFIE_IMAGE)
         val proof2 = session.getData(Constant.FRONT_IMAGE)
+        val VerificationCost = session.getData(Constant.VERIFICATION_COST)
+        val withoutVerificationCost = session.getData(Constant.WITHOUT_VERIFICATION_COST)
+
+        binding.tvVericationcost.text = "₹" + VerificationCost
+        binding.withouverificationcost.text = "₹" +withoutVerificationCost
 
         val verify = session.getData(Constant.VERIFIED)
 

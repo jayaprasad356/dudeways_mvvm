@@ -50,15 +50,18 @@ class HomeProfilesAdapter(
         holder.binding.tvKm.text = "" + report.distance
         holder.binding.tvtime.text = "\u00B7 " + report.time
 
-        if (report.name?.length!! > 10) {
-            if (report.unique_name?.length!! > 7) {
-                holder.binding.tvUsername.text = "@" + report.unique_name!!.substring(0, 7) + ".."
+        holder.binding.tvUsername.text = if (report.name?.length ?: 0 > 7) {
+            if (report.unique_name?.length ?: 0 > 7) {
+                "@${report.unique_name?.substring(0, 7)}.."
             } else {
-                holder.binding.tvUsername.text = "@" + report.unique_name
+                "@${report.unique_name}"
             }
         } else {
-            holder.binding.tvUsername.text = "@" + report.unique_name
+            "@${report.unique_name}"
         }
+
+
+
 
         holder.binding.tvmore.setOnClickListener {
             if (holder.binding.tvDescription.visibility == View.VISIBLE) {
@@ -70,11 +73,11 @@ class HomeProfilesAdapter(
             }
         }
 
-//        if (report.verified == "1") {
-//            holder.ivVerify.visibility = View.VISIBLE
-//        } else {
-//            holder.ivVerify.visibility = View.GONE
-//        }
+        if (report.verified == "1") {
+            holder.binding.ivVerify.visibility = View.VISIBLE
+        } else {
+            holder.binding.ivVerify.visibility = View.GONE
+        }
 
         var friend_data: String = report.friend.toString()
 

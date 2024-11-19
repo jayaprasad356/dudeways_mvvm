@@ -154,11 +154,11 @@ class ProfileInfoActivity : BaseActivity() {
                 val age = it.data.age
                 val verify = it.data.verified
 
-//                        if (verify == "1") {
-//                            binding.ivVerify.visibility = View.VISIBLE
-//                        } else {
-//                            binding.ivVerify.visibility = View.GONE
-//                        }
+                        if (verify == "1") {
+                            binding.ivVerify.visibility = View.VISIBLE
+                        } else {
+                            binding.ivVerify.visibility = View.GONE
+                        }
 
                 binding.ivAge.text = age
 

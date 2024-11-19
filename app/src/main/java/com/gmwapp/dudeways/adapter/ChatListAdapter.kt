@@ -65,11 +65,11 @@ class ChatListAdapter(
         holder.binding.TVUserName.text = report.name
         holder.binding.TVMessageContent.text = report.latest_message
 
-//        if (report.verified == "1") {
-//            holder.ivVerify.visibility = View.VISIBLE
-//        } else {
-//            holder.ivVerify.visibility = View.GONE
-//        }
+        if (report.verified == "1") {
+            holder.binding.ivVerify.visibility = View.VISIBLE
+        } else {
+            holder.binding.ivVerify.visibility = View.GONE
+        }
 
         if (report.online_status == "1") {
             holder.binding.IVOnlineStatus.visibility = View.VISIBLE

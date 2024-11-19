@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.application
 
 import android.app.Application
 import androidx.core.provider.FontRequest
+import androidx.room.Room
 import com.gmwapp.dudeways.R
 import com.google.firebase.FirebaseApp
 import com.vanniktech.emoji.EmojiManager
@@ -12,11 +13,15 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class BaseApplication : Application() {
 
+
     override fun onCreate() {
         super.onCreate()
      //   initEmojiCompat()
         FirebaseApp.initializeApp(this)
         EmojiManager.install(GoogleEmojiProvider())
+
+
+
     }
 
 //    private fun initEmojiCompat() {

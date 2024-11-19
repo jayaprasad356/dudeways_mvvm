@@ -10,5 +10,6 @@ data class AppUpdateModel(
     val app_version: String,
     val link: String,
     val login: String,
-    val description: String
+    val description: String,
+    val call_mode : String
 )

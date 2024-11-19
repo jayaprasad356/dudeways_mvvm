@@ -1,5 +1,7 @@
 package com.gmwapp.dudeways.utils
 
+import retrofit2.http.Field
+
 
 object Constant {
     const val AppPlayStoreUrl: String =
@@ -66,7 +68,9 @@ object Constant {
     const val FREINDS_LIST: String = "api/friends_list"
     const val CHAT_LIST: String = "api/chat_list"
     const val NOTFICATION_LIST: String = "api/notification_list"
+    const val USER_TRANSACTION_LIST: String = "api/user_transaction_list"
     const val RANDOM_USER: String = "api/random_user"
+    const val USER_CALL: String = "api/user_call"
     const val UPDATE_NOTIFY: String = "api/update_notify"
     const val UPDATE_MOBILE: String = "api/update_mobile"
     const val ADD_FRIENDS: String = "api/add_friends"
@@ -127,6 +131,14 @@ object Constant {
     const val FrontPROOF: String = "front_proof"
     const val BackPROOF: String = "back_proof"
 
+
+
+
+    const val CALL_USER_ID: String = "call_user_id"
+    const val START_TIME: String = "start_datetime"
+    const val END_TIME: String = "end_datetime"
+    const val DURATION: String = "duration"
+
     const val APP_VERSION: String = "app_version"
     const val LINK: String = "link"
 
@@ -154,6 +166,7 @@ object Constant {
     const val PAYMENT_IMAGE: String = "payment_image"
     const val SELFI_IMAGE: String = "selfi_image"
     const val PROOF_IMAGE: String = "proof_image"
+    const val LANGUAGE: String = "language"
 
     const val NAME: String = "name"
     const val ACCOUNT_HOLDER_NAME: String = "account_holder_name"
@@ -168,6 +181,8 @@ object Constant {
     const val INSTAGRAM_LINK: String = "instagram_link"
     const val TELEGRAM_LINK: String = "telegram_link"
     const val UPI_ID: String = "upi_id"
+    const val WITHOUT_VERIFICATION_COST: String = "without_verification_cost"
+    const val VERIFICATION_COST: String = "verification_cost"
     const val SEARCH: String = "search"
     const val EMAIL: String = "email"
     const val POINT_PAYMENT_MOBILE: String = "point_payment_mobile"
@@ -183,6 +198,7 @@ object Constant {
     const val VERIFIED_STATUS: String = "verified_status"
     const val POINTS: String = "points"
     const val LOGIN: String = "login"
+    const val CALL_MODE: String = "login"
 
     const val SUCCESS: String = "success"
     const val MESSAGE: String = "message"

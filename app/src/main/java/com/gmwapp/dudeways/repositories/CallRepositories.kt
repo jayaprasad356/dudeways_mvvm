@@ -13,4 +13,15 @@ class CallRepositories @Inject constructor(val apiService: ApiService) {
     )
 
 
+    suspend fun setUserCall(
+        userId: String,
+        callUserId: String,
+        startTime: String,
+        endTime: String,
+        duration: Int
+        ) = apiService.setUserCall(
+        userId,callUserId,startTime,endTime, duration.toString()
+    )
+
+
 }

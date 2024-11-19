@@ -118,15 +118,27 @@
 
                 <ImageButton
                     android:visibility="gone"
-                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_50sdp"
                     android:id="@+id/ivphone"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/call_ic"
+                    android:background="@drawable/ic_call"
                     android:backgroundTint="@color/primary"
-                    android:onClick="onMoreOptionsClicked" />
+                     />
+
+                <ImageButton
+                    android:visibility="gone"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:id="@+id/ivVideocall"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/video_icon"
+                    android:backgroundTint="@color/primary"
+                    />
 
 
                 <ImageButton

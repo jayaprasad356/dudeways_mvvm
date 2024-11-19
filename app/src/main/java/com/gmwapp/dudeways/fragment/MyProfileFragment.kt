@@ -40,6 +40,7 @@ import com.gmwapp.dudeways.activity.PurchasepointActivity
 import com.gmwapp.dudeways.activity.RefundActivity
 import com.gmwapp.dudeways.activity.SpinActivity
 import com.gmwapp.dudeways.activity.TermsconditionActivity
+import com.gmwapp.dudeways.activity.TransactionActivity
 import com.gmwapp.dudeways.activity.WalletActivity
 import com.gmwapp.dudeways.databinding.FragmentMyProfileBinding
 import com.gmwapp.dudeways.utils.Constant
@@ -116,6 +117,15 @@ class MyProfileFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)!!
 
 
+        val verify = session.getData(Constant.VERIFIED)
+
+        if (verify == "1"){
+            binding.ivVerify.visibility = View.VISIBLE
+        }
+        else{
+            binding.ivVerify.visibility = View.GONE
+        }
+
         binding.darkModeSwitch.setOnCheckedChangeListener(null)  // Clear previous listener
 
 // Set the initial state from SharedPreferences
@@ -187,6 +197,11 @@ class MyProfileFragment : Fragment() {
 
         }
 
+        binding.rlTransactionHistory.setOnClickListener {
+            val intent = Intent(activity, TransactionActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.rlTermscondition.setOnClickListener {
             val intent = Intent(activity, TermsconditionActivity::class.java)
@@ -254,7 +269,7 @@ class MyProfileFragment : Fragment() {
             val tvSubDescription =
                 dialogView.findViewById<TextView>(R.id.tvSubDescription)
 
-            tvDescription.text = "Spend 10 points for a one-hour conversation with a user"
+            tvDescription.text = "Spend 10 points for a 30 mins conversation with a user"
             tvDescription.setTextColor(ContextCompat.getColor(requireActivity(), R.color.primary))
 
             tvSubDescription.text = "Minimum 10 points required to chat"
@@ -301,6 +316,7 @@ class MyProfileFragment : Fragment() {
                 }
             } else {
                 // Open Zoho SalesIQ chat
+                Toast.makeText(activity, "Coming Soon", Toast.LENGTH_SHORT).show()
                 ZohoSalesIQ.Chat.show()
             }
         }

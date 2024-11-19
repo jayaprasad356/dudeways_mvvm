@@ -95,14 +95,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_medium"
-                                android:text="Per Conversation"
+                                android:text="Per Conversation (30 mins)"
                                 android:textColor="@color/text_grey"
                                 android:textSize="@dimen/_12sdp" />
 
                             <TextView
+                                android:id="@+id/tvVericationcost"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="₹6.00"
+                                android:text="₹"
                                 android:textColor="@color/primary"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -313,11 +314,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins_medium"
-                                android:text="Per Conversation"
+                                android:text="Per Conversation (30 mins)"
                                 android:textColor="@color/text_grey"
                                 android:textSize="@dimen/_12sdp" />
 
                             <TextView
+                                android:id="@+id/withouverificationcost"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_medium"

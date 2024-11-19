@@ -2,6 +2,7 @@ package com.gmwapp.dudeways.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,10 @@ import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
@@ -23,6 +28,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityHomeBinding
 import com.gmwapp.dudeways.fragment.ExploreFragment
@@ -41,18 +47,20 @@ import com.gmwapp.dudeways.viewmodel.SettingsViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationBarView
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.onesignal.OneSignal
 import com.onesignal.debug.LogLevel
+import com.zegocloud.uikit.components.audiovideo.ZegoAvatarViewProvider
 import com.zegocloud.uikit.plugin.invitation.ZegoInvitationType
 import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallConfig
 import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService
 import com.zegocloud.uikit.prebuilt.call.config.DurationUpdateListener
 import com.zegocloud.uikit.prebuilt.call.config.ZegoCallDurationConfig
 import com.zegocloud.uikit.prebuilt.call.core.invite.ZegoCallInvitationData
+import com.zegocloud.uikit.prebuilt.call.core.invite.advanced.ZegoCallInvitationInCallingConfig
 import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig
 import com.zegocloud.uikit.prebuilt.call.invite.internal.ZegoUIKitPrebuiltCallConfigProvider
+import com.zegocloud.uikit.service.defines.ZegoUIKitUser
 import com.zoho.commons.InitConfig
 import com.zoho.livechat.android.listeners.InitListener
 import com.zoho.salesiqembed.ZohoSalesIQ
@@ -61,8 +69,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.checkerframework.checker.units.qual.C
 import java.io.IOException
 import java.util.Locale
+
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
@@ -165,7 +175,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
     }
 
     private fun callfab() {
-        val userId = session.getData(Constant.USER_ID).toString()
+        val userId = session.getData(Constant.UNIQUE_NAME).toString()
         val userName = session.getData(Constant.NAME).toString()
 
         val videoCallFab = binding.videoCallFab
@@ -221,22 +231,135 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
             }
         }
 
-        // Set up click listeners for the sub FABs
-        videoCallFab.setOnClickListener {
-            val intent = Intent(this, CallActivity::class.java)
-            intent.putExtra("Userid", userId)
-            intent.putExtra("type", "video")
-            startActivity(intent)
-            setupZegoUIKit(userId,userName)
+        val CALL_MODE =  session.getData(Constant.CALL_MODE).toString()
+
+        if (CALL_MODE == "testing")
+        {
+            videoCallFab.setOnClickListener {
+                // Inflate the custom layout
+                val dialogView = layoutInflater.inflate(R.layout.dialog_call_custom, null)
+
+                // Create a dialog with the custom layout
+                val customDialog = AlertDialog.Builder(this)
+                    .setView(dialogView)
+                    .setCancelable(false)
+                    .create()
+
+                // Find views in the custom layout
+                val etCustomMessage = dialogView.findViewById<EditText>(R.id.etCustomMessage)
+                val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+                val btnStartCall = dialogView.findViewById<Button>(R.id.btnStartCall)
+
+                // Set button actions
+                btnCancel.setOnClickListener {
+                    customDialog.dismiss()
+                }
+
+                btnStartCall.setOnClickListener {
+                    val customMessage = etCustomMessage.text.toString().trim()
+
+                    // Start the call with the custom message if provided
+                    if (customMessage.isNotEmpty()) {
+                        val intent = Intent(this, CallActivity::class.java).apply {
+                            putExtra("Userid", userId)
+                            putExtra("type", "video")
+                            putExtra("call_type", "test_call")
+                            putExtra("call_user_id", customMessage.toString())
+                        }
+                        startActivity(intent)
+
+                        // Setup Zego UIKit
+                        setupZegoUIKit(userId, userName)
+                    } else {
+                        Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
+                    }
+
+                    // Dismiss the dialog
+                    customDialog.dismiss()
+                }
+
+                // Show the dialog
+                customDialog.show()
+            }
+
+
+            audioCallFab.setOnClickListener {
+                // Inflate the custom layout for the dialog
+                val dialogView = layoutInflater.inflate(R.layout.dialog_call_custom, null)
+
+                // Create the dialog
+                val audioCallDialog = AlertDialog.Builder(this)
+                    .setView(dialogView)
+                    .setCancelable(false)
+                    .create()
+
+                // Find views in the custom dialog
+                val etAudioCallMessage = dialogView.findViewById<EditText>(R.id.etCustomMessage)
+                val btnAudioCallCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+                val btnAudioCallStart = dialogView.findViewById<Button>(R.id.btnStartCall)
+
+                // Set up Cancel button
+                btnAudioCallCancel.setOnClickListener {
+                    audioCallDialog.dismiss() // Close the dialog
+                }
+
+                // Set up Start Call button
+                btnAudioCallStart.setOnClickListener {
+                    val customMessage = etAudioCallMessage.text.toString().trim()
+
+                    if (customMessage.isNotEmpty()) {
+                        // Start audio call with custom message
+                        val intent = Intent(this, CallActivity::class.java).apply {
+                            putExtra("Userid", userId)
+                            putExtra("type", "audio")
+                            putExtra("call_type", "test_call")
+                            putExtra("call_user_id", customMessage.toString())
+
+                        }
+                        startActivity(intent)
+
+                        // Setup Zego UIKit
+                        setupZegoUIKit(userId, userName)
+                        audioCallDialog.dismiss()
+                    } else {
+                        Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                // Show the dialog
+                audioCallDialog.show()
+            }
         }
 
-        audioCallFab.setOnClickListener {
-            val intent = Intent(this, CallActivity::class.java)
-            intent.putExtra("Userid", userId)
-            intent.putExtra("type", "audio")
-            startActivity(intent)
-            setupZegoUIKit(userId,userName)
+        else if (CALL_MODE == "live")
+        {
+
+            // Set up click listeners for the sub FABs
+            videoCallFab.setOnClickListener {
+                val intent = Intent(this, CallActivity::class.java)
+                intent.putExtra("Userid", userId)
+                intent.putExtra("type", "video")
+                intent.putExtra("call_type", "random_call")
+                startActivity(intent)
+                setupZegoUIKit(userId,userName)
+            }
+
+            audioCallFab.setOnClickListener {
+                val intent = Intent(this, CallActivity::class.java)
+                intent.putExtra("Userid", userId)
+                intent.putExtra("type", "audio")
+                intent.putExtra("call_type", "random_call")
+                startActivity(intent)
+                setupZegoUIKit(userId,userName)
+            }
+
         }
+
+
+
+
+
+
     }
 
     private fun addListner() {
@@ -260,6 +383,10 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
       //  callInvitationConfig.incomingCallRingtone = "outgoingcallringtone" // No file extension
       //  callInvitationConfig.outgoingCallRingtone = "outgoingcallringtone" // No file extension
 
+        callInvitationConfig.callingConfig = ZegoCallInvitationInCallingConfig()
+
+        // Whether to enable the feature of inviting users to an ongoing call
+        callInvitationConfig.callingConfig.onlyInitiatorCanInvite = false
 
 
         // Set the custom call configuration provider
@@ -280,11 +407,6 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
                     }
                 }
 
-
-
-
-
-
                 // Set up call duration configuration with a listener
                 config.durationConfig = ZegoCallDurationConfig().apply {
                     isVisible = true
@@ -299,6 +421,27 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
                 }
 
 
+
+//                config.avatarViewProvider = object : ZegoAvatarViewProvider {
+//                    override fun onUserIDUpdated(parent: ViewGroup, uiKitUser: ZegoUIKitUser): View {
+//                        val imageView = ImageView(parent.context)
+//                        // Set different avatars for different users based on the user parameter in the callback.
+//                        val avatarUrl = session.getData(Constant.PROFILE)
+//                        if (!avatarUrl.isNullOrEmpty()) {
+//                            val requestOptions = RequestOptions().circleCrop()
+//                            Glide.with(parent.context).load(avatarUrl).apply(requestOptions).into(imageView)
+//                        }
+//                        return imageView
+//                    }
+//                }
+
+                callInvitationConfig.provider = object : ZegoUIKitPrebuiltCallConfigProvider {
+                    override fun requireConfig(invitationData: ZegoCallInvitationData): ZegoUIKitPrebuiltCallConfig {
+                        val config = ZegoUIKitPrebuiltCallInvitationConfig.generateDefaultConfig(invitationData)
+                        // Modify the config settings here according to your business needs
+                        return config
+                    }
+                }
 
 
 
@@ -338,9 +481,9 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
         viewModel.locationLiveData.observe(this, Observer {
             if (it.success) {
-                Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
+             //   Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
+              //  Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -352,7 +495,9 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
                 session.setData(Constant.INSTAGRAM_LINK, array[0].instagram_link)
                 session.setData(Constant.TELEGRAM_LINK, array[0].telegram_link)
                 session.setData(Constant.UPI_ID, array[0].upi_id)
-                session.setData(Constant.MOBILE, array[0].mobile)
+//                session.setData(Constant.MOBILE, array[0].mobile)
+                session.setData(Constant.VERIFICATION_COST, array[0].verification_cost)
+                session.setData(Constant.WITHOUT_VERIFICATION_COST, array[0].without_verification_cost)
             } else {
                 Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
             }
@@ -406,9 +551,9 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         session.setData(Constant.LATITUDE, latitude)
         session.setData(Constant.LONGITUDE, longitude)
 
-        if (latitude == "" && longitude == "") {
+
             getLocation()
-        }
+
 
 
         chatBadge()
@@ -590,11 +735,11 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
                                     Log.e(
                                         "GeocoderError", "Failed to get location after retries", e
                                     )
-                                    Toast.makeText(
-                                        this,
-                                        "Failed to get location. Please try again later.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+//                                    Toast.makeText(
+//                                        this,
+//                                        "Failed to get location. Please try again later.",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
                                 }
                             }
                         }

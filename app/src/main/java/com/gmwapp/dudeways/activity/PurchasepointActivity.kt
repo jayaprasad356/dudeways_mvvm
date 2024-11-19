@@ -32,6 +32,7 @@ import com.gmwapp.dudeways.model.PurchaseModel
 import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.ChatViewModel
+import com.gmwapp.dudeways.viewmodel.EarningViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,6 +43,7 @@ class PurchasepointActivity : BaseActivity() {
     lateinit var session: Session
     private var purchaseList: ArrayList<PurchaseModel> = arrayListOf()
     private val viewModel: ChatViewModel by viewModels()
+    private val viewModel1: EarningViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,12 +105,16 @@ class PurchasepointActivity : BaseActivity() {
         })
 
         viewModel.addPointsLiveData.observe(this, Observer {
+            println("Long URL: ${it.longurl}") // Print to the terminal
+//Toast.makeText(mContext, it.longurl, Toast.LENGTH_SHORT).show()
             val intent = Intent(mContext, LauncherActivity::class.java)
             intent.setData(Uri.parse(it.longurl))
             startActivity(intent)
             finish()// Directly starting the intent without launcher
 
         })
+
+
     }
 
     inner class PurchaseAdapter(
@@ -153,13 +159,13 @@ class PurchasepointActivity : BaseActivity() {
                 val  amount = item.price
                 val pointsId = item.id
 
-                if (session.getData(Constant.POINT_PAYMENT_MOBILE)?.isNotEmpty() == true)
+                if (session.getData(Constant.MOBILE)?.isNotEmpty() == true)
                 {
                     viewModel.addPoints(
                         session.getData(Constant.NAME).toString(),
                         amount,
                         session.getData(Constant.EMAIL).toString(),
-                        session.getData(Constant.POINT_PAYMENT_MOBILE).toString(),
+                        session.getData(Constant.MOBILE).toString(),
                         session.getData(Constant.USER_ID).toString() + "-" + pointsId
                     )
 
@@ -202,12 +208,18 @@ class PurchasepointActivity : BaseActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    session.setData(Constant.POINT_PAYMENT_MOBILE, mobileNumber)
+                    session.setData(Constant.MOBILE, mobileNumber)
+
+                    viewModel1.updateMobileData(
+                        session.getData(Constant.USER_ID).toString(),
+                        etMobileNumber.text.toString()
+                    )
+
                     viewModel.addPoints(
                         session.getData(Constant.NAME).toString(),
                         amount,
                         session.getData(Constant.EMAIL).toString(),
-                        session.getData(Constant.POINT_PAYMENT_MOBILE).toString(),
+                        session.getData(Constant.MOBILE).toString(),
                         session.getData(Constant.USER_ID).toString() + "-" + pointsId
                     )
                     // initiatePaymentLink(pointsId, amount)

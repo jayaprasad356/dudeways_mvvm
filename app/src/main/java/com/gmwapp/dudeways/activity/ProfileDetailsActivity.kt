@@ -24,6 +24,7 @@ import com.gmwapp.dudeways.utils.Constant
 import com.gmwapp.dudeways.utils.Session
 import com.gmwapp.dudeways.viewmodel.LoginViewModel
 import com.gmwapp.dudeways.viewmodel.RegisterViewModel
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.reflect.Field
 
@@ -136,7 +137,8 @@ class ProfileDetailsActivity : BaseActivity() {
                             profession_id,
                             binding.etState.text.toString().trim(),
                             binding.etcity.text.toString().trim(),
-                            binding.etIntroduction.text.toString().trim()
+                            binding.etIntroduction.text.toString().trim(),
+                            binding.etLanguage.text.toString().trim()
                         )
                     }
                 } else {
@@ -155,12 +157,31 @@ class ProfileDetailsActivity : BaseActivity() {
                 cardstate.visibility = View.VISIBLE
                 showProfessionDialogstate(etState)
             }
+            etLanguage.setOnClickListener {
+                cardLanguage.visibility = View.VISIBLE
+                showLanguageDialog(etLanguage)
+            }
 
             btnNext.setOnClickListener {
                 nsProfileDetails.visibility = View.VISIBLE
                 llDescribtion.visibility = View.GONE
             }
 
+        }
+
+    }
+
+
+    private fun showLanguageDialog(etLanguage: TextInputEditText) {
+        val languages = listOf("Tamil" , "Telugu" , "Kanada" , "Malayalam" , "Hindi")
+        binding.apply {
+            val adapter = ProfessionAdapter(languages) { selectedLanguage ->
+                etLanguage.setText(selectedLanguage)
+                cardLanguage.visibility = View.GONE
+                etLanguage.error = null
+            }
+            rvLanguage.adapter = adapter
+            rvLanguage.layoutManager = LinearLayoutManager(this@ProfileDetailsActivity)
         }
 
     }
@@ -190,9 +211,13 @@ class ProfileDetailsActivity : BaseActivity() {
         } else if (select_option == "0") {
             Toast.makeText(this, "Please select Gender", Toast.LENGTH_SHORT).show()
         } else if (binding.etProfession.text.toString().isEmpty()) {
-            binding.etProfession.error = "Please enter profession"
+            binding.etProfession.error = "Please select profession"
             isValid = false
-        } else if (binding.etState.text.toString().isEmpty()) {
+        } else if(binding.etLanguage.text.toString().isEmpty()){
+            binding.etLanguage.error = "Please select language"
+            isValid = false
+        }
+        else if (binding.etState.text.toString().isEmpty()) {
             binding.etState.error = "Please enter state"
             isValid = false
         } else if (binding.etcity.text.toString().isEmpty()) {
@@ -299,6 +324,7 @@ class ProfileDetailsActivity : BaseActivity() {
         session.setData(Constant.STATE, data.state)
         session.setData(Constant.CITY, data.city)
         session.setData(Constant.MOBILE, data.mobile)
+        session.setData(Constant.LANGUAGE, data.language)
 
         session.setData(
             Constant.REFER_CODE,

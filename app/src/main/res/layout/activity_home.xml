@@ -55,14 +55,8 @@
         </RelativeLayout>
 
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottomNavigationView"
-            android:layout_below="@+id/rltoolbar" />
-
         <RelativeLayout
+            android:layout_below="@+id/rltoolbar"
             android:layout_above="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -145,8 +139,17 @@
 
 
 
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp" />
+
 
         </RelativeLayout>
+
+
 
 
 

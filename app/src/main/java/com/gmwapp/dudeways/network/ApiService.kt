@@ -35,6 +35,7 @@ import com.gmwapp.dudeways.model.SearchResponse
 import com.gmwapp.dudeways.model.SelfiImageResponse
 import com.gmwapp.dudeways.model.SettingsResponse
 import com.gmwapp.dudeways.model.TermsConditionResponse
+import com.gmwapp.dudeways.model.TransactionResponse
 import com.gmwapp.dudeways.model.UserDataResponse
 import com.gmwapp.dudeways.model.UserEarningsResponse
 import com.gmwapp.dudeways.model.WalletResponse
@@ -78,6 +79,7 @@ interface ApiService {
         @Field(Constant.STATE) state: String,
         @Field(Constant.CITY) city: String,
         @Field(Constant.INTRODUCTION) introduction: String,
+        @Field(Constant.LANGUAGE) language: String
     ): Response<RegisterResponse>
 
 
@@ -309,10 +311,27 @@ interface ApiService {
     ): Response<NotificationResponse>
 
     @FormUrlEncoded
+    @POST(Constant.USER_TRANSACTION_LIST)
+    suspend fun getTransaction(
+        @Field(Constant.USER_ID) userId: String,
+    ): Response<TransactionResponse>
+
+    @FormUrlEncoded
     @POST(Constant.RANDOM_USER)
     suspend fun getRandomUser(
         @Field(Constant.USER_ID) userId: String
     ): Response<CallResponse>
+
+    @FormUrlEncoded
+    @POST(Constant.USER_CALL)
+    suspend fun setUserCall(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.CALL_USER_ID) callUserId: String,
+        @Field(Constant.START_TIME) startTime: String,
+        @Field(Constant.END_TIME) endTime: String,
+        @Field(Constant.DURATION) duration: String
+    ): Response<BaseResponse>
+
 
 
 
