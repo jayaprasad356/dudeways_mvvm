@@ -5,12 +5,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.gmwapp.dudeways.callback.ChatSentCallback
 import com.gmwapp.dudeways.model.AddChatResponse
 import com.gmwapp.dudeways.model.AddPointsResponse
 import com.gmwapp.dudeways.model.BackImageResponse
@@ -274,21 +274,21 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
 
     fun addChat(
         context: Context, userId: String, chatUserId: String,
-        unRead: String, msgSeen: String, message: String, chatList: ChatList
+        unRead: String, msgSeen: String, message: String, chatList: ChatList,
+        onChatSentCallback: ChatSentCallback
     ) {
 
         viewModelScope.launch {
             addLocalChatLiveData.postValue(chatList)
-            Log.e("siva", "addChat : " + chatRepositories)
             chatRepositories.addChat(userId, chatUserId, unRead, msgSeen, message, object :
                 Callback<AddChatResponse> {
                 override fun onResponse(
                     call: Call<AddChatResponse>,
                     response: Response<AddChatResponse>
                 ) {
-                    Log.e("siva", "response"+response.body())
                     if (response.body() != null) {
                         addChatLiveData.postValue(response.body())
+                        onChatSentCallback.onChatSent()
                     } else {
                         if (response.code() != null) {
                             addChatLiveData.postValue(
@@ -322,7 +322,6 @@ class ChatViewModel @Inject constructor(val chatRepositories: ChatRepositories) 
                 }
 
                 override fun onFailure(call: Call<AddChatResponse>, t: Throwable) {
-                    Log.e("siva", "failed")
                     val constraints = Constraints.Builder()
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .build()

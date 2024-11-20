@@ -91,7 +91,6 @@ class ChatRepositories @Inject constructor(val apiService: ApiService) {
 
     fun addChat(userId: String,chatUserId: String,
                         unRead:String,msgSeen: String,message:String, callback: Callback<AddChatResponse>) {
-        Log.e("siva", "api called")
         val chats: Call<AddChatResponse> =
             apiService.addChat(userId, chatUserId, unRead, msgSeen, message)
         return chats.enqueue(callback)

@@ -35,6 +35,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.gmwapp.dudeways.OnMessagesFetchedListner
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.adapter.ChatAdapter
+import com.gmwapp.dudeways.callback.ChatSentCallback
 import com.gmwapp.dudeways.databinding.ActivityChatsBinding
 import com.gmwapp.dudeways.extentions.chat_status
 import com.gmwapp.dudeways.extentions.fetchMessages
@@ -110,6 +111,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
     private lateinit var typingStatusReference: DatabaseReference
     private var lastMessageId: String? = null
     private var lastMessage: String = ""
+    private var isDestroyed = false;
 
 
 
@@ -222,6 +224,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chats)
         mContext = this
+        isDestroyed = false;
         initUI()
         addListner()
         addObsereves()
@@ -240,6 +243,31 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
         emojiPopupHelper.setupEmojiPopup(binding.messageEdittext, binding.emojiButton, findViewById(R.id.main))
 
 
+    }
+
+    private fun updateMessageForSender(message:String){
+        binding.sendButton.isClickable = true
+        senderName?.let { sName ->
+            receiverName?.let { rName ->
+                updateMessagesForSender(
+                    databaseReference = databaseReference,
+                    senderID = senderId,
+                    receiverID = receiverId,
+                    senderName = senderName!!,
+                    receiverName = receiverName!!,
+                    message = message,
+                    soundPool = soundPool,
+                    sentTone = sentTone
+                )
+                //    binding.messageEdittext.text.clear()
+            } ?: logError(
+                CHATS_ACTIVITY,
+                "Unable to send your message."
+            )
+        } ?: logError(
+            CHATS_ACTIVITY,
+            "Unable to send your message."
+        )
     }
 
     private fun addListner() {
@@ -309,7 +337,21 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                                         senderID = this@ChatsActivity.senderId,
                                         type = "TEXT",
                                         sentBy = session.getData(Constant.NAME)
-                                    )
+                                    ), object:ChatSentCallback{
+                                        override fun onChatSent() {
+                                            if(isDestroyed) {
+                                                if (lastMessage.isNotEmpty()) {
+                                                    isBlocked(senderId, receiverId)
+                                                    { isBlocked ->
+                                                        if (!isBlocked) {
+                                                            updateMessageForSender(lastMessage)
+
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 )
                             }
 
@@ -532,28 +574,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                             makeToast("You cannot send messages to this user blocked.")
 
                         } else {
-                            binding.sendButton.isClickable = true
-                            senderName?.let { sName ->
-                                receiverName?.let { rName ->
-                                    updateMessagesForSender(
-                                        databaseReference = databaseReference,
-                                        senderID = senderId,
-                                        receiverID = receiverId,
-                                        senderName = senderName!!,
-                                        receiverName = receiverName!!,
-                                        message = message,
-                                        soundPool = soundPool,
-                                        sentTone = sentTone
-                                    )
-                                //    binding.messageEdittext.text.clear()
-                                } ?: logError(
-                                    CHATS_ACTIVITY,
-                                    "Unable to send your message."
-                                )
-                            } ?: logError(
-                                CHATS_ACTIVITY,
-                                "Unable to send your message."
-                            )
+                            updateMessageForSender(message)
                         }
                     }
                 } else {
@@ -1105,7 +1126,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
 
     override fun onDestroy() {
         super.onDestroy()
-
+        isDestroyed = true;
         // Set user offline status with last seen time
         setUserStatus(
             firebaseDatabase,
