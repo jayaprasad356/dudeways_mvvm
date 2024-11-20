@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.androidx.work.runtime)
     implementation(libs.play.services.fido)
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
     val lifecycle_version = "2.6.2"
     val glideVersion = "4.11.0"
 
@@ -90,6 +92,7 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3" )// Use latest version
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("com.google.firebase:firebase-firestore-ktx:24.9.1")
+    implementation ("androidx.work:work-runtime-ktx:1.0.0")
 
 
     //di

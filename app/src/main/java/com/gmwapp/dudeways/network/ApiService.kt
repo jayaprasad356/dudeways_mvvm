@@ -294,13 +294,13 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST(Constant.ADD_CHAT)
-    suspend fun addChat(
+    fun addChat(
         @Field(Constant.USER_ID) userId: String,
         @Field(Constant.CHAT_USER_ID) chatUserId: String,
         @Field(Constant.UNREAD) unread: String,
         @Field(Constant.MSG_SEEN) msgSeen: String,
         @Field(Constant.MESSAGE) message: String
-    ): Response<AddChatResponse>
+    ): Call<AddChatResponse>
 
     @FormUrlEncoded
     @POST(Constant.NOTFICATION_LIST)
