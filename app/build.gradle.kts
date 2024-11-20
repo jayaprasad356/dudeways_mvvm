@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.androidx.work.runtime)
     implementation(libs.play.services.fido)
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
     val lifecycle_version = "2.6.2"
     val glideVersion = "4.11.0"
 

@@ -1,6 +1,8 @@
 package com.gmwapp.dudeways.workers
 
 import android.content.Context
+import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.Data
@@ -14,19 +16,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import com.gmwapp.dudeways.repositories.ChatRepositories
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-class MessageSendWorker @Inject constructor(
+@HiltWorker
+class MessageSendWorker @AssistedInject constructor(
     val chatRepositories: ChatRepositories,
-    appContext: Context,
-    val workerParams: WorkerParameters
+    @Assisted appContext: Context,
+    @Assisted val workerParams: WorkerParameters
 ) :
     CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
+        Log.e("siva","worker doWork")
         return withContext(Dispatchers.IO) {
             chatRepositories.addChat(
                 workerParams.getInputData().getString("userId").toString(),
