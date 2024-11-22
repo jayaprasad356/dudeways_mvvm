@@ -35,7 +35,7 @@ object AppModule {
     @Singleton
     @Provides
     fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {//https://mobikul.com/android-retrofit-handling-sslhandshakeexception/
             @Throws(CertificateException::class)
             override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
             }
