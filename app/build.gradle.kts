@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.gmwapp.dudeways"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 30
         versionName = "30.0"
