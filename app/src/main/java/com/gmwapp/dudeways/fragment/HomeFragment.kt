@@ -12,6 +12,7 @@ import android.widget.CalendarView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -41,7 +42,6 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
-
     lateinit var binding: FragmentHomeBinding
     lateinit var homeCategorysAdapter: HomeCategorysAdapter
     private val homeCategoryList = ArrayList<HomeCategory>()
@@ -72,9 +72,43 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         initUI()
         addObsereves()
+        homeview()
         return binding.root
 
     }
+
+    private fun homeview() {
+        // Initially set up the views
+        binding.tvOnlineDudes.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary_pink)
+        binding.tvOnlineDudes.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        binding.tvTrips.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.white)
+        binding.tvTrips.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_pink))
+        binding.rvProfileList.visibility = View.GONE
+        binding.rvUserList.visibility = View.VISIBLE
+
+        // Click listeners for Online Dudes
+        binding.tvOnlineDudes.setOnClickListener {
+            binding.tvOnlineDudes.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary_pink)
+            binding.tvOnlineDudes.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvTrips.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.white)
+            binding.tvTrips.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_pink))
+
+            binding.rvProfileList.visibility = View.GONE
+            binding.rvUserList.visibility = View.VISIBLE
+        }
+
+        // Click listeners for Trips
+        binding.tvTrips.setOnClickListener {
+            binding.tvTrips.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.primary_pink)
+            binding.tvTrips.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.tvOnlineDudes.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.white)
+            binding.tvOnlineDudes.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_pink))
+
+            binding.rvProfileList.visibility = View.VISIBLE
+            binding.rvUserList.visibility = View.GONE
+        }
+    }
+
 
     private fun initUI() {
         activity = requireActivity()
@@ -82,9 +116,10 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
         (activity as HomeActivity).binding.bottomNavigationView.visibility = View.VISIBLE
-        (activity as HomeActivity).binding.ivSearch.visibility = View.VISIBLE
+        (activity as HomeActivity).binding.ivNotification.visibility = View.VISIBLE
 
-        loadCategoryList()
+
+
 
         binding.rvProfileList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -172,7 +207,7 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
                     ivFriend.setBackgroundResource(R.drawable.added_frd)
                     tvFriend.text = "Friend Added"
                 } else if (friend == "2") {
-                    ivFriend.setBackgroundResource(R.drawable.add_account)
+                    ivFriend.setBackgroundResource(R.drawable.add_user)
                     tvFriend.text = "Add to Friend"
                 }
                 Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
@@ -191,8 +226,7 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
 
 
         binding.apply {
-            rvUserList.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            rvUserList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             rvUserList.setHasFixedSize(true)
             homeUserListAdapter = HomeUserlistAdapter(activity, homeUserlist)
             rvUserList.adapter = homeUserListAdapter
@@ -217,7 +251,7 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
 
 
     private fun updateProfileList(data: ArrayList<HomeProfile>) {
-        binding.rvProfileList.visibility = View.VISIBLE
+     //   binding.rvProfileList.visibility = View.VISIBLE
 
         if (offset == 0) {
             homeProfileList.clear()
@@ -248,22 +282,7 @@ class HomeFragment : Fragment(), HomeProfilesAdapter.onItemClick {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun loadCategoryList() {
-        homeCategoryList.clear()
-        homeCategoryList.add(HomeCategory("1", "Female", ""))
-        homeCategoryList.add(HomeCategory("1", "Nearby", ""))
-        homeCategoryList.add(HomeCategory("1", "Latest", ""))
-        homeCategoryList.add(HomeCategory("1", "Trip Date", ""))
 
-
-        binding.apply {
-            rvCategoryList.layoutManager = GridLayoutManager(activity, 4)
-            rvCategoryList.setHasFixedSize(true)
-            homeCategorysAdapter = HomeCategorysAdapter(requireActivity(), homeCategoryList)
-            binding.rvCategoryList.adapter = homeCategorysAdapter
-            homeCategorysAdapter?.notifyDataSetChanged()
-        }
-    }
 
     inner class HomeCategorysAdapter(
         private val activity: Activity,

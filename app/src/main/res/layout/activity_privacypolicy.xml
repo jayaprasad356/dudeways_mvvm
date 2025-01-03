@@ -7,31 +7,48 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_dudeways"
         tools:context=".Activity.PrivacypolicyActivity">
 
         <RelativeLayout
+            android:padding="@dimen/_10sdp"
             android:id="@+id/rlToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
-            <ImageView
+
+
+
+            <ImageButton
                 android:id="@+id/ivBack"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/arrow_left"
-                android:backgroundTint="?attr/iconColor" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@color/white"
+                />
 
+
+            <!-- Title -->
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_toRightOf="@id/ivBack"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Privacy policy"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_14sdp" />
+                android:fontFamily="@font/poppins_semibold"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/privacy_policy"
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/_20sdp"
+                />
+
+
+
         </RelativeLayout>
 
         <ScrollView
@@ -39,6 +56,8 @@
             android:layout_height="match_parent"
             android:layout_below="@id/rlToolbar"
             android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/corners_bg"
             android:backgroundTint="@color/primary_light"
             android:padding="@dimen/_10sdp">

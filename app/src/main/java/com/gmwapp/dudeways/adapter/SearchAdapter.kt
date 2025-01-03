@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.New.UsersprofileDetailsActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.ChatsActivity
 import com.gmwapp.dudeways.activity.ProfileInfoActivity
@@ -51,7 +52,7 @@ class SearchAdapter(
 
         val session = Session(activity)
 
-        holder.binding.IVOnlineStatus.visibility = View.GONE
+//        holder.binding.IVOnlineStatus.visibility = View.GONE
 
         holder.binding.tvAge.text = report.age
 //        holder.tvDistance.text = report.distance
@@ -122,7 +123,7 @@ class SearchAdapter(
         }
 
         holder.binding.ivProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileInfoActivity::class.java)
+            val intent = Intent(activity, UsersprofileDetailsActivity::class.java)
             intent.putExtra("name", report.name)
             intent.putExtra("chat_user_id", report.id.toString())
             intent.putExtra("id", userId)
@@ -137,13 +138,9 @@ class SearchAdapter(
 
         //holder.tvLatestseen.text = report.introduction is more than one line mean en with dot
 
-        if (report.introduction!!.length == 0) {
 
-        } else if (report.introduction!!.length > 45) {
-            holder.binding.tvLatestseen.text = report.introduction!!.substring(0, 45) + ".."
-        } else {
-            holder.binding.tvLatestseen.text = report.introduction
-        }
+
+     //       holder.binding.tvLanguage.text = report.language
 
 
 

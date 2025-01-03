@@ -83,5 +83,21 @@
     <string name="your_information_is_kept_private_and_secure_it_will_not_be_shared_with_other_users_or_any_third_parties">Your information is kept private and secure. It will not be shared with other users or any third parties.</string>
     <string name="id_proof_not_required"><strike> Id Proof Not Required </strike></string>
     <string name="selfie_image_not_required"><strike>Selfie Image Not Required</strike></string>
+    <string name="dude_ways_helps_to_find_best_travel_partner">Dude Ways Helps To Find Best Travel Partner</string>
+    <string name="login_with_phone">Login with Phone</string>
+    <string name="login_using_your_mobile_number">Login Using Your Mobile Number</string>
+    <string name="otp_send_to_this_mobile_number_9361880076">OTP Send To This Mobile Number 9361880076</string>
+    <string name="select_native_language">Select Native Language</string>
+    <string name="done">Done</string>
+    <string name="set_profile">Set Profile</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="female_voice_test">Female Voice Test</string>
+    <string name="explore">Explore</string>
+    <string name="purchase_points">Purchase points</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="earning">Earning</string>
+    <string name="chat">chat</string>
+    <string name="uploaded">Uploaded</string>
+    <string name="upload">Upload</string>
 
 </resources>

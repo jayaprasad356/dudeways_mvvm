@@ -16,59 +16,106 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".Fragment.HomeFragment">
 
-        <RelativeLayout
+
+
+        <LinearLayout
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:id="@+id/ll1"
+            android:background="@drawable/bg_bottom_corner"
+            android:backgroundTint="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/_5sdp"
+            >
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout"
+
+            <TextView
+                android:id="@+id/tvOnlineDudes"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:text="Online Dudes"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/bg_bottom_corner"
+                android:paddingVertical="@dimen/_5sdp"
+                />
+            <TextView
+                android:id="@+id/tvTrips"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trips"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/bg_bottom_corner"
+                android:paddingVertical="@dimen/_5sdp"
+                />
 
-                <LinearLayout
+
+
+
+        </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_below="@+id/ll1"
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProfileList"
+                    android:adapter="@{homeProfileAdapter}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_10sdp">
+                    />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvUserList"
-                        android:adapter="@{homeUserListAdapter}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCategoryList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvUserList"
+                    android:adapter="@{homeProfileAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvProfileList"
-                        android:adapter="@{homeProfileAdapter}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp" />
-                </LinearLayout>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </RelativeLayout>
+            </LinearLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
+            android:layout_centerInParent="true"
             android:id="@+id/pbLoadData"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center"
-            android:layout_centerInParent="true"
             android:theme="@style/CircularProgress"
             android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </RelativeLayout>
 </layout>

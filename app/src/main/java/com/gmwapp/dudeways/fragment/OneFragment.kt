@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gmwapp.dudeways.New.Fragment.SelectLanguageFragment.LanguageAdapter
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.StarttripActivity
 import com.gmwapp.dudeways.adapter.TripAdapter
@@ -23,6 +25,16 @@ class OneFragment : Fragment() {
     lateinit var activity: Activity
     lateinit var session: Session
 
+    data class Trip(
+        val nameTrip: String,
+        var isSelected: Boolean = false
+    )
+
+    private val languages = listOf(
+        Trip("Mountains")
+    )
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +45,12 @@ class OneFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_one, container, false)
         initUI()
         addListner()
+        setupRecyclerView()
+
         return binding.root
+    }
+
+    private fun setupRecyclerView() {
     }
 
     private fun initUI() {
@@ -47,6 +64,9 @@ class OneFragment : Fragment() {
 
         tripplan()
     }
+
+
+
 
     private fun addListner() {
 

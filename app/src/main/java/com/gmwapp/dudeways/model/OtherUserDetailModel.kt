@@ -21,5 +21,7 @@ data class OtherUserDetailModel(
     val city: String? = "",
     val state: String? = "",
     val introduction: String? = "",
-    val friend_status: String? = ""
+    val friend_status: String? = "",
+    val dob : String? = "",
+    val language : String? = ""
 )

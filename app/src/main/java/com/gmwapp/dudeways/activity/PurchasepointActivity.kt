@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmwapp.dudeways.R
@@ -58,8 +59,8 @@ class PurchasepointActivity : BaseActivity() {
         session = Session(mContext)
 
 
-        val linearLayoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.layoutManager = linearLayoutManager
+        val gridLayoutManager = GridLayoutManager(mContext, 3)
+        binding.recyclerView.layoutManager = gridLayoutManager
 
         if (isNetworkAvailable(mContext)) {
             viewModel.getPurchase(session.getData(Constant.USER_ID).toString())
@@ -106,7 +107,7 @@ class PurchasepointActivity : BaseActivity() {
 
         viewModel.addPointsLiveData.observe(this, Observer {
             println("Long URL: ${it.longurl}") // Print to the terminal
-//Toast.makeText(mContext, it.longurl, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(mContext, it.longurl, Toast.LENGTH_SHORT).show()
             val intent = Intent(mContext, LauncherActivity::class.java)
             intent.setData(Uri.parse(it.longurl))
             startActivity(intent)
@@ -130,9 +131,10 @@ class PurchasepointActivity : BaseActivity() {
             )
         }
 
-        override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        override fun onBindViewHolder(holder: ItemHolder, position: Int)
+        {
             val item = list[position]
-            holder.binding.tvTitle.text = "Get " + item.points + " Points"
+            holder.binding.tvTitle.text = "" + item.points + " Points"
 
             if (item.offer_percentage == "0") {
                 holder.binding.tvPercentage.visibility = View.GONE

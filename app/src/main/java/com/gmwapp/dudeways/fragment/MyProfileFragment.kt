@@ -110,7 +110,7 @@ class MyProfileFragment : Fragment() {
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
         (activity as HomeActivity).binding.bottomNavigationView.visibility = View.GONE
-        (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
+//        (activity as HomeActivity).binding.ivNotification.visibility = View.GONE
 
         loadRewardedVideoAd()
 

@@ -67,7 +67,7 @@ class LoginActivity : BaseActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         firebaseAuth = FirebaseAuth.getInstance()
 
-        val login = session.getData("login")
+        val login = session.getData(Constant.LOGIN)
 
         if (login == "1") {
             binding.tvmore.visibility = View.VISIBLE
@@ -194,33 +194,18 @@ class LoginActivity : BaseActivity() {
     private fun setPrefData(data: LoginModel) {
         session.setData(Constant.USER_ID, data.id)
         session.setData(Constant.NAME, data.name)
-        session.setData(
-            Constant.UNIQUE_NAME,
-            data.unique_name
-        )
+        session.setData(Constant.UNIQUE_NAME, data.unique_name)
         session.setData(Constant.EMAIL, data.email)
         session.setData(Constant.AGE, data.age)
         session.setData(Constant.GENDER, data.gender)
-        session.setData(
-            Constant.PROFESSION,
-            data.profession
-        )
+        session.setData(Constant.PROFESSION, data.profession)
         session.setData(Constant.STATE, data.state)
         session.setData(Constant.CITY, data.city)
         session.setData(Constant.MOBILE, data.mobile)
-        session.setData(
-            Constant.COVER_IMG,
-            data.cover_img
-        )
+        session.setData(Constant.COVER_IMG, data.cover_img)
         session.setData(Constant.POINTS, data.points.toString())
-        session.setData(
-            Constant.REFER_CODE,
-            data.refer_code
-        )
-        session.setData(
-            Constant.INTRODUCTION,
-            data.introduction
-        )
+        session.setData(Constant.REFER_CODE, data.refer_code)
+        session.setData(Constant.INTRODUCTION, data.introduction)
         session.setBoolean("is_logged_in", true)
         val intent = Intent(mContext, HomeActivity::class.java)
         startActivity(intent)
@@ -252,7 +237,7 @@ class LoginActivity : BaseActivity() {
             if (email == "testdudeways@gmail.com" && password == "test@123") {
                 // Move to HomeActivity
                 val intent = Intent(this, HomeActivity::class.java)
-                session.setData(Constant.USER_ID, "456")
+                session.setData(Constant.USER_ID, "3806")
                 session.setBoolean("is_logged_in", true)
                 startActivity(intent)
                 dialog.dismiss() // Dismiss dialog after login

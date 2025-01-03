@@ -12,7 +12,7 @@
     <color name="insta">#F15353</color>
     <color name="titleBG">#F7F8FA</color>
     <color name="yellow">#FFC746</color>
-    <color name="grey">#a9a9a9</color>
+    <color name="grey">#C4C4C4</color>
     <color name="text_grey">#4D4D4D</color>
     <color name="text_gold">#D4AF37</color>
     <color name="text_grey_light">#A1A1A1</color>
@@ -25,6 +25,10 @@
     <color name="primary_gradient_light">#FF8CAE</color>
     <color name="primary_light">#FF8CAE</color>
     <color name="primary_extra_light">#FFE5ED</color>
+    <color name="chat">#4557de</color>
+
+    <color name="primary_pink">#C73E70</color>
+
 
     <color name="inactive">#F19DB6</color>
     <color name="active">#FF5084</color>
@@ -39,7 +43,7 @@
     <color name="colorPrimary">#3F51B5</color>
 
     <color name="focused_color">#FF4081</color>
-    <color name="unfocused_color">#43000000</color>
+    <color name="unfocused_color">#E0E0E0</color>
 
 
     <color name="purple_200">#FFBB86FC</color>

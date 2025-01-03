@@ -32,6 +32,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.gmwapp.dudeways.New.UsersprofileDetailsActivity
 import com.gmwapp.dudeways.OnMessagesFetchedListner
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.adapter.ChatAdapter
@@ -177,6 +178,9 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
 
             val oppositeGender = intent?.getStringExtra("gender")
 
+
+
+
             if (gender.equals(oppositeGender))
             {
                 binding.llMessage.visibility = View.GONE
@@ -195,7 +199,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
                 binding.llMessage.visibility = View.VISIBLE
             }
 
-            if (oppositeGender == "male") {
+            if (oppositeGender == "male" || oppositeGender == "Male") {
                 binding.ivProfile.borderColor = ContextCompat.getColor(activity, R.color.blue_200)
             }
             else {
@@ -305,7 +309,7 @@ class ChatsActivity : BaseActivity(), OnMessagesFetchedListner {
 
 
         binding.ivProfile.setOnClickListener{
-            val intent = Intent(activity, ProfileInfoActivity::class.java)
+            val intent = Intent(activity, UsersprofileDetailsActivity::class.java)
             intent.putExtra("chat_user_id", receiverId!!)
             activity.startActivity(intent)
         }

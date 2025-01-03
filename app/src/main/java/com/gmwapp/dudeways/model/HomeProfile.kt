@@ -27,6 +27,7 @@ data class HomeProfile(
     var created_at: String? = "",
     var friend: String? = "",
     var verified: String? = "",
+    var gender: String? = "",
     var trip_image: String? = "",
     var distance: String? = "",
     var time: String? = "",

@@ -59,6 +59,7 @@
 
 
         <com.google.android.material.button.MaterialButton
+            android:visibility="gone"
             android:layout_weight="1"
             android:id="@+id/btnFreePoints"
             android:layout_width="0dp"
@@ -74,9 +75,8 @@
             />
         <com.google.android.material.button.MaterialButton
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_weight="1"
             android:id="@+id/btnPurchase"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"

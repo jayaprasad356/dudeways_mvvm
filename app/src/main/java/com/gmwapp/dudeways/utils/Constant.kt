@@ -6,7 +6,8 @@ import retrofit2.http.Field
 object Constant {
     const val AppPlayStoreUrl: String =
         "https://play.google.com/store/apps/details?id=com.gmwapp.dudeways"
-    const val MainBaseUrl: String = "https://dudeways.com/"
+   const val MainBaseUrl: String = "https://dudeways.com/"
+   //const val MainBaseUrl: String = "https://dudeways.graymatterworks.com/"
     const val PAYMENT_LINK: String =
         "https://gateway.graymatterworks.com/api/create_payment_request.php"
 
@@ -19,6 +20,8 @@ object Constant {
     }
 
     const val REGISTER: String = "api/register"
+    const val UPDATE_PROFILE: String = "api/update_profile_details"
+    const val NEW_REGISTER: String = "api/new_register"
     const val PROFESSION_LIST: String = "api/profession_list"
     const val VERIFICATION_LIST: String = BaseUrl + "verification_list"
     const val DELETE_ACCOUNT: String = "api/delete_account"
@@ -26,7 +29,8 @@ object Constant {
     const val UPDATE_BANK: String = "api/update_bank"
     const val WITHDRAWALS: String = "api/withdrawals"
     const val WITHDRAWALS_LIST: String = "api/withdrawals_list"
-    const val CHECK_MOBILE: String = BaseUrl + "check_mobile"
+    const val CHECK_MOBILE: String = "api/check_mobile"
+    const val VOICE_VERIFICATION: String = "api/voice_verification"
     const val CHECK_EMAIL: String = "api/check_email"
     const val USERDETAILS: String = "api/userdetails"
     const val OTHER_USER_DETAILS: String = "api/other_userdetails"
@@ -149,6 +153,7 @@ object Constant {
     const val MOBILE: String = "mobile"
     const val ID: String = "id"
     const val USER_ID: String = "user_id"
+    const val VOICE: String = "voice"
     const val OTHER_USER_ID: String = "other_user_id"
     const val ONLINE_STATUS: String = "online_status"
     const val MESSAGE_NOTIFY: String = "message_notify"
@@ -169,6 +174,7 @@ object Constant {
     const val LANGUAGE: String = "language"
 
     const val NAME: String = "name"
+    const val DOB: String = "dob"
     const val ACCOUNT_HOLDER_NAME: String = "account_holder_name"
     const val ACCOUNT_NUMBER: String = "account_number"
     const val IFSC_CODE: String = "ifsc_code"
@@ -197,8 +203,9 @@ object Constant {
     const val REFERRED_BY: String = "referred_by"
     const val VERIFIED_STATUS: String = "verified_status"
     const val POINTS: String = "points"
+    const val VOICE_VERIFICATION_STATUS: String = "voice_verification_status"
     const val LOGIN: String = "login"
-    const val CALL_MODE: String = "login"
+    const val CALL_MODE: String = "call_mode"
 
     const val SUCCESS: String = "success"
     const val MESSAGE: String = "message"

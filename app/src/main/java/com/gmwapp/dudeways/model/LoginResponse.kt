@@ -23,6 +23,7 @@ data class LoginModel(
     val profile: String,
     val cover_img: String,
     val points: Int,
+    val dob: String,
     val verified: Int,
     val online_status: Int,
     val introduction: String,
@@ -30,5 +31,7 @@ data class LoginModel(
     val add_friend_notify: Int,
     val view_notify: Int,
     val profile_verified: Int,
-    val cover_img_verified: Int
+    val cover_img_verified: Int,
+    val voice_verification_status: Int,
+
 )

@@ -38,6 +38,7 @@ import com.gmwapp.dudeways.model.TermsConditionResponse
 import com.gmwapp.dudeways.model.TransactionResponse
 import com.gmwapp.dudeways.model.UserDataResponse
 import com.gmwapp.dudeways.model.UserEarningsResponse
+import com.gmwapp.dudeways.model.VoiceUpdateResponse
 import com.gmwapp.dudeways.model.WalletResponse
 import com.gmwapp.dudeways.model.WithdrawResponse
 import com.gmwapp.dudeways.utils.Constant
@@ -65,12 +66,22 @@ interface ApiService {
     @POST(Constant.CHECK_EMAIL)
     suspend fun checkEmail(@Field(Constant.EMAIL) email: String): Response<LoginResponse>
 
+    @FormUrlEncoded
+    @POST(Constant.CHECK_MOBILE)
+    suspend fun checkMobile(@Field(Constant.MOBILE) mobile: String): Response<LoginResponse>
+
+
+
+
+
     @POST(Constant.PROFESSION_LIST)
     suspend fun getProffession(): Response<ProffessionResponse>
 
     @FormUrlEncoded
     @POST(Constant.REGISTER)
     suspend fun doRegister(
+        @Field(Constant.MOBILE) mobile: String,
+        @Field(Constant.DOB) dob: String,
         @Field(Constant.NAME) name: String,
         @Field(Constant.EMAIL) email: String,
         @Field(Constant.AGE) age: String,
@@ -83,6 +94,25 @@ interface ApiService {
     ): Response<RegisterResponse>
 
 
+    @FormUrlEncoded
+    @POST(Constant.UPDATE_PROFILE)
+    suspend fun doUpdateProfile(
+        @Field(Constant.USER_ID) userId: String,
+        @Field(Constant.NAME) name: String,
+    ): Response<BaseResponse>
+
+
+    @FormUrlEncoded
+    @POST(Constant.NEW_REGISTER)
+    suspend fun doRegisternew(
+        @Field(Constant.MOBILE) mobile: String,
+        @Field(Constant.NAME) name: String,
+        @Field(Constant.DOB) dob: String,
+        @Field(Constant.GENDER) gender: String,
+        @Field(Constant.LANGUAGE) language: String
+    ): Response<RegisterResponse>
+
+
     @Multipart
     @POST(Constant.UPDATE_IMAGE)
     suspend fun updateImage(
@@ -90,6 +120,13 @@ interface ApiService {
         @Part profile: MultipartBody.Part?
     ): Response<RegisterResponse>
 
+
+    @Multipart
+    @POST(Constant.VOICE_VERIFICATION)
+    suspend fun voiceVerification(
+        @Part(Constant.USER_ID) userId: RequestBody,
+        @Part voice: MultipartBody.Part // This is where we send the audio file
+    ): Response<VoiceUpdateResponse>
 
 
 

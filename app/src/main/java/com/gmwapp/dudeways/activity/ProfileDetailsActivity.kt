@@ -126,28 +126,27 @@ class ProfileDetailsActivity : BaseActivity() {
             }
 
 
-            btnSave.setOnClickListener {
-                if (isNetworkAvailable(mContext)) {
-                    if (isValidate()) {
-                        registerViewModel.doRegister(
-                            name = binding.etName.text.toString().trim(),
-                            email = session.getData(Constant.EMAIL).toString(),
-                            binding.etAge.text.toString().trim(),
-                            gender,
-                            profession_id,
-                            binding.etState.text.toString().trim(),
-                            binding.etcity.text.toString().trim(),
-                            binding.etIntroduction.text.toString().trim(),
-                            binding.etLanguage.text.toString().trim()
-                        )
-                    }
-                } else {
-                    Toast.makeText(
-                        mContext, getString(R.string.str_error_internet_connections),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+//            btnSave.setOnClickListener {
+//                if (isNetworkAvailable(mContext)) {
+//                    if (isValidate()) {
+//                        registerViewModel.doRegister(
+//                            name = binding.etName.text.toString().trim(),
+//                            email = session.getData(Constant.EMAIL).toString(),
+//                            binding.etAge.text.toString().trim(),
+//                            gender,
+//                            profession_id,
+//                            binding.etState.text.toString().trim(),
+//                            binding.etcity.text.toString().trim(),
+//                            binding.etIntroduction.text.toString().trim(),
+//                            binding.etLanguage.text.toString().trim(),
+//                            }
+//                } else {
+//                    Toast.makeText(
+//                        mContext, getString(R.string.str_error_internet_connections),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
 
             etProfession.setOnClickListener {
                 cardProfession.visibility = View.VISIBLE

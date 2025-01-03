@@ -54,7 +54,7 @@ class InterestFragment : Fragment() {
         session = Session(activity)
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
-        (activity as HomeActivity).binding.ivSearch.visibility = View.VISIBLE
+        (activity as HomeActivity).binding.ivNotification.visibility = View.VISIBLE
 
 
         setupRecyclerView()
@@ -144,7 +144,7 @@ class InterestFragment : Fragment() {
                 binding.apply {
                     rvConnectList.layoutManager = LinearLayoutManager(activity)
                     rvConnectList.setHasFixedSize(true)
-                    adapter = ConnectAdapter(activity, connectList)
+                    adapter = ConnectAdapter(activity, connectList,viewModel)
                     binding.rvConnectList.adapter = adapter
                 }
 

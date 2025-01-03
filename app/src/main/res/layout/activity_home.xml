@@ -3,183 +3,174 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/coordinatorLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:fitsSystemWindows="true"
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_dudeways">
 
-
-        <RelativeLayout
+        <!-- Toolbar Layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rltoolbar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
+            android:padding="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:background="@drawable/logo" />
-
-            <ImageView
+            <TextView
                 android:id="@+id/ivTitle"
                 android:layout_width="@dimen/_140sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/ivProfile"
-                android:background="@drawable/tittle_img" />
-
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civProfile"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
+                android:visibility="gone"
                 app:civ_border_color="@color/primary"
-                app:civ_border_width="2dp" />
-
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <ImageView
-                android:layout_marginRight="@dimen/_10sdp"
+                android:id="@+id/ivNotification"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/civProfile"
-                android:id="@+id/ivSearch"
-                android:background="@drawable/search_ic"
-                />
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/notification_ic"
+                app:layout_constraintEnd_toStartOf="@id/civProfile"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivPoint"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/point_coin_ic"
+                app:layout_constraintEnd_toStartOf="@id/ivNotification"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </RelativeLayout>
+<!--        &lt;!&ndash; Floating Action Buttons &ndash;&gt;-->
+<!--        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
+<!--            android:id="@+id/random_action_fab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:backgroundTint="@color/text_gold"-->
+<!--            android:text="Random"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="@font/poppins_medium"-->
+<!--            app:icon="@drawable/random_ic"-->
+<!--            app:iconTint="@color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent" />-->
 
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/video_call_fab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:backgroundTint="@color/text_gold"-->
+<!--            app:fabSize="normal"-->
+<!--            app:srcCompat="@drawable/ic_video"-->
+<!--            app:borderWidth="0dp"-->
+<!--            app:tint="@color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/random_action_fab"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/random_action_fab" />-->
 
-        <RelativeLayout
-            android:layout_below="@+id/rltoolbar"
-            android:layout_above="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="HardcodedText">
+<!--        <TextView-->
+<!--            android:id="@+id/video_call_action_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            android:text="Video 60/min"-->
+<!--            android:textColor="@color/text_gold"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/video_call_fab"-->
+<!--            app:layout_constraintTop_toTopOf="@id/video_call_fab"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/video_call_fab" />-->
 
-            <!-- Parent Floating Action Button -->
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/random_action_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/text_gold"
-                android:text="Random"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_medium"
-                app:icon="@drawable/random_ic"
-                app:iconTint="@color/white"
-                />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/audio_call_fab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:backgroundTint="@color/text_gold"-->
+<!--            app:srcCompat="@drawable/ic_call"-->
+<!--            app:borderWidth="0dp"-->
+<!--            app:tint="@color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/video_call_fab"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/video_call_fab" />-->
 
-            <!-- Floating action button for video call -->
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/video_call_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/random_action_fab"
-                android:layout_alignEnd="@id/random_action_fab"
-                android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/text_gold"
-                app:fabSize="normal"
-                app:srcCompat="@drawable/ic_video"
-                app:borderWidth="0dp"
-                app:tint="@color/white"
-                />
+<!--        <TextView-->
+<!--            android:id="@+id/audio_call_action_text"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            android:text="Audio 10/min"-->
+<!--            android:textColor="@color/text_gold"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/audio_call_fab"-->
+<!--            app:layout_constraintTop_toTopOf="@id/audio_call_fab"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/audio_call_fab" />-->
 
-            <!-- Action name text for the video call button -->
-            <TextView
-                android:id="@+id/video_call_action_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/video_call_fab"
-                android:layout_alignTop="@id/video_call_fab"
-                android:gravity="center_vertical"
-                android:layout_alignBottom="@id/video_call_fab"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/text_gold"
-                android:text="Video 60/min" />
+        <!-- Fragment Container -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/rltoolbar"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- Floating action button for audio call -->
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/audio_call_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/video_call_fab"
-                android:layout_alignEnd="@id/video_call_fab"
-                android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/text_gold"
-                app:srcCompat="@drawable/ic_call"
-                app:borderWidth="0dp"
-                app:tint="@color/white" />
-
-            <!-- Action name text for the audio call button -->
-            <TextView
-                android:id="@+id/audio_call_action_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/audio_call_fab"
-                android:layout_alignTop="@id/audio_call_fab"
-                android:gravity="center_vertical"
-                android:layout_alignBottom="@id/audio_call_fab"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/text_gold"
-                android:text="Audio 10/min"
-                />
-
-
-
-            <FrameLayout
-                android:id="@+id/fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp" />
-
-
-        </RelativeLayout>
-
-
-
-
-
+        <!-- Bottom Navigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_margin="@dimen/_10sdp"
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_menu"
-            android:elevation="0dp"
-            android:paddingVertical="@dimen/_5sdp"
-            app:elevation="0dp"
-            app:itemIconTint="@drawable/bottom_navigation_item_selector"
-            app:itemTextColor="@drawable/bottom_navigation_item_selector"
-            app:menu="@menu/bottom_navigation_menu" />
+            app:labelVisibilityMode="unlabeled"
+            android:background="@drawable/bg_nav"
+            app:itemTextColor="@color/bottom_nav_color"
+            app:itemIconTint="@color/bottom_nav_color"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemIconSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+            />
 
+        <!-- Progress Bar -->
         <ProgressBar
             android:id="@+id/pbLoadData"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
-            android:theme="@style/CircularProgress"
             android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </RelativeLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

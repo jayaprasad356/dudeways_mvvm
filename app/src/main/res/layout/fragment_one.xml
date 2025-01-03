@@ -39,7 +39,7 @@
                     android:layout_marginVertical="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="What type of trip are you planning"
-                    android:textColor="?attr/myTextColor"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
 
                 <!-- Progress Text -->

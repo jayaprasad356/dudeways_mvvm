@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.gmwapp.dudeways.New.LoginActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivitySplashBinding
 import com.gmwapp.dudeways.extentions.isNetworkAvailable
@@ -74,8 +75,8 @@ class SplashActivity : BaseActivity() {
                 val description = it.data[0].description
                 if (currentVersion!!.toInt() >= latestVersion.toInt()) {
 //                    binding.videoView.setOnCompletionListener {
-                        GotoActivity()
-                        // Do something when the video ends
+                    GotoActivity()
+                    // Do something when the video ends
 //                    }
                 } else {
                     showUpdateDialog(link, description)
@@ -84,7 +85,7 @@ class SplashActivity : BaseActivity() {
             }
         })
 
-        viewModel.loginLiveData.observe(this, Observer {
+        viewModel.loginMobileLiveData.observe(this, Observer {
             if (it.success) {
                 if (it.registered) {
                     session.setData(Constant.USER_ID, it.data.id)
@@ -100,16 +101,61 @@ class SplashActivity : BaseActivity() {
                     session.setData(Constant.REFER_CODE, it.data.refer_code)
                     session.setData(Constant.COVER_IMG, it.data.cover_img)
                     session.setData(Constant.POINTS, it.data.points.toString())
+                    session.setData(Constant.DOB, it.data.dob.toString())
+                    session.setData(Constant.VOICE_VERIFICATION_STATUS, it.data.voice_verification_status.toString())
 
 
-                    if (GoogleSignIn.getLastSignedInAccount(this) != null) {
+                    val gender = it.data.gender
+
+                    val voice_verification_status = it.data.voice_verification_status
+
+
+                    if (gender.equals("female", ignoreCase = true)) {
+
+                        if (voice_verification_status == 0) {
+                            val intent = Intent(mContext, LoginActivity::class.java)
+                            intent.putExtra("TARGET_FRAGMENT", "VerficationTestFragment")
+                            startActivity(intent)
+                            finish()
+                        }
+
+                        else if (voice_verification_status == 1) {
+                            val intent = Intent(mContext, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+
+                        else if (voice_verification_status == 2) {
+                            val intent = Intent(mContext, LoginActivity::class.java)
+                            intent.putExtra("TARGET_FRAGMENT", "VerficationTestFragment")
+                            startActivity(intent)
+                            finish()
+                        }
+
+                        else if (voice_verification_status == 3) {
+                            val intent = Intent(mContext, LoginActivity::class.java)
+                            intent.putExtra("TARGET_FRAGMENT", "VerficationFragment")
+                            startActivity(intent)
+                            finish()
+                        }
+
+
+                    }
+                    else {
                         val intent = Intent(mContext, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
 
+//                    val intent = Intent(mContext, HomeActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+
+
+
                 }
             } else {
+
                 Toast.makeText(mContext, it.message, Toast.LENGTH_SHORT).show()
 
             }
@@ -188,9 +234,10 @@ class SplashActivity : BaseActivity() {
     private fun GotoActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (session?.getBoolean("is_logged_in") == true) {
-                viewModel.doLogin(session.getData(Constant.EMAIL).toString())
+                viewModel.doLoginMobile(session.getData(Constant.MOBILE).toString())
             } else {
-                val intent = Intent(mContext, WelcomeActivity::class.java)
+                val intent = Intent(mContext, com.gmwapp.dudeways.New.LoginActivity::class.java)
+                intent.putExtra("TARGET_FRAGMENT", "WelcomePage")
                 startActivity(intent)
                 finish()
             }

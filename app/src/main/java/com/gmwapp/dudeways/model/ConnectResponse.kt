@@ -26,5 +26,7 @@ data class ConnectModel(
     var friend: String? = "",
     var unique_name: String? = "",
     var verified: String? = "",
+    var language: String? = ""
+
 
 )

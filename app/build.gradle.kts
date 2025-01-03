@@ -10,14 +10,14 @@ plugins {
 
 android {
     namespace = "com.gmwapp.dudeways"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.gmwapp.dudeways"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 30
-        versionName = "30.0"
+        minSdk = 26
+        targetSdk = 35
+        versionCode = 32
+        versionName = "32.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,6 +48,15 @@ android {
         exclude("META-INF/androidx.cardview_cardview.version")
     }
 
+    dataBinding {
+        enable = true
+    }
+
+
+    viewBinding {
+        enable = true
+    }
+    // Data binding (optional, only if needed for this project)
     dataBinding {
         enable = true
     }
@@ -127,12 +136,15 @@ dependencies {
     implementation("com.zoho.salesiq:mobilisten:7.0.0")
 
     implementation("com.google.firebase:firebase-auth:23.0.0")
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation ("com.google.android.gms:play-services-auth:19.0.0")
 
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
     implementation("com.google.firebase:firebase-ml-vision:24.0.1")
     implementation("com.google.firebase:firebase-ml-vision-face-model:19.0.0")
     implementation("com.google.firebase:firebase-iid:21.1.0")
+
+
+    implementation ("com.google.android.gms:play-services-auth-api-phone:18.1.0")
 
 
     implementation("com.github.CanHub:Android-Image-Cropper:3.1.2")

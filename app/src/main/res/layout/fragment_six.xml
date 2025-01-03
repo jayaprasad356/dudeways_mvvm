@@ -37,7 +37,7 @@
                         android:layout_marginVertical="@dimen/_10sdp"
                         android:fontFamily="@font/poppins_bold"
                         android:text="Add destination photo of your trip"
-                        android:textColor="?attr/myTextColor"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
 
                     <!-- Progress Text -->
@@ -74,7 +74,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Choose image which it will attract partners to join your trip"
-                    android:textColor="?attr/myTextColor"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/_12sdp" />
 
 
@@ -121,7 +121,7 @@
                     android:buttonTint="@color/primary"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Use my profile as trip image"
-                    android:textColor="?attr/myTextColor"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/_14sdp"
                     android:visibility="gone" />
 

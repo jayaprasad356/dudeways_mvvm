@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -56,9 +57,13 @@ class NotificationFragment : Fragment() {
     private fun initUI() {
         activity = requireActivity()
         session = Session(activity)
+//
+//        (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
+//        (activity as HomeActivity).binding.ivNotification.visibility = View.VISIBLE
 
-        (activity as HomeActivity).binding.rltoolbar.visibility = View.VISIBLE
-        (activity as HomeActivity).binding.ivSearch.visibility = View.VISIBLE
+        (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
+        (activity as HomeActivity).binding.bottomNavigationView.visibility = View.GONE
+
 
         setupRecyclerView()
         setupSwipeRefreshLayout()
@@ -87,6 +92,14 @@ class NotificationFragment : Fragment() {
     }
 
     private fun addListner() {
+
+        binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+//            startActivity(Intent(requireActivity(), HomeActivity::class.java))
+//            requireActivity().finish()
+        }
+
+
 
     }
 
@@ -153,5 +166,24 @@ class NotificationFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // verification_list()
+        handleOnBackPressed()
+
+    }
+
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Replace the current fragment with HomeFragment
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, HomeFragment())
+                        .commit()
+                }
+            })
+    }
 
 }

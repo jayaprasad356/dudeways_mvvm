@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.gmwapp.dudeways.New.PostActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.HomeActivity
 import com.gmwapp.dudeways.activity.MyTripsActivity
@@ -37,13 +38,13 @@ class TripFragment : Fragment() {
         activity = requireActivity()
 
         (activity as HomeActivity).binding.rltoolbar.visibility = View.GONE
-        (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
+//        (activity as HomeActivity).binding.ivSearch.visibility = View.GONE
 
     }
 
     private fun addListner(){
         binding.btnStart.setOnClickListener {
-            val intent = Intent(activity, StarttripActivity::class.java)
+            val intent = Intent(activity, PostActivity::class.java)
             startActivity(intent)
         }
 

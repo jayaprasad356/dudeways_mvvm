@@ -5,6 +5,24 @@ data class RegisterResponse(
     val message:String,
     val data:RegisterModel
 )
+
+data class RegisterNewResponse(
+    val success:Boolean,
+    val message:String,
+    val data:RegisternewModel
+)
+data class RegisternewModel(
+    val id: String,
+    val name: String,
+    val unique_name: String,
+    val mobile: String,
+    val age: String,
+    val gender: String,
+    val city: String,
+    val language: String,
+)
+
+
 data class RegisterModel(
     val id: String,
     val name: String,
@@ -12,6 +30,7 @@ data class RegisterModel(
     val email: String,
     val mobile: String,
     val age: String,
+    val dob: String,
     val gender: String,
     val state: String,
     val city: String,

@@ -4,7 +4,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp">
+        android:layout_marginVertical="@dimen/_10sdp">
 
 
         <com.google.android.material.card.MaterialCardView
@@ -19,7 +19,9 @@
                 <ImageView
                     android:id="@+id/ivImage"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp" />
+                    android:layout_height="@dimen/_100sdp"
+                    android:scaleType="fitXY"
+                    />
 
 
                 <ImageView

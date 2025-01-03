@@ -21,14 +21,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.gmwapp.dudeways.New.Fragment.ProfileFragment
+import com.gmwapp.dudeways.New.Fragment.PurchasepointFragment
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.databinding.ActivityHomeBinding
 import com.gmwapp.dudeways.fragment.ExploreFragment
@@ -111,6 +118,18 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+
+
+        // Enable edge-to-edge
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Adjust padding for the bottom navigation view
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bottomNavigationView)) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(bottom = systemBarsInsets.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+
         mContext = this
         initUI(savedInstanceState)
         addListner()
@@ -134,8 +153,20 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     private fun initUI(savedInstanceState: Bundle?) {
 
+
+//        binding.randomActionFab.visibility = View.GONE
+//        binding.videoCallFab.visibility = View.GONE
+//        binding.videoCallActionText.visibility = View.GONE
+
         session = Session(this)
 
+
+        val gender = session.getData(Constant.GENDER)
+        if (gender == "male") {
+            binding.ivPoint.visibility = View.VISIBLE        }
+        else if (gender == "female") {
+            binding.ivPoint.visibility = View.GONE
+        }
 
 
 
@@ -144,7 +175,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         initializeZohoSalesIQ()
         setupBottomNavigation()
         loadProfilePicture()
-        callfab()
+       // callfab()
 
         // Restore selected item from saved instance state if available
         if (savedInstanceState != null) {
@@ -174,195 +205,204 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     }
 
-    private fun callfab() {
-        val userId = session.getData(Constant.UNIQUE_NAME).toString()
-        val userName = session.getData(Constant.NAME).toString()
-
-        val videoCallFab = binding.videoCallFab
-        val audioCallFab = binding.audioCallFab
-        val videoCallActionText = binding.videoCallActionText
-        val audioCallActionText = binding.audioCallActionText
-        val mAddFab = binding.randomActionFab
-
-        setupZegoUIKit(userId,userName)
-
-
-
-        // Initially hide all sub FABs and action texts
-        audioCallFab.visibility = View.GONE
-        videoCallFab.visibility = View.GONE
-        audioCallActionText.visibility = View.GONE
-        videoCallActionText.visibility = View.GONE
-
-        // Set the visibility flag
-        isAllFabsVisible = false
-
-        // Set the initial icon for the extended state
-        mAddFab.setIconResource(R.drawable.random_ic) // Replace with your icon for shrinked state
-
-        // Set the initial state of the parent FAB
-        mAddFab.extend()
-
-        mAddFab.setOnClickListener {
-            if (!isAllFabsVisible!!) {
-                // Show sub FABs and action texts
-                audioCallFab.show()
-                videoCallFab.show()
-                audioCallActionText.visibility = View.VISIBLE
-                videoCallActionText.visibility = View.VISIBLE
-
-                // Change the icon and shrink the parent FAB
-                mAddFab.setIconResource(R.drawable.close_ic) // Replace with your icon for expanded state
-                mAddFab.shrink()
-
-                isAllFabsVisible = true
-            } else {
-                // Hide sub FABs and action texts
-                audioCallFab.hide()
-                videoCallFab.hide()
-                audioCallActionText.visibility = View.GONE
-                videoCallActionText.visibility = View.GONE
-
-                // Change the icon and extend the parent FAB
-                mAddFab.setIconResource(R.drawable.random_ic) // Replace with your icon for shrinked state
-                mAddFab.extend()
-
-                isAllFabsVisible = false
-            }
-        }
-
-        val CALL_MODE =  session.getData(Constant.CALL_MODE).toString()
-
-        if (CALL_MODE == "testing")
-        {
-            videoCallFab.setOnClickListener {
-                // Inflate the custom layout
-                val dialogView = layoutInflater.inflate(R.layout.dialog_call_custom, null)
-
-                // Create a dialog with the custom layout
-                val customDialog = AlertDialog.Builder(this)
-                    .setView(dialogView)
-                    .setCancelable(false)
-                    .create()
-
-                // Find views in the custom layout
-                val etCustomMessage = dialogView.findViewById<EditText>(R.id.etCustomMessage)
-                val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
-                val btnStartCall = dialogView.findViewById<Button>(R.id.btnStartCall)
-
-                // Set button actions
-                btnCancel.setOnClickListener {
-                    customDialog.dismiss()
-                }
-
-                btnStartCall.setOnClickListener {
-                    val customMessage = etCustomMessage.text.toString().trim()
-
-                    // Start the call with the custom message if provided
-                    if (customMessage.isNotEmpty()) {
-                        val intent = Intent(this, CallActivity::class.java).apply {
-                            putExtra("Userid", userId)
-                            putExtra("type", "video")
-                            putExtra("call_type", "test_call")
-                            putExtra("call_user_id", customMessage.toString())
-                        }
-                        startActivity(intent)
-
-                        // Setup Zego UIKit
-                        setupZegoUIKit(userId, userName)
-                    } else {
-                        Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
-                    }
-
-                    // Dismiss the dialog
-                    customDialog.dismiss()
-                }
-
-                // Show the dialog
-                customDialog.show()
-            }
-
-
-            audioCallFab.setOnClickListener {
-                // Inflate the custom layout for the dialog
-                val dialogView = layoutInflater.inflate(R.layout.dialog_call_custom, null)
-
-                // Create the dialog
-                val audioCallDialog = AlertDialog.Builder(this)
-                    .setView(dialogView)
-                    .setCancelable(false)
-                    .create()
-
-                // Find views in the custom dialog
-                val etAudioCallMessage = dialogView.findViewById<EditText>(R.id.etCustomMessage)
-                val btnAudioCallCancel = dialogView.findViewById<Button>(R.id.btnCancel)
-                val btnAudioCallStart = dialogView.findViewById<Button>(R.id.btnStartCall)
-
-                // Set up Cancel button
-                btnAudioCallCancel.setOnClickListener {
-                    audioCallDialog.dismiss() // Close the dialog
-                }
-
-                // Set up Start Call button
-                btnAudioCallStart.setOnClickListener {
-                    val customMessage = etAudioCallMessage.text.toString().trim()
-
-                    if (customMessage.isNotEmpty()) {
-                        // Start audio call with custom message
-                        val intent = Intent(this, CallActivity::class.java).apply {
-                            putExtra("Userid", userId)
-                            putExtra("type", "audio")
-                            putExtra("call_type", "test_call")
-                            putExtra("call_user_id", customMessage.toString())
-
-                        }
-                        startActivity(intent)
-
-                        // Setup Zego UIKit
-                        setupZegoUIKit(userId, userName)
-                        audioCallDialog.dismiss()
-                    } else {
-                        Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                // Show the dialog
-                audioCallDialog.show()
-            }
-        }
-
-        else if (CALL_MODE == "live")
-        {
-
-            // Set up click listeners for the sub FABs
-            videoCallFab.setOnClickListener {
-                val intent = Intent(this, CallActivity::class.java)
-                intent.putExtra("Userid", userId)
-                intent.putExtra("type", "video")
-                intent.putExtra("call_type", "random_call")
-                startActivity(intent)
-                setupZegoUIKit(userId,userName)
-            }
-
-            audioCallFab.setOnClickListener {
-                val intent = Intent(this, CallActivity::class.java)
-                intent.putExtra("Userid", userId)
-                intent.putExtra("type", "audio")
-                intent.putExtra("call_type", "random_call")
-                startActivity(intent)
-                setupZegoUIKit(userId,userName)
-            }
-
-        }
-
-
-
-
-
-
-    }
+//    private fun callfab() {
+//        val userId = session.getData(Constant.UNIQUE_NAME).toString()
+//        val userName = session.getData(Constant.NAME).toString()
+//
+//        val videoCallFab = binding.videoCallFab
+//        val audioCallFab = binding.audioCallFab
+//        val videoCallActionText = binding.videoCallActionText
+//        val audioCallActionText = binding.audioCallActionText
+//        val mAddFab = binding.randomActionFab
+//
+//        setupZegoUIKit(userId,userName)
+//
+//
+//
+//        // Initially hide all sub FABs and action texts
+//        audioCallFab.visibility = View.GONE
+//        videoCallFab.visibility = View.GONE
+//        audioCallActionText.visibility = View.GONE
+//        videoCallActionText.visibility = View.GONE
+//
+//        // Set the visibility flag
+//        isAllFabsVisible = false
+//
+//        // Set the initial icon for the extended state
+//        mAddFab.setIconResource(R.drawable.random_ic) // Replace with your icon for shrinked state
+//
+//        // Set the initial state of the parent FAB
+//        mAddFab.extend()
+//
+//        mAddFab.setOnClickListener {
+//            if (!isAllFabsVisible!!) {
+//                // Show sub FABs and action texts
+//                audioCallFab.show()
+//                videoCallFab.show()
+//                audioCallActionText.visibility = View.VISIBLE
+//                videoCallActionText.visibility = View.VISIBLE
+//
+//                // Change the icon and shrink the parent FAB
+//                mAddFab.setIconResource(R.drawable.close_ic) // Replace with your icon for expanded state
+//                mAddFab.shrink()
+//
+//                isAllFabsVisible = true
+//            } else {
+//                // Hide sub FABs and action texts
+//                audioCallFab.hide()
+//                videoCallFab.hide()
+//                audioCallActionText.visibility = View.GONE
+//                videoCallActionText.visibility = View.GONE
+//
+//                // Change the icon and extend the parent FAB
+//                mAddFab.setIconResource(R.drawable.random_ic) // Replace with your icon for shrinked state
+//                mAddFab.extend()
+//
+//                isAllFabsVisible = false
+//            }
+//        }
+//
+//        val CALL_MODE =  session.getData(Constant.CALL_MODE).toString()
+//
+//        if (CALL_MODE == "testing")
+//        {
+//            videoCallFab.setOnClickListener {
+//                // Inflate the custom layout
+//                val dialogView = layoutInflater.inflate(R.layout.dialog_call_custom, null)
+//
+//                // Create a dialog with the custom layout
+//                val customDialog = AlertDialog.Builder(this)
+//                    .setView(dialogView)
+//                    .setCancelable(false)
+//                    .create()
+//
+//                // Find views in the custom layout
+//                val etCustomMessage = dialogView.findViewById<EditText>(R.id.etCustomMessage)
+//                val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+//                val btnStartCall = dialogView.findViewById<Button>(R.id.btnStartCall)
+//
+//                // Set button actions
+//                btnCancel.setOnClickListener {
+//                    customDialog.dismiss()
+//                }
+//
+//                btnStartCall.setOnClickListener {
+//                    val customMessage = etCustomMessage.text.toString().trim()
+//
+//                    // Start the call with the custom message if provided
+//                    if (customMessage.isNotEmpty()) {
+//                        val intent = Intent(this, CallActivity::class.java).apply {
+//                            putExtra("Userid", userId)
+//                            putExtra("type", "video")
+//                            putExtra("call_type", "test_call")
+//                            putExtra("call_user_id", customMessage.toString())
+//                        }
+//                        startActivity(intent)
+//
+//                        // Setup Zego UIKit
+//                        setupZegoUIKit(userId, userName)
+//                    } else {
+//                        Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    // Dismiss the dialog
+//                    customDialog.dismiss()
+//                }
+//
+//                // Show the dialog
+//                customDialog.show()
+//            }
+//
+//
+//            audioCallFab.setOnClickListener {
+//                // Inflate the custom layout for the dialog
+//                val dialogView = layoutInflater.inflate(R.layout.dialog_call_custom, null)
+//
+//                // Create the dialog
+//                val audioCallDialog = AlertDialog.Builder(this)
+//                    .setView(dialogView)
+//                    .setCancelable(false)
+//                    .create()
+//
+//                // Find views in the custom dialog
+//                val etAudioCallMessage = dialogView.findViewById<EditText>(R.id.etCustomMessage)
+//                val btnAudioCallCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+//                val btnAudioCallStart = dialogView.findViewById<Button>(R.id.btnStartCall)
+//
+//                // Set up Cancel button
+//                btnAudioCallCancel.setOnClickListener {
+//                    audioCallDialog.dismiss() // Close the dialog
+//                }
+//
+//                // Set up Start Call button
+//                btnAudioCallStart.setOnClickListener {
+//                    val customMessage = etAudioCallMessage.text.toString().trim()
+//
+//                    if (customMessage.isNotEmpty()) {
+//                        // Start audio call with custom message
+//                        val intent = Intent(this, CallActivity::class.java).apply {
+//                            putExtra("Userid", userId)
+//                            putExtra("type", "audio")
+//                            putExtra("call_type", "test_call")
+//                            putExtra("call_user_id", customMessage.toString())
+//
+//                        }
+//                        startActivity(intent)
+//
+//                        // Setup Zego UIKit
+//                        setupZegoUIKit(userId, userName)
+//                        audioCallDialog.dismiss()
+//                    } else {
+//                        Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//
+//                // Show the dialog
+//                audioCallDialog.show()
+//            }
+//        }
+//
+//        else if (CALL_MODE == "live")
+//        {
+//
+//            // Set up click listeners for the sub FABs
+//            videoCallFab.setOnClickListener {
+//                val intent = Intent(this, CallActivity::class.java)
+//                intent.putExtra("Userid", userId)
+//                intent.putExtra("type", "video")
+//                intent.putExtra("call_type", "random_call")
+//                startActivity(intent)
+//                setupZegoUIKit(userId,userName)
+//            }
+//
+//            audioCallFab.setOnClickListener {
+//                val intent = Intent(this, CallActivity::class.java)
+//                intent.putExtra("Userid", userId)
+//                intent.putExtra("type", "audio")
+//                intent.putExtra("call_type", "random_call")
+//                startActivity(intent)
+//                setupZegoUIKit(userId,userName)
+//            }
+//
+//        }
+//
+//
+//
+//
+//
+//
+//    }
 
     private fun addListner() {
+
+        binding.ivNotification.setOnClickListener {
+            fm.beginTransaction().replace(R.id.fragment_container, NotificationFragment()).commit()
+        }
+
+        binding.ivPoint.setOnClickListener {
+            fm.beginTransaction().replace(R.id.fragment_container, PurchasepointFragment()).commit()
+        }
+
 
     }
 
@@ -606,9 +646,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
 
 
-        binding.ivSearch.setOnClickListener {
-            fm.beginTransaction().replace(R.id.fragment_container, SearchFragment()).commit()
-        }
+
 
         binding.civProfile.setOnClickListener {
             val transaction = fm.beginTransaction()
@@ -672,10 +710,7 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
             R.id.navExplore -> transaction.replace(R.id.fragment_container, TripFragment())
             R.id.navIntersts -> transaction.replace(R.id.fragment_container, InterestFragment())
             R.id.navMessages -> transaction.replace(R.id.fragment_container, MessagesFragment())
-            R.id.navNotification -> transaction.replace(
-                R.id.fragment_container,
-                NotificationFragment()
-            )
+            R.id.navProfile -> transaction.replace(R.id.fragment_container, ProfileFragment())
         }
         transaction.commit()
         settingsViewModel.getSettings()
@@ -689,10 +724,13 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         if (currentFragment is SearchFragment) {
             // If current fragment is SearchFragment, replace it with HomeFragment
             fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
-        } else if (currentFragment is MyProfileFragment) {
+        } else if (currentFragment is ProfileFragment) {
             fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
 
-        } else {
+        }else if (currentFragment is PurchasepointFragment){
+            fm.beginTransaction().replace(R.id.fragment_container, homeFragment).commit()
+        }
+        else {
             // If not, follow the default behavior
             if (backPressedTime + 2000 > System.currentTimeMillis()) {
                 backToast.cancel()

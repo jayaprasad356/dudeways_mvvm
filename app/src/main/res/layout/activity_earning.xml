@@ -6,39 +6,52 @@
 
 
     <RelativeLayout
+        android:background="@drawable/bg_dudeways"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <RelativeLayout
+            android:padding="@dimen/_10sdp"
             android:id="@+id/rlToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/titleBG"
-            android:padding="@dimen/_20sdp">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+
+
 
             <ImageButton
                 android:id="@+id/ivBack"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_centerVertical="true"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/arrow_left"
-                android:backgroundTint="?attr/iconColor" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_centerVertical="true"
+                android:backgroundTint="@color/white"
+                />
 
+
+            <!-- Title -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_toRightOf="@+id/ivBack"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Earnings"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_14sdp" />
+                android:fontFamily="@font/poppins_semibold"
+                android:lineSpacingExtra="8dp"
+                android:text="@string/earning"
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/_20sdp"
+                />
+
 
 
         </RelativeLayout>
+
 
 
         <ScrollView

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eec8a4"
         tools:context=".Fragment.TripFragment">
 
 
@@ -15,19 +15,21 @@
 
 
         <ImageView
-            android:layout_marginBottom="@dimen/_80sdp"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/trip_img_converted"
-            android:scaleType="fitXY"/>
-
+            android:layout_height="@dimen/_300sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="129dp"
+            android:layout_marginBottom="212dp"
+            android:background="@drawable/trip_img"
+            android:scaleType="fitXY" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/text"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_100sdp"
             android:fontFamily="@font/poppins_bold"
             android:text="Find Your Perfect Travel Mate"
             android:textColor="@color/white"
@@ -62,9 +64,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_weight="1"
-                android:background="@drawable/gradient_button"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Post Trip"
+                android:textColor="@color/primary_pink"
+                android:background="@drawable/gradient_button"
+                android:backgroundTint="@color/white"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_12sdp" />
 
@@ -76,7 +80,9 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:background="@drawable/gradient_button"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/primary_pink"
                 android:text="View My Trip"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_12sdp" />

@@ -3,7 +3,9 @@ package com.gmwapp.dudeways.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gmwapp.dudeways.model.BaseResponse
 import com.gmwapp.dudeways.model.LoginResponse
+import com.gmwapp.dudeways.model.RegisterNewResponse
 import com.gmwapp.dudeways.model.RegisterResponse
 import com.gmwapp.dudeways.repositories.RegisterRepositories
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,10 +19,17 @@ class RegisterViewModel @Inject constructor(val registerRepositories: RegisterRe
     ViewModel() {
     val isLoading = MutableLiveData(false)
     val registerLiveData = MutableLiveData<RegisterResponse>()
+    val profileLiveData = MutableLiveData<BaseResponse>()
+    val registernewLiveData = MutableLiveData<RegisterNewResponse>()
     val updateImageLiveData = MutableLiveData<RegisterResponse>()
 
     fun doRegister(
-        name: String, email: String, age: String, gender: String,
+        mobile : String,
+        dob : String,
+        name: String,
+        email: String,
+        age: String,
+        gender: String,
         proffessionId: String,
         state: String,
         city: String,
@@ -30,6 +39,8 @@ class RegisterViewModel @Inject constructor(val registerRepositories: RegisterRe
         viewModelScope.launch {
             isLoading.postValue(true)
             registerRepositories.doRegister(
+                mobile,
+                dob,
                 name,
                 email,
                 age,
@@ -49,6 +60,53 @@ class RegisterViewModel @Inject constructor(val registerRepositories: RegisterRe
 
         }
     }
+
+    fun doUpdateProfile(
+        user_id : String,
+        name : String
+    ) {
+        viewModelScope.launch {
+            isLoading.postValue(true)
+            registerRepositories.doUpdateProfile(
+                user_id,
+                name.toString(),
+                ).let {
+                if (it.body() != null) {
+                    profileLiveData.postValue(it.body())
+                    isLoading.postValue(false)
+                } else {
+                    isLoading.postValue(false)
+                }
+            }
+
+        }
+    }
+
+
+//    fun donewRegister(
+//        mobile: String,
+//        name: String, dob: String, gender: String,
+//        language:String
+//    ) {
+//        viewModelScope.launch {
+//            isLoading.postValue(true)
+//            registerRepositories.doRegisternew(
+//                mobile,
+//                name,
+//                dob,
+//                language,
+//                gender
+//            ).let {
+//                if (it.body() != null) {
+//                    registernewLiveData.postValue(it.body())
+//                    isLoading.postValue(false)
+//                } else {
+//                    isLoading.postValue(false)
+//                }
+//            }
+//
+//        }
+//    }
 
 
     fun doUpdateImage(userId: RequestBody, filePath: MultipartBody.Part?) {

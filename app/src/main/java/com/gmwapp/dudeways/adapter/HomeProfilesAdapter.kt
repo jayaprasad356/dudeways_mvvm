@@ -12,9 +12,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.New.UsersprofileDetailsActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.ChatsActivity
 import com.gmwapp.dudeways.activity.ProfileInfoActivity
+import com.gmwapp.dudeways.databinding.LayoutHomePostBinding
 import com.gmwapp.dudeways.databinding.LayoutHomeProfilesBinding
 import com.gmwapp.dudeways.model.HomeProfile
 import com.gmwapp.dudeways.utils.Constant
@@ -28,7 +30,7 @@ class HomeProfilesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemHolder(
-            LayoutHomeProfilesBinding.inflate(
+            LayoutHomePostBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
@@ -43,35 +45,36 @@ class HomeProfilesAdapter(
 
         holder.binding.tvName.text = report.name
         holder.binding.tvLocation.text = report.location
-        holder.binding.tvDescription.text = report.trip_description
-        holder.binding.tvUsername.text = "@" + report.unique_name
+//        holder.binding.tvDescription.text = report.trip_description
+//        holder.binding.tvUsername.text = "@" + report.unique_name
         holder.binding.tvDate.text = "From " + report.from_date + " to " + report.to_date
         holder.binding.tvTitle.text = report.trip_title
         holder.binding.tvKm.text = "" + report.distance
-        holder.binding.tvtime.text = "\u00B7 " + report.time
+       // holder.binding.tvtime.text = "\u00B7 " + report.time
+        holder.binding.tvtime.text = "" + report.time
 
-        holder.binding.tvUsername.text = if (report.name?.length ?: 0 > 7) {
-            if (report.unique_name?.length ?: 0 > 7) {
-                "@${report.unique_name?.substring(0, 7)}.."
-            } else {
-                "@${report.unique_name}"
-            }
-        } else {
-            "@${report.unique_name}"
-        }
+//        holder.binding.tvUsername.text = if (report.name?.length ?: 0 > 7) {
+//            if (report.unique_name?.length ?: 0 > 7) {
+//                "@${report.unique_name?.substring(0, 7)}.."
+//            } else {
+//                "@${report.unique_name}"
+//            }
+//        } else {
+//            "@${report.unique_name}"
+//        }
 
 
 
 
-        holder.binding.tvmore.setOnClickListener {
-            if (holder.binding.tvDescription.visibility == View.VISIBLE) {
-                holder.binding.tvDescription.visibility = View.GONE
-                holder.binding.tvmore.text = activity.getString(R.string.more)
-            } else {
-                holder.binding.tvDescription.visibility = View.VISIBLE
-                holder.binding.tvmore.text = activity.getString(R.string.less)
-            }
-        }
+//        holder.binding.tvmore.setOnClickListener {
+//            if (holder.binding.tvDescription.visibility == View.VISIBLE) {
+//                holder.binding.tvDescription.visibility = View.GONE
+//                holder.binding.tvmore.text = activity.getString(R.string.more)
+//            } else {
+//                holder.binding.tvDescription.visibility = View.VISIBLE
+//                holder.binding.tvmore.text = activity.getString(R.string.less)
+//            }
+//        }
 
         if (report.verified == "1") {
             holder.binding.ivVerify.visibility = View.VISIBLE
@@ -82,7 +85,7 @@ class HomeProfilesAdapter(
         var friend_data: String = report.friend.toString()
 
         if (friend_data == "0") {
-            holder.binding.ivaddFriend.setBackgroundResource(R.drawable.add_account)
+            holder.binding.ivaddFriend.setBackgroundResource(R.drawable.add_user)
             holder.binding.tvAddFriend.text = "Add to Friend"
         } else if (friend_data == "1") {
             holder.binding.ivaddFriend.setBackgroundResource(R.drawable.added_frd)
@@ -107,8 +110,8 @@ class HomeProfilesAdapter(
                 )
             }
         }
-        holder.binding.llProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileInfoActivity::class.java)
+        holder.binding.ivProfile.setOnClickListener {
+            val intent = Intent(activity, UsersprofileDetailsActivity::class.java)
             intent.putExtra("name", report.name)
             intent.putExtra("chat_user_id", report.user_id)
             intent.putExtra("id", report.id)
@@ -127,6 +130,7 @@ class HomeProfilesAdapter(
                 intent.putExtra("chat_user_id", report.user_id)
                 intent.putExtra("unique_name", report.unique_name)
                 intent.putExtra("friend_verified", report.verified)
+                intent.putExtra("gender", report.gender)
                 activity.startActivity(intent)
             }
         }
@@ -166,7 +170,7 @@ class HomeProfilesAdapter(
         return homeProfile.size
     }
 
-    class ItemHolder(val binding: LayoutHomeProfilesBinding) :
+    class ItemHolder(val binding: LayoutHomePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -178,6 +182,10 @@ class HomeProfilesAdapter(
             userId: String,
             friends: String
         )
+
+
     }
+
+
 
 }

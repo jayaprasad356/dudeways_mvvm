@@ -9,10 +9,12 @@ data class HomeUserResponse(
 data class HomeUserlist(
     var id: String? = "",
     var name: String? = "",
+    var introduction: String? = "",
     var unique_name: String? = "",
     var email: String? = "",
     var mobile: String? = "",
     var gender: String? = "",
+    var age: String? = "",
     var profile: String? = "",
     var cover_img: String? = "",
     var online_status: String? = ""

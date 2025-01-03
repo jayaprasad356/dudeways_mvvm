@@ -17,7 +17,7 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:paddingVertical="@dimen/_10sdp"
-            android:textColor="?attr/myTextColor"
+            android:textColor="@color/white"
             android:textSize="@dimen/_12sdp"
             android:visibility="gone" /> <!-- Initially hidden -->
 
@@ -47,7 +47,7 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_54sdp"
                 android:background="@drawable/chat_message_bg_from_sender"
-                android:backgroundTint="@color/primary"
+                android:backgroundTint="@color/light_blue_600"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_2sdp">
 

@@ -19,7 +19,7 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:paddingVertical="@dimen/_10sdp"
-            android:textColor="?attr/myTextColor"
+            android:textColor="@color/white"
             android:textSize="@dimen/_12sdp"
             android:visibility="gone" />
 
@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
                         android:text="jhhbohibdsfkvjnbdfkjnkjvndvfjnnjnkjvnkjdfvniurebijlefbgbgfgffgv"
-                        android:textColor="?attr/myTextColor"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
                         android:layout_gravity="bottom"
                         android:gravity="bottom"
                         android:text="gg"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

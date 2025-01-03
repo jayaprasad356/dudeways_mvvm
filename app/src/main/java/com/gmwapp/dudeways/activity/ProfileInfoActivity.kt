@@ -168,7 +168,7 @@ class ProfileInfoActivity : BaseActivity() {
                     binding.ivGender.setBackgroundDrawable(resources.getDrawable(R.drawable.female_ic))
                 }
 
-                if (gender == "male") {
+                if (gender == "male" || gender == "Male") {
                     binding.ivGenderColor.backgroundTintList = ColorStateList.valueOf(
                         ContextCompat.getColor(this, R.color.blue_200)
                     )
@@ -181,8 +181,8 @@ class ProfileInfoActivity : BaseActivity() {
 
                 binding.tvName.text = it.data.name
                 binding.tvProfessional.text = it.data.profession
-//                        binding.tvCity.text = jsonobj.getString(Constant.CITY)
-//                        binding.tvState.text = jsonobj.getString(Constant.STATE)
+//              binding.tvCity.text = jsonobj.getString(Constant.CITY)
+//              binding.tvState.text = jsonobj.getString(Constant.STATE)
                 binding.tvGender.text = it.data.gender
                 binding.tvUsername.text = "@" + it.data.unique_name
                 binding.tvPlace.text = it.data.city + ", " + it.data.state

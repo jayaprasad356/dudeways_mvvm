@@ -33,9 +33,9 @@
     </style>
 
     <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/textinput_box_stroke_color</item>
+        <item name="boxStrokeColor">@color/white</item>
         <item name="hintTextColor">@color/textinput_hint_text_color</item>
-        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlActivated">@color/white</item>
     </style>
 
     <!-- Custom overlay style for TextInputEditText -->
@@ -57,5 +57,12 @@
         <item name="android:colorForeground">#42221f1f
         </item>
     </style>
+
+
+    <style name="ActiveIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 
 </resources>

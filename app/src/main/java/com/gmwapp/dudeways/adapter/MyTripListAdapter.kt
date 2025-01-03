@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gmwapp.dudeways.R
@@ -42,55 +43,58 @@ class MyTripListAdapter(
 
 
 
-        holder.binding.tvName.text = report.name
+       // holder.binding.tvName.text = report.name
         holder.binding.tvLocation.text = report.location
-        holder.binding.tvDescription.text = report.trip_description
-        holder.binding.tvUsername.text = "@" + report.unique_name
+     //   holder.binding.tvDescription.text = report.trip_description
+       // holder.binding.tvUsername.text = "@" + report.unique_name
         holder.binding.tvDate.text = "From " + report.from_date + " to " + report.to_date
         holder.binding.tvTitle.text = report.trip_title
 
 
-        // check report.user_name is more than 10 latters
-        if (report.name?.length!! > 10) {
-            if (report.unique_name?.length!! > 7) {
-                holder.binding.tvUsername.text = "@" + report.unique_name!!.substring(0, 7) + ".."
-            } else {
-                holder.binding.tvUsername.text = "@" + report.unique_name
-            }
-        } else {
-            holder.binding.tvUsername.text = "@" + report.unique_name
-        }
+//        // check report.user_name is more than 10 latters
+//        if (report.name?.length!! > 10) {
+//            if (report.unique_name?.length!! > 7) {
+//                holder.binding.tvUsername.text = "@" + report.unique_name!!.substring(0, 7) + ".."
+//            } else {
+//                holder.binding.tvUsername.text = "@" + report.unique_name
+//            }
+//        } else {
+//            holder.binding.tvUsername.text = "@" + report.unique_name
+//        }
 
         if (report.trip_status == "0") {
             holder.binding.tvStatus.text = "In Review"
             holder.binding.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.yellow))
-            holder.binding.tvStatus.setIconResource(R.drawable.panding_clock)
-            holder.binding.tvStatus.iconTint =
-                ColorStateList.valueOf(activity.resources.getColor(R.color.black))
+            holder.binding.tvStatus.icon = ContextCompat.getDrawable(activity, R.drawable.panding_clock)
+            holder.binding.tvStatus.iconTint = ColorStateList.valueOf(
+                activity.resources.getColor(R.color.black)
+            )
         } else if (report.trip_status == "1") {
             holder.binding.tvStatus.text = "Approved"
             holder.binding.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.green))
-            holder.binding.tvStatus.setIconResource(R.drawable.verified_icon)
-            holder.binding.tvStatus.iconTint =
-                ColorStateList.valueOf(activity.resources.getColor(R.color.white))
+            holder.binding.tvStatus.icon = ContextCompat.getDrawable(activity, R.drawable.verified_icon)
+            holder.binding.tvStatus.iconTint = ColorStateList.valueOf(
+                activity.resources.getColor(R.color.white)
+            )
         } else if (report.trip_status == "2") {
             holder.binding.tvStatus.text = "Rejected"
             holder.binding.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.red))
-            holder.binding.tvStatus.setIconResource(R.drawable.rejected_icon)
-            holder.binding.tvStatus.iconTint =
-                ColorStateList.valueOf(activity.resources.getColor(R.color.white))
+            holder.binding.tvStatus.icon = ContextCompat.getDrawable(activity, R.drawable.rejected_icon)
+            holder.binding.tvStatus.iconTint = ColorStateList.valueOf(
+                activity.resources.getColor(R.color.white)
+            )
         }
 
 
-        holder.binding.tvmore.setOnClickListener {
-            if (holder.binding.tvDescription.visibility == View.VISIBLE) {
-                holder.binding.tvDescription.visibility = View.GONE
-                holder.binding.tvmore.text = activity.getString(R.string.more)
-            } else {
-                holder.binding.tvDescription.visibility = View.VISIBLE
-                holder.binding.tvmore.text = activity.getString(R.string.less)
-            }
-        }
+//        holder.binding.tvmore.setOnClickListener {
+//            if (holder.binding.tvDescription.visibility == View.VISIBLE) {
+//                holder.binding.tvDescription.visibility = View.GONE
+//                holder.binding.tvmore.text = activity.getString(R.string.more)
+//            } else {
+//                holder.binding.tvDescription.visibility = View.VISIBLE
+//                holder.binding.tvmore.text = activity.getString(R.string.less)
+//            }
+//        }
 
 
 
@@ -133,8 +137,7 @@ class MyTripListAdapter(
                 }
             })
 
-        Glide.with(activitys).load(report.profile).placeholder(R.drawable.profile_placeholder)
-            .into(holder.binding.ivProfile)
+
 
 
     }

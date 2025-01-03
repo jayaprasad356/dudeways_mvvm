@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.gmwapp.dudeways.New.UsersprofileDetailsActivity
 import com.gmwapp.dudeways.R
 import com.gmwapp.dudeways.activity.ChatsActivity
 import com.gmwapp.dudeways.activity.ProfileInfoActivity
@@ -82,7 +83,7 @@ class ChatListAdapter(
         holder.binding.TVSentTime.text = report.latest_msg_time
 
         holder.binding.IVUserProfile.setOnClickListener {
-            val intent = Intent(activity, ProfileInfoActivity::class.java)
+            val intent = Intent(activity, UsersprofileDetailsActivity::class.java)
             intent.putExtra("name", report.name)
             intent.putExtra("chat_user_id", report.chat_user_id)
             intent.putExtra("id", report.id)

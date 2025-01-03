@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
+        android:background="@drawable/bg_dudeways"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,30 +12,42 @@
 
 
         <RelativeLayout
+            android:padding="@dimen/_10sdp"
             android:id="@+id/rlToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/titleBG"
-            android:padding="@dimen/_20sdp">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+
+
 
             <ImageButton
                 android:id="@+id/ivBack"
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:layout_centerVertical="true"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:background="@drawable/arrow_left"
-                android:backgroundTint="?attr/iconColor" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_toRightOf="@+id/ivBack"
-                android:fontFamily="@font/poppins_medium"
+                android:backgroundTint="@color/white"
+                />
+
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:lineSpacingExtra="8dp"
                 android:text="Wallet"
-                android:textColor="?attr/myTextColor"
-                android:textSize="@dimen/_14sdp" />
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/_20sdp"
+                />
+
 
 
         </RelativeLayout>
@@ -119,7 +132,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Withdraw"
-                    android:textColor="?attr/textgrey"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
 
                 <TextView
@@ -127,29 +140,27 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Minimum withdraw ₹50"
-                    android:textColor="?attr/myTextColor"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/_10sdp" />
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/CustomTextInputLayout"
+                <EditText
+                    android:id="@+id/etAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:hint="Enter amount"
-                    android:theme="@style/CustomTextInputEditText"
-                    app:hintTextColor="@color/primary">
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="start"
+                    android:inputType="number"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/edit_text_trip"
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="start"
-                        android:inputType="number"
-                        android:textSize="@dimen/_12sdp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    />
+
 
 
                 <com.google.android.material.button.MaterialButton
@@ -157,8 +168,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/gradient_button"
                     android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/primary_pink"
+                    android:background="@drawable/gradient_button"
+                    android:backgroundTint="@color/white"
                     android:text="Withdraw"
                     android:textAllCaps="false"
                     android:textSize="@dimen/_14sdp"
@@ -170,7 +183,7 @@
                     android:layout_marginTop="@dimen/_18sdp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Withdraw Status"
-                    android:textColor="?attr/textgrey"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
 
 
