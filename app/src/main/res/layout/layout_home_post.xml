@@ -119,22 +119,32 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvProfileImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl1">
+
             <ImageView
                 android:layout_gravity="center"
                 android:id="@+id/ivProfileImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl1"
                 />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
+                app:layout_constraintTop_toBottomOf="@+id/cvProfileImage"
                 >
 
                 <TextView
@@ -177,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5sdp"
-                        android:fontFamily="@font/poppins_medium"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="Munnar Kerala"
                         android:textColor="?attr/myTextColor"
                         android:textSize="@dimen/_12sdp" />
@@ -239,24 +249,30 @@
                         android:background="@drawable/bg_bottom_corner"
                         android:padding="@dimen/_10sdp">
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_centerInParent="true">
 
-                        <ImageView
-                            android:id="@+id/ivaddFriend"
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/add_user"
-                            android:backgroundTint="@color/white"
-                            />
+                            <ImageView
+                                android:id="@+id/ivaddFriend"
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:background="@drawable/add_user"
+                                android:backgroundTint="@color/white"
+                                />
 
-                        <TextView
-                            android:id="@+id/tvAddFriend"
-                            android:layout_width="wrap_content"                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_medium"
-                            android:layout_centerInParent="true"
-                            android:text="Add to Friend"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_10sdp" />
+                            <TextView
+                                android:id="@+id/tvAddFriend"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_width="wrap_content"                            android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="Add to Friend"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 
@@ -272,22 +288,27 @@
                         android:background="@drawable/bg_bottom_corner"
                         android:padding="@dimen/_10sdp">
 
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_centerInParent="true">
 
                         <ImageView
                             android:layout_width="@dimen/_18sdp"
                             android:layout_height="@dimen/_18sdp"
-                            android:layout_centerVertical="true"
                             android:background="@drawable/chat_img" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:fontFamily="@font/poppins_medium"
                             android:text="Start Chat"
-                            android:layout_centerInParent="true"
                             android:textColor="@color/white"
+                            android:layout_marginStart="@dimen/_5sdp"
                             android:textSize="@dimen/_10sdp" />
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 

@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -53,6 +54,7 @@ import com.gmwapp.dudeways.viewmodel.HomeViewModel
 import com.gmwapp.dudeways.viewmodel.SettingsViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationBarView
 import com.google.gson.Gson
 import com.onesignal.OneSignal
@@ -115,6 +117,8 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 
     var isAllFabsVisible: Boolean? = null
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout> // Declare the BottomSheetBehavior
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -167,6 +171,8 @@ class HomeActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
         else if (gender == "female") {
             binding.ivPoint.visibility = View.GONE
         }
+
+        binding.ivPointCoin.setText(session.getData(Constant.POINTS))
 
 
 

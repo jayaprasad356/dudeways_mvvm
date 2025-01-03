@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_2sdp"
             >
 
 
@@ -48,7 +48,7 @@
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:background="@drawable/bg_bottom_corner"
-                android:paddingVertical="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_7sdp"
                 />
             <TextView
                 android:id="@+id/tvTrips"
@@ -61,7 +61,7 @@
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:background="@drawable/bg_bottom_corner"
-                android:paddingVertical="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_7sdp"
                 />
 
 

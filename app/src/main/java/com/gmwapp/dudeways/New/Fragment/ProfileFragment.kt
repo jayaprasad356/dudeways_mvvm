@@ -211,44 +211,48 @@ class ProfileFragment : Fragment() {
 
 
         binding.rlStorepoints.setOnClickListener {
-            val dialogView =
-                requireActivity().layoutInflater.inflate(R.layout.dilog_chat_point, null)
-
-            val dialogBuilder = AlertDialog.Builder(activity)
-                .setView(dialogView)
-                .create()
-            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
-            val btnPurchase = dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
-            val btnFreePoints = dialogView.findViewById<MaterialButton>(R.id.btnFreePoints)
-            val tvDescription =
-                dialogView.findViewById<TextView>(R.id.tvDescription)
-            val tvSubDescription =
-                dialogView.findViewById<TextView>(R.id.tvSubDescription)
-
-            tvDescription.text = "Spend 10 points for a 30 mins conversation with a user"
-            tvDescription.setTextColor(ContextCompat.getColor(requireActivity(), R.color.primary))
-
-            tvSubDescription.text = "Minimum 10 points required to chat"
-
-            title.text = "You have ${session.getData(Constant.POINTS)} Points"
-
-            btnPurchase.setOnClickListener {
                 val intent = Intent(activity, PurchasepointActivity::class.java)
                 requireActivity().startActivity(intent)
-                dialogBuilder.dismiss()
-            }
-
-            btnFreePoints.setOnClickListener {
-//                loadRewardedVideoAd()
-//                showRewardedVideoAd()
-
-                val intent = Intent(activity, SpinActivity::class.java)
-                requireActivity().startActivity(intent)
-                dialogBuilder.dismiss()
-            }
-
-            dialogBuilder.show()
         }
+//        binding.rlStorepoints.setOnClickListener {
+//            val dialogView =
+//                requireActivity().layoutInflater.inflate(R.layout.dilog_chat_point, null)
+//
+//            val dialogBuilder = AlertDialog.Builder(activity)
+//                .setView(dialogView)
+//                .create()
+//            val title = dialogView.findViewById<TextView>(R.id.tvTitle)
+//            val btnPurchase = dialogView.findViewById<MaterialButton>(R.id.btnPurchase)
+//            val btnFreePoints = dialogView.findViewById<MaterialButton>(R.id.btnFreePoints)
+//            val tvDescription =
+//                dialogView.findViewById<TextView>(R.id.tvDescription)
+//            val tvSubDescription =
+//                dialogView.findViewById<TextView>(R.id.tvSubDescription)
+//
+//            tvDescription.text = "Spend 10 points for a 30 mins conversation with a user"
+//            tvDescription.setTextColor(ContextCompat.getColor(requireActivity(), R.color.primary))
+//
+//            tvSubDescription.text = "Minimum 10 points required to chat"
+//
+//            title.text = "You have ${session.getData(Constant.POINTS)} Points"
+//
+//            btnPurchase.setOnClickListener {
+//                val intent = Intent(activity, PurchasepointActivity::class.java)
+//                requireActivity().startActivity(intent)
+//                dialogBuilder.dismiss()
+//            }
+//
+//            btnFreePoints.setOnClickListener {
+////                loadRewardedVideoAd()
+////                showRewardedVideoAd()
+//
+//                val intent = Intent(activity, SpinActivity::class.java)
+//                requireActivity().startActivity(intent)
+//                dialogBuilder.dismiss()
+//            }
+//
+//            dialogBuilder.show()
+//        }
 
 
 

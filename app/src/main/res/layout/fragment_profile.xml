@@ -237,8 +237,8 @@
 
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
                                     android:layout_centerVertical="true"
                                     android:background="@drawable/point_ic" />
 
@@ -327,8 +327,8 @@
 
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
                                     android:layout_centerVertical="true"
                                     android:background="@drawable/bag_trip" />
 
@@ -356,8 +356,8 @@
 
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
                                     android:layout_centerVertical="true"
                                     android:background="@drawable/customer_support" />
 
@@ -388,8 +388,8 @@
 
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
                                     android:layout_centerVertical="true"
                                     android:background="@drawable/pp_ic" />
 
@@ -418,8 +418,8 @@
 
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
                                     android:layout_centerVertical="true"
                                     android:background="@drawable/tc_ic" />
 
@@ -468,12 +468,13 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/_20sdp"
                     android:paddingVertical="@dimen/_10sdp"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
                   >
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_centerVertical="true"
                         android:background="@drawable/logout" />
 

@@ -18,6 +18,7 @@
     <color name="text_grey_light">#A1A1A1</color>
     <color name="text_grey_dark">#C5C1C1</color>
     <color name="text_grey_extra">#4F5E7B</color>
+    <color name="gold_color">#FFD900</color>
 
 
     <color name="primary">#FF5084</color>
@@ -25,6 +26,7 @@
     <color name="primary_gradient_light">#FF8CAE</color>
     <color name="primary_light">#FF8CAE</color>
     <color name="primary_extra_light">#FFE5ED</color>
+    <color name="primary_double_extra_light">#29FFFFFF</color>
     <color name="chat">#4557de</color>
 
     <color name="primary_pink">#C73E70</color>
