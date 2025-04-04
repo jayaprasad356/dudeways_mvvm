@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
-        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,8 +16,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_marginRight="@dimen/_10sdp"
                 android:id="@+id/ivProfile"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 app:civ_border_color="@color/primary"
                 app:civ_border_width="@dimen/_2sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
 
 
             <TextView
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 />
 
             <LinearLayout
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:id="@+id/ivGenderColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/_8sdp"
-                android:paddingVertical="@dimen/_4sdp"
+                android:paddingVertical="@dimen/_3sdp"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
                 app:layout_constraintStart_toEndOf="@+id/ivProfile"
                 >
@@ -69,7 +69,8 @@
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
                     android:layout_gravity="center"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:scaleType="fitCenter"/>
 
                 <TextView
                     android:id="@+id/tvAge"
@@ -87,7 +88,7 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:id="@+id/tvLatestseen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

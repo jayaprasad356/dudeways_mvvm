@@ -150,10 +150,21 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/menu_ic"
+                    android:backgroundTint="@color/white"
                     android:onClick="onMoreOptionsClicked" />
 
 
             </RelativeLayout>
+
+
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_marginTop="@dimen/_5sdp"
+                app:dividerColor="@color/primary_double_extra_light"
+                android:layout_above="@+id/RVChats"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/divider"/>
 
 
 
@@ -167,89 +178,94 @@
                 android:background="@android:color/transparent"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:layout_marginBottom="@dimen/_60sdp"/>
 
-
-            <RelativeLayout
-                android:background="@drawable/edit_text_messages_background"
-                android:id="@+id/llMessage"
+            <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_alignParentBottom="true"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:paddingVertical="@dimen/_8sdp"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginVertical="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                >
+                android:paddingEnd="@dimen/_10sdp">
 
-                <!-- Emoji Button -->
-                <ImageButton
-                    android:id="@+id/emojiButton"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_4sdp"
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="@dimen/_24sdp"
-                    android:background="@drawable/emoji_icon"
-                    android:backgroundTint="?attr/textmenu"
-                    />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/stickerRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:color/white"
-                    android:visibility="gone"
-                    android:padding="8dp"
-                    android:clipToPadding="false"
-                    android:orientation="horizontal" />
-
-
-                <!-- EditText for typing new message -->
-                <com.vanniktech.emoji.EmojiEditText
-                    android:id="@+id/messageEdittext"
+                <RelativeLayout
+                    android:id="@+id/llMessage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/sendButton"
-                    android:layout_toRightOf="@id/emojiButton"
-                    android:layout_centerVertical="true"
-                    android:hint="@string/type_a_message"
-                    android:inputType="textMultiLine"
-                    android:maxLines="5"
-                    android:scrollbars="vertical"
-                    android:background="@null"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:textCursorDrawable="@drawable/color_cursor" />
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_text_messages_background"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_4sdp"
+                    android:paddingVertical="@dimen/_8sdp">
 
-                <!-- Send Button -->
+                    <!-- Emoji Button -->
+                    <ImageButton
+                        android:id="@+id/emojiButton"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_4sdp"
+                        android:background="@drawable/emoji_icon"
+                        android:backgroundTint="?attr/textmenu" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/stickerRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/white"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:padding="8dp"
+                        android:visibility="gone" />
+
+
+                    <!-- EditText for typing new message -->
+                    <com.vanniktech.emoji.EmojiEditText
+                        android:id="@+id/messageEdittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/emojiButton"
+                        android:background="@null"
+                        android:hint="@string/type_a_message"
+                        android:inputType="textMultiLine"
+                        android:maxLines="5"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:textCursorDrawable="@drawable/color_cursor" />
+
+                    <!-- Send Button -->
+
+                </RelativeLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/sendButton"
+                    android:layout_width="@dimen/_33sdp"
+                    android:layout_height="@dimen/_33sdp"
                     android:layout_alignParentRight="true"
-                    android:layout_width="@dimen/_26sdp"
-                    android:layout_height="@dimen/_26sdp"
-                    app:cardCornerRadius="@dimen/_20sdp"
                     android:elevation="0dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/primary_Dark"
-                    >
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:cardElevation="0dp">
 
 
-
-                <ImageView
-                    android:layout_gravity="center"
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
-                    android:background="@drawable/ic_sent"
-                    />
+                    <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_sent"
+                        android:backgroundTint="@color/primary_pink" />
 
 
                 </com.google.android.material.card.MaterialCardView>
-
-            </RelativeLayout>
+            </LinearLayout>
 
 
         </RelativeLayout>

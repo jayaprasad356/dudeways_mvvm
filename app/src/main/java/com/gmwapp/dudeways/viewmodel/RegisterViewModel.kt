@@ -1,5 +1,6 @@
 package com.gmwapp.dudeways.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -110,6 +111,8 @@ class RegisterViewModel @Inject constructor(val registerRepositories: RegisterRe
 
 
     fun doUpdateImage(userId: RequestBody, filePath: MultipartBody.Part?) {
+        Log.d("doUpdateImage", "userId: $userId")
+        Log.d("doUpdateImage", "filePath: $filePath")
         viewModelScope.launch {
             isLoading.postValue(true)
             registerRepositories.updateImage(userId, filePath).let {

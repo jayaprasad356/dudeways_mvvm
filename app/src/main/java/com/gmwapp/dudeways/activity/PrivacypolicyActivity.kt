@@ -36,7 +36,7 @@ class PrivacypolicyActivity : BaseActivity() {
         }
 
         // Set the background color of the WebView
-        binding.wvPrivacy.setBackgroundColor(resources.getColor(R.color.primary_light, null))
+        binding.wvPrivacy.setBackgroundColor(resources.getColor(R.color.white, null))
 
         if (isNetworkAvailable(mContext)){
             viewModel.getPrivarcyPolicy()

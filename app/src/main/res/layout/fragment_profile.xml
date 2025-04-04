@@ -39,9 +39,8 @@
                 android:id="@+id/cvProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
-                app:cardUseCompatPadding="true"
+                android:layout_margin="@dimen/_10sdp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -137,6 +136,36 @@
                             android:textSize="@dimen/_10sdp"
                             app:layout_constraintTop_toBottomOf="@id/ll1" />
 
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity=""
+                            android:layout_below="@+id/tvUsername">
+
+
+                            <ImageView
+                                android:id="@+id/imGender"
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/gender_male_ic" />
+
+                            <TextView
+                                android:id="@+id/tvAge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_20sdp"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="ffff"
+                                android:textSize="@dimen/_10sdp"
+                                android:textColor="?attr/textgrey" />
+
+
+                        </RelativeLayout>
+
                     </RelativeLayout>
 
 
@@ -163,14 +192,13 @@
                 android:elevation="@dimen/_5sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="@dimen/_5sdp"
-                app:cardUseCompatPadding="true"
+                android:layout_margin="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@+id/cvProfile"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 >
 
                 <LinearLayout
-                    android:padding="@dimen/_5sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -180,6 +208,8 @@
 
                     <RelativeLayout
                         android:id="@+id/rlEarning"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
                         android:paddingVertical="@dimen/_2sdp"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:background="@drawable/round_corner"
@@ -222,6 +252,8 @@
 
 
                         <LinearLayout
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
                             android:id="@+id/rlChat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -232,8 +264,7 @@
                                 android:id="@+id/rlStorepoints"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingHorizontal="@dimen/_20sdp"
-                                android:paddingVertical="@dimen/_10sdp">
+                                android:paddingVertical="@dimen/_20sdp">
 
 
                                 <ImageView
@@ -247,7 +278,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/_30sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
                                     android:fontFamily="@font/poppins_semibold"
                                     android:text="Store Points"
                                     android:textColor="@color/text_gold"
@@ -322,7 +353,6 @@
                                 android:id="@+id/rlMytrips"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingHorizontal="@dimen/_20sdp"
                                 android:paddingVertical="@dimen/_10sdp">
 
 
@@ -337,7 +367,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/_30sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:text="My Trips"
                                     android:textColor="?attr/textmenu"
@@ -351,7 +381,6 @@
                                 android:id="@+id/rlCustomerSupport"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingHorizontal="@dimen/_20sdp"
                                 android:paddingVertical="@dimen/_10sdp">
 
 
@@ -366,7 +395,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/_30sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:text="Customer Support"
                                     android:textColor="?attr/textmenu"
@@ -383,7 +412,6 @@
                                 android:id="@+id/rlPrivacy"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingHorizontal="@dimen/_20sdp"
                                 android:paddingVertical="@dimen/_10sdp">
 
 
@@ -398,7 +426,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/_30sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:text="Privacy Policy"
                                     android:textColor="?attr/textmenu"
@@ -413,7 +441,6 @@
                                 android:id="@+id/rlTermscondition"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingHorizontal="@dimen/_20sdp"
                                 android:paddingVertical="@dimen/_10sdp">
 
 
@@ -428,7 +455,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="@dimen/_30sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:text="Terms and Condition"
                                     android:textColor="?attr/textmenu"
@@ -456,7 +483,7 @@
                 android:elevation="@dimen/_5sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="@dimen/_5sdp"
-                app:cardUseCompatPadding="true"
+                android:layout_margin="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@+id/cvSetting"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -466,7 +493,6 @@
                     android:id="@+id/rlLogout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/_20sdp"
                     android:paddingVertical="@dimen/_10sdp"
                     android:layout_marginHorizontal="@dimen/_5sdp"
                   >
@@ -483,7 +509,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_40sdp"
                         android:fontFamily="@font/poppins_regular"
                         android:text="Logout"
                         android:textColor="?attr/textmenu"

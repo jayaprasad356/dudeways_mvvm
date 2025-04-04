@@ -39,7 +39,7 @@ class TermsconditionActivity : BaseActivity() {
 
         }
 
-        binding.wvPrivacy.setBackgroundColor(resources.getColor(R.color.primary_light, null))
+        binding.wvPrivacy.setBackgroundColor(resources.getColor(R.color.white, null))
 
         if (isNetworkAvailable(mContext)) {
             viewModel.termsCondition()

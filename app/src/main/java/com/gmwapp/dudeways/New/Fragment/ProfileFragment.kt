@@ -1,11 +1,13 @@
 package com.gmwapp.dudeways.New.Fragment
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +21,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -133,6 +136,8 @@ class ProfileFragment : Fragment() {
 
 
 
+
+        binding.tvAge.setText(session.getData(Constant.AGE))
 
         binding.rlWallet.setOnClickListener {
             val intent = Intent(activity, WalletActivity::class.java)
@@ -259,6 +264,9 @@ class ProfileFragment : Fragment() {
         binding.rlCustomerSupport.setOnClickListener {
             if (gender == "male" || gender == "Male") {
                 // Open Gmail directly to compose an email
+                binding.imGender.setBackgroundDrawable(
+                    getTintedDrawable(requireActivity(), R.drawable.male_ic, R.color.text_grey)
+                )
                 val intent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse("mailto:dudeways24@gmail.com") // Replace with your email
                     putExtra(Intent.EXTRA_SUBJECT, "Customer Support")
@@ -273,6 +281,9 @@ class ProfileFragment : Fragment() {
                 }
             } else {
                 // Open Zoho SalesIQ chat
+                binding.imGender.setBackgroundDrawable(
+                    getTintedDrawable(requireActivity(), R.drawable.female_ic, R.color.text_grey)
+                )
                 Toast.makeText(activity, "Coming Soon", Toast.LENGTH_SHORT).show()
                 ZohoSalesIQ.Chat.show()
             }
@@ -285,6 +296,13 @@ class ProfileFragment : Fragment() {
         }
 
 
+    }
+
+    private fun getTintedDrawable(activity: Activity, drawableRes: Int, colorRes: Int): Drawable {
+        val drawable = ContextCompat.getDrawable(activity, drawableRes)!!
+        val wrappedDrawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(wrappedDrawable, ContextCompat.getColor(activity, colorRes))
+        return wrappedDrawable
     }
 
     private fun loadRewardedVideoAd() {

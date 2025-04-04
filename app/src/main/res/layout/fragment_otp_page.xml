@@ -43,8 +43,8 @@
             <!-- Background Image -->
             <ImageView
                 android:layout_weight="0.5"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="@dimen/_250sdp"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
                 android:scaleType="fitXY"
                 android:src="@drawable/otp_img" />
 

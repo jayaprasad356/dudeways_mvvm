@@ -19,6 +19,7 @@
     <color name="text_grey_dark">#C5C1C1</color>
     <color name="text_grey_extra">#4F5E7B</color>
     <color name="gold_color">#FFD900</color>
+    <color name="transparent">#00FFFFFF</color>
 
 
     <color name="primary">#FF5084</color>

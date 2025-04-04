@@ -67,7 +67,7 @@ class MyTripListAdapter(
             holder.binding.tvStatus.setBackgroundColor(activity.resources.getColor(R.color.yellow))
             holder.binding.tvStatus.icon = ContextCompat.getDrawable(activity, R.drawable.panding_clock)
             holder.binding.tvStatus.iconTint = ColorStateList.valueOf(
-                activity.resources.getColor(R.color.black)
+                activity.resources.getColor(R.color.white)
             )
         } else if (report.trip_status == "1") {
             holder.binding.tvStatus.text = "Approved"

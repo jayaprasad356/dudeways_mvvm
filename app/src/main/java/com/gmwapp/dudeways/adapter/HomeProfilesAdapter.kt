@@ -50,6 +50,7 @@ class HomeProfilesAdapter(
         holder.binding.tvDate.text = "From " + report.from_date + " to " + report.to_date
         holder.binding.tvTitle.text = report.trip_title
         holder.binding.tvKm.text = "" + report.distance
+        holder.binding.tvTripType.text = "" + report.trip_type
        // holder.binding.tvtime.text = "\u00B7 " + report.time
         holder.binding.tvtime.text = "" + report.time
 

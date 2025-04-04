@@ -18,6 +18,7 @@ data class HomeProfile(
     var from_date: String? = "",
     var to_date: String? = "",
     var trip_title: String? = "",
+    var trip_type: String? = "",
     var trip_description: String? = "",
     var from_location: String? = "",
     var location: String? = "",

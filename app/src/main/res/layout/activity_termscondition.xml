@@ -60,14 +60,14 @@
             android:layout_below="@id/rlToolbar"
             android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/corners_bg"
-            android:backgroundTint="@color/primary_light"
+            android:backgroundTint="@color/white"
             android:padding="@dimen/_10sdp">
 
             <WebView
                 android:id="@+id/wvPrivacy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary_light"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="?attr/myTextColor" />
         </ScrollView>
